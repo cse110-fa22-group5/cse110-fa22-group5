@@ -1,6 +1,6 @@
 Meeting Minutes
 
-When the meeting started - 7pm (10/8/2022)
+When the meeting started - 7:45pm (10/8/2022)
 
 Team number: 5
 
