@@ -3,6 +3,7 @@ Basement Beasts
 
 # Branding
 ![Logo](branding/logo.png)
+![Mascot](branding/mascot.jpeg)
 
 # Team Values
 - Trust

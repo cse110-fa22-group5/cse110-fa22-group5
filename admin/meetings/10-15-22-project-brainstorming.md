@@ -4,7 +4,7 @@
 <!-- XX:XX AM/PM -->
 ## Time
 - Start: 7:00 PM
-- End:
+- End: 8:30 PM
 ​
 <!-- TA or team, etc.-->
 ## Type of meeting: Project Brainstorming
