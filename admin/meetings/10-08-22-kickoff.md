@@ -8,6 +8,8 @@ Type of Meeting Held: Management (Group Contract)
 
 Members Present: All
 
+Location: Zoom
+
 ## Agenda
 - Formulation of basic rules to be followed by all members of the team to ensure smooth functioning for the rest of the quarter
 - Each suggested rule was debated and approved by every team member.
