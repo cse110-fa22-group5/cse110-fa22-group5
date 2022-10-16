@@ -9,7 +9,7 @@ Type of Meeting Held: Team Bonding
 Members Present: All
 
 ## Agenda
-- Played Skribbl.io as our team bonding exercise.
+- Played Skribbl.io as our team bonding exercise!
 
 ## Other
 Any decisions made and their reasoning - NA
