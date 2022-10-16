@@ -4,4 +4,5 @@ Personal note taking app that enables users to share their notes with other user
 
 <br> 
 
-Meet our team! [team.md](admin/team.md)
+## Meet our team!
+[team.md](admin/team.md)
