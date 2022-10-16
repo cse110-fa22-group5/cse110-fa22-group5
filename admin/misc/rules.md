@@ -14,6 +14,7 @@ _(Schedule at least one meeting as part of constructing your team agreement.)_
 - Daily Standups (scrums) - meeting for updates on current tasks 
 - Weekly Team Meetings: Tuesday -  8:30pm - 9:30pm
 - Additional meeting times will be discussed on the Slack and team members should be appropriately updated. 
+
 **General Responsibilities for All Team Members**
 - This element of the team working agreement is the list of rules/agreements or the contract that all members agree to live by.
 - Working with team members to achieve weekly targets
