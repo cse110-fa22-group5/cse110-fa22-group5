@@ -7,6 +7,7 @@ Team number: 5
 Type of Meeting Held: Team Bonding
 
 Members Present: All
+Location: Zoom
 
 ## Agenda
 - Played Skribbl.io as our team bonding exercise!
