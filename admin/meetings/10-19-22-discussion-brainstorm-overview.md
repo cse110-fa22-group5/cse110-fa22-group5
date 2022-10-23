@@ -15,7 +15,7 @@
 - [x] Priyanka
 - [x] Kevin 
 - [x] Aaryan
-- [ ] Lauren
+- [x] Lauren
 - [x] Priya
 - [x] Duy
 - [x] Alex
