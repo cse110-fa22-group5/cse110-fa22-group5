@@ -26,7 +26,7 @@
 <!-- Topics for the meeting-->
 # Agenda
 - Discuss Note Taking App
-- App's design dui
+- App's design
 ​
 <!-- homework basically zzzz-->
 # Things to do for next meeting:
