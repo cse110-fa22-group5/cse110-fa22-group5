@@ -10,16 +10,16 @@ jobs:
     - name: Run tests
       run: yarn test
 
-name: Tests
+# name: Tests
 
-on: [push]
+# on: [push]
 
-jobs:
-  build:
+# jobs:
+#   build:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v1
-    - name: Run Jest
-      uses: stefanoeb/jest-action@1.0.3
+#     steps:
+#     - uses: actions/checkout@v1
+#     - name: Run Jest
+#       uses: stefanoeb/jest-action@1.0.3
