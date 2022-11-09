@@ -10,7 +10,7 @@
 - [2] Kevin Lam
 - [2] Lauren Lee
 - [2] Priya Senthilkumar
-- [0] Yaya Jiang
+- [1] Yaya Jiang
 - [0] Zelong Zhou
 
 
