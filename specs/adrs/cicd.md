@@ -9,7 +9,7 @@ We want to comprehensively test our code after each change to the main branch, b
   - HTML5 validation
   - Jest tests for javascript unit testing 
   - Javascript linting 
-
+- Have local unit testing and format checking as well 
 ## Decision Outcome
 
 * We discussed which options we wanted with the larger group- i.e. what they would want to validate their code, and what we would want implemented by the end of this week and the above *considered options* represent what the larger group decided upon.
