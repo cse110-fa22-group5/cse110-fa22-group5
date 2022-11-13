@@ -40,3 +40,5 @@
 - Functionality: Demoed how to read in a note, update the current one, we can associate a node, new note generated new ID for this, id corressponds to a page, 3 items get filled out, 
 - Some teams are still Reviewing syntax rn and working further.
 - CICD: Jest - Unit testing, default script for dummy javascript file, explained what jest testing is, explained what linting is, basic tests for html and css (validation)files were demoed. 
+# Image
+![Alt text](sprintreviewimage.png "Frontend Image")
