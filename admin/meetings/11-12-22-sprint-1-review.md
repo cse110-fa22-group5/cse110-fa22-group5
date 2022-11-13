@@ -5,7 +5,7 @@
 <!-- XX:XX AM/PM -->
 ## Time
 - Start: 7pm
-- End: 7:20pm
+- End: 7:30pm
 ​
 <!-- TA or team, etc.-->
 ## Type of meeting: 
@@ -31,7 +31,7 @@
 ​
 <!-- homework basically zzzz-->
 # Things to do for next meeting:
-- Retrospective Meeting 10 min after this
+- Retrospective Meeting after this
 ​
 <!-- what was discussed for each topic-->
 # Main Ideas:
