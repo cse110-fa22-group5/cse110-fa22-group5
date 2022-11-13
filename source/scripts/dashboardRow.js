@@ -1,6 +1,6 @@
-class listItem extends HTMLElement{
+class dashboardRow extends HTMLElement{
     /**
-     * create the shadow dom for the list item
+     * create the shadow dom for the dashboard row
      */
     constructor(){
         super();
@@ -49,4 +49,4 @@ class listItem extends HTMLElement{
     }
 }
 
-customElements.define('list-item', listItem);
+customElements.define('dashboard-row', dashboardRow);

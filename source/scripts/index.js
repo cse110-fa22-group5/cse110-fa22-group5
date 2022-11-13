@@ -32,16 +32,16 @@ function saveNotesToStorage(notes) {
 }
 
 /**
- * append the list items to the list in the document
+ * append the new row to the dashboard in the document
  * @param {Object} notes containing all the notes in the local storage
  */
 function addNotesToDocument(notes) {
-    let list = document.querySelector('.list');
+    let dashboard = document.querySelector('.dashboard');
 
     notes.forEach(note => {
-        let listItem = document.createElement('list-item');
-        listItem.note = note;
-        list.appendChild(listItem);
+        let row = document.createElement('dashboard-row');
+        row.note = note;
+        dashboard.appendChild(row);
     });
 }
 
@@ -51,12 +51,12 @@ function addNotesToDocument(notes) {
  */
 function initEventHandler(){
     const button = document.querySelector('button')
-    const list = document.querySelector('.list');
+    const dashboard = document.querySelector('.dashboard');
 
   // TODO: Get user's input on title name and 
   // navigate to note page in order for the user to write note
     button.addEventListener('click', event => {
-    let listItem = document.createElement('list-item');
+    let row = document.createElement('dashboard-row');
     let noteObject = {
       "uuid": "3",
       "title": "Lecture 1",
@@ -64,8 +64,8 @@ function initEventHandler(){
       "content": ""
     };
 
-    listItem.note = noteObject;
-    list.appendChild(listItem);
+    row.note = noteObject;
+    dashboard.appendChild(row);
 
     // Add notes to storage
     let currentNotes = getNotesFromStorage();
