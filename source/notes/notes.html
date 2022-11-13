@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet"> -->
+  <title>Notes</title>
+  <!-- Main Stylesheets & Scripts -->
+  <link rel="stylesheet" href="./notes.css" />
+</head>
+<body>
+    <header>
+        <!-- <button class="back"><i class="fa fa-arrow-left" aria-hidden="true"></i></button> -->
+        <a href="source/mainDashboard/mainDashboard.html" class="back"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+    </header>
+
+    <main class="content">
+        <div class="features">
+            
+            <div class="columnTitle">
+        
+                <label for="titleCol">Title:</label>
+                <input type = "text" name = "title" id = "titleCol">
+                <br>
+                <br>
+                <label for="timeCol">Last Modified:</label>
+                <p id="timeCol">2022/11/12/23:28</p>
+                <br>
+                <label for="tagCol">Tags:</label>
+                <select name = "tag" id="tagCol">
+                    <!-- TODO: Add tage label -->
+                    <option value="lectureslides">Lecture slides</option>
+                    <option value="notes">Notes</option>
+                    <option value="answers">Answer key</option>
+                    <option value="others">others</option>
+                </select>
+            </div>
+
+            <div class="option_button">
+                <button class = "deletebutton"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                <br>
+                <button class = "savebutton"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+            </div>  
+
+            <div class = "text_area">
+                <!-- <form class="main_text_area"> -->
+                    <textarea class="main_note"></textarea>
+                <!-- </form> -->
+            </div>
+
+        </div>
+        
+    </main>
+</body>
+</html>

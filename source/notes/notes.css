@@ -1,0 +1,147 @@
+body {
+    background: linear-gradient( #221C35 30.73%, rgba(75, 54, 95, 0) 91.67%), #4B365F;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    /* padding-left: .5em;
+    padding-right: .5em; */
+    padding: 0, 5vw, 0, 5vw;
+    height: 95%;
+    width:98%;
+}
+
+
+header > a{
+    float:left;
+    /* padding:px; */
+    width: 800px;
+
+    font-size: 30px;
+    padding-left: 2vw;
+    /* display: flex; */
+    /* flex-direction: row; */
+    /* padding-left: .5em; */
+    justify-content: space-between;
+    /* width: 80%; */
+    margin: 0;
+}
+
+button {
+    /* padding: 10px 15px; */
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5em;
+    color: black;
+    background-color: #D6CDF2;
+    border-radius: 10px;
+    filter: drop-shadow(10px black);
+}
+@media only screen and (max-width: 800px) {
+    button { 
+       font-size: 1em; 
+    }
+ }
+
+button:hover {
+    background-color: #B8B0D9;
+    cursor: pointer;
+}
+
+h1 {
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 7vh;
+    font-weight: 400;
+    line-height: 48px;
+    letter-spacing: 0em;
+}
+.title:hover{
+    cursor: pointer;
+}
+
+main {
+    display: flex;
+    /* width: 80%; */
+    flex-direction: column;
+    /* align-self: center; */
+    padding: 0, 5vw, 0, 5vw;
+}
+
+.columnTitle {
+    float:left;
+    grid-area: left;
+    padding:15px;
+    /* width: 550px; */
+
+    color: white;
+    justify-content : flex-start;
+    flex-direction:column;
+
+    font-family: sans-serif;
+    margin: 1px;
+    padding: 10px 30px;
+    justify-content: space-between;
+    /* background: #47216c; */
+    filter: drop-shadow(10px white);
+}
+/* .columnTitle > label:hover {
+    color: #D6CDF2;
+    cursor: pointer;    
+} */
+
+p {
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.features {
+    display: grid;
+    grid: 
+        'left left left left left right'
+        'main main main main main main';
+    grid-auto-columns: auto auto;
+    padding: 0, 5vw, 0, 5vw;
+
+}
+
+.option_button{
+    float:right;
+    justify-self: end;
+    grid-area: right;
+    padding-right:15px;
+    width: 150px;
+
+    display: flex;
+    flex-direction: column;
+    
+    /* margin-right: 5vw; */
+    
+}
+
+label{
+    background: #61358e;
+}
+
+.text_area {
+
+    width: 95%;
+    height: 95%;
+    margin: auto;
+    resize: none;
+
+    /* position: fixed; */
+    /* top: 200px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    width: 95%;
+    height:95%; */
+
+ 
+}
+
+.main_note{
+    box-sizing: border-box;
+    
+}
+
