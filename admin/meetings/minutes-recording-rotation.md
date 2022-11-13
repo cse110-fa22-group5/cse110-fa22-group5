@@ -1,8 +1,8 @@
 # Minutes Recording Rotation
 
-## Next Assignee: Guidong
+## Next Assignee: Akanksha
 
-- [1] Aaryan Tiwary
+- [2] Aaryan Tiwary
 - [1] Akanksha Pandey
 - [2] Alex Zhang
 - [1] Duy Vu
