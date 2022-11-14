@@ -19,3 +19,9 @@
   - to ensure back-end operations work as intended
 - spell check
   - to avoid errors involving typos in syntax/variables
+- add mandatory code review check for each pull request
+  - ensure that each code deployed to main is reviewed by another member
+
+## Goal
+- streamline the proccess of: source, build, test, deploy
+  - want to be efficient while maintaining VCS integrity
