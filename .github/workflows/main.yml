@@ -15,18 +15,14 @@ jobs:
       with:
         source_dir: ./source/scripts
         recurse: true
-        output_dir: ./out
+        output_dir: ./jsdocs
         template: minami
         front_page: README.md
-    - name: Upload artifact from jsDos generation
-      uses: actions/upload-artifact@v2
-      with:
-        name: jsdocs
-        path: ./jsdocs
-    - name: Deploy JSDocs
+    
+    - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         publish_dir: ./jsdocs
 
     - name: HTML5 Validator
