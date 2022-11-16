@@ -1,0 +1,23 @@
+name: CI
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: yarn
+    - name: Run tests
+      run: yarn test
+
+    - name: Build
+      uses: andstor/jsdoc-action@v1
+      with:
+        source_dir: ./source/scripts
+        recurse: true
+        output_dir: ./jsdocs
+    - name: HTML5 Validator
+      uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+      with:
+        root: source/
+        css: true
