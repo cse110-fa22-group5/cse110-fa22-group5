@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', init);
 
 /**
- * call all the functions after the DOM is loaded
+ * @description call all the functions after the DOM is loaded
  */
 function init() {
     //let nodes = getNotes();
@@ -12,7 +12,7 @@ function init() {
 }
 
 /**
- * For testing purpose, it will create a new note and save it to local storage
+ * @description For testing purpose, it will create a new note and save it to local storage
  * Retrive all notes from local storage
  * @returns either the notes json data or the empty list
  */
@@ -22,9 +22,7 @@ function getNotesFromStorage() {
 }
 
 /**
- * For testing purpose, it will save the notes to local storage
- * Takes in an array of recipes, converts it to a string, and then
- * saves that string to 'notes' in localStorage
+ * @description For testing purpose, it will save the notes to local storage, Takes in an array of recipes, converts it to a string, and then, saves that string to 'notes' in localStorage
  * @param {Array<Object>} notes An array of notes
  */
 function saveNotesToStorage(notes) {
@@ -32,7 +30,7 @@ function saveNotesToStorage(notes) {
 }
 
 /**
- * append the new row to the dashboard in the document
+ * @description append the new row to the dashboard in the document
  * @param {Object} notes containing all the notes in the local storage
  */
 function addNotesToDocument(notes) {
