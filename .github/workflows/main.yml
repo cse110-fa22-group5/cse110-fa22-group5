@@ -18,8 +18,10 @@ jobs:
     #     output_dir: ./out
     #     template: minami
     #     front_page: README.md
-    - name: Install and Run jsDoc
-      run: npm install -g jsdoc; jsdoc ./source/scripts/ --destination ./jsdocs/
+    - name: Install jsDoc
+      run: npm install -g jsdoc
+    - name: Run jsDoc  
+      run: jsdoc ./source/scripts/ --destination ./jsdocs/
 
     - name: HTML5 Validator
       uses: Cyb3r-Jak3/html5validator-action@v7.2.0
