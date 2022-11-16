@@ -19,15 +19,15 @@ jobs:
         template: minami
         front_page: README.md
     - name: Upload artifact from jsDos generation
-       uses: actions/upload-artifact@v2
-        with:
-          name: jsdocs
-          path: ./jsdocs
+      uses: actions/upload-artifact@v2
+      with:
+        name: jsdocs
+        path: ./jsdocs
     - name: Deploy JSDocs
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./jsdocs
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./jsdocs
 
     - name: HTML5 Validator
       uses: Cyb3r-Jak3/html5validator-action@v7.2.0
