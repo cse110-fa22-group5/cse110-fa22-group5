@@ -10,21 +10,28 @@ jobs:
     - name: Run tests
       run: yarn test
 
-    # - name: Build
-    #   uses: andstor/jsdoc-action@v1.2.1
-    #   with:
-    #     source_dir: ./source/scripts
-    #     recurse: true
-    #     output_dir: ./out
-    #     template: minami
-    #     front_page: README.md
-    - name: Install jsDoc
-      run: npm install -g jsdoc
-    - name: Run jsDoc  
-      run: jsdoc ./source/scripts/ --destination ./jsdocs/
+    - name: Build
+      uses: andstor/jsdoc-action@v1.2.1
+      with:
+        source_dir: ./source/scripts
+        recurse: true
+        output_dir: ./out
+        template: minami
+        front_page: README.md
+    - name: Upload artifact from jsDos generation
+       uses: actions/upload-artifact@v2
+        with:
+          name: jsdocs
+          path: ./jsdocs
+    - name: Deploy JSDocs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./jsdocs
 
     - name: HTML5 Validator
       uses: Cyb3r-Jak3/html5validator-action@v7.2.0
       with:
         root: source/
         css: true
+        
