@@ -1,3 +1,5 @@
+import { initializeDB } from './noteStorage'
+
 window.addEventListener('DOMContentLoaded', init);
 
 /**
@@ -6,8 +8,8 @@ window.addEventListener('DOMContentLoaded', init);
 function init() {
     //let nodes = getNotes();
     let notes = getNotesFromStorage();
+    console.log(indexedDB);
     addNotesToDocument(notes);
-
     initEventHandler();
 }
 
