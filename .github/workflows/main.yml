@@ -11,11 +11,13 @@ jobs:
       run: yarn test
 
     - name: Build
-      uses: andstor/jsdoc-action@v1
+      uses: andstor/jsdoc-action@v1.2.1
       with:
         source_dir: ./source/scripts
         recurse: true
         output_dir: ./jsdocs
+        template: minami
+        front_page: README.md
     - name: HTML5 Validator
       uses: Cyb3r-Jak3/html5validator-action@v7.2.0
       with:
