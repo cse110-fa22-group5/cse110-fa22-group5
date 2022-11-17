@@ -6,29 +6,23 @@ let db;
  * Sets up and returns a reference to our IndexedDB notes storage.
  * @returns A reference to our IndexedDB notes storage.
  */
-function initializeDB(indexedDB) {
+export function initializeDB(indexedDB) {
     return new Promise((resolve, reject) => {
         if (db) {
             resolve(db);
             return;
         }
-        
-        const openRequest = indexedDB.open(DBNAME);
+        const openRequest = indexedDB.open(DBNAME, 1);
         openRequest.onupgradeneeded = (event) => {
+            // Set up the database table if it hasn't been initialized yet.
             db = event.target.result;
-            db = e.target.result;
             const objectStore = db.createObjectStore(OBJECT_STORE_NAME, { keyPath: 'uuid', autoIncrement: true});
-
-            objectStore.createIndex('title', 'title', { unique: false });
-            objectStore.createIndex('lastModified', 'lastModified', { unique: false });
-            objectStore.createIndex('content', 'content', { unique: false });
+            objectStore.createIndex('notes', 'notes', { unique: false });
         }
-
         openRequest.onsuccess = (event) => {
             db = event.target.result;
             resolve(db);
-        }
-        
+        }     
         openRequest.onerror = (event) => {
             reject(`Error opening database! ${event.target.errorCode}`)
         }
@@ -40,12 +34,13 @@ function initializeDB(indexedDB) {
  * @param {*} db The initialized indexedDB object
  * @returns A list of note objects.
  */
-function getNotesFromStorage(db) {
+export function getNotesFromStorage(db) {
     return new Promise((resolve, reject) => {
         const objectStore = db.transaction(OBJECT_STORE_NAME).objectStore(OBJECT_STORE_NAME);
         const notes = []
-        let request = objectStore.openCursor();
-        request.onsuccess = (event) => {
+        let getNotesRequest = objectStore.openCursor();
+        getNotesRequest.onsuccess = (event) => {
+            // Iterate through all the notes received and add them to be returned.
             let cursor = event.target.result;
             if (cursor) {
                 notes.push(cursor.value);
@@ -54,7 +49,7 @@ function getNotesFromStorage(db) {
                 resolve(notes);
             }
         }
-        request.onerror = (event) => {
+        getNotesRequest.onerror = (event) => {
             reject(`Error fetching notes from storage: ${event.target.errorCode}`)
         }
     });
@@ -66,43 +61,71 @@ function getNotesFromStorage(db) {
  * @param {*} id UUID of the note.
  * @returns The note object stored with the given UUID.
  */
-function getNoteFromStorage(db, id) {
+export function getNoteFromStorage(db, id) {
     return new Promise((resolve, reject) => {
         const objectStore = db.transaction(OBJECT_STORE_NAME).objectStore(OBJECT_STORE_NAME);
-        const request = objectStore.get(id);
-        request.onsuccess = (e) => {
-            resolve(request.result);
+        const getNoteRequest = objectStore.get(id);
+        getNoteRequest.onsuccess = (e) => {
+            resolve(getNoteRequest.result);
         }
-        request.onerror = (e) => {
+        getNoteRequest.onerror = (e) => {
             reject(`Error fetching note with id ${id} from storage.`);
         }
     });
 }
 
 /**
- * Takes the given note and saves it to the database.
+ * Takes the given note and saves it to the database. To make a new note,
+ * pass in a Note object where the UUID is undefined and a new note will be made.
  * @param {*} db The initialized indexedDB object.
  * @param {*} note The note object to save.
+ * @returns Promise<int> The UUID of the newly saved note.
+ */
+export function saveNoteToStorage(db, note) {
+    if (!note.uuid) {
+        return new Promise((resolve, reject) => {
+            const objectStore = db.transaction(OBJECT_STORE_NAME, 'readwrite').objectStore(OBJECT_STORE_NAME);
+            const saveNoteRequest = objectStore.add(note);
+            saveNoteRequest.onsuccess = (event) => {
+                console.log(`Successfully saved note with uuid ${saveNoteRequest.result}`);
+                console.log(saveNoteRequest.result);
+                resolve();
+            }
+            saveNoteRequest.onerror = (event) => {
+                reject(`Error saving new note to storage`)
+            }
+        });
+    } else {
+        return new Promise((resolve, reject) => {
+            const objectStore = db.transaction(OBJECT_STORE_NAME, 'readwrite').objectStore(OBJECT_STORE_NAME);
+            const saveNoteRequest = objectStore.put(note);
+            saveNoteRequest.onsuccess = (event) => {
+                console.log(`Successfully saved note with uuid ${saveNoteRequest.result}`);
+                resolve(saveNoteRequest.result);
+            }
+            saveNoteRequest.onerror = (event) => {
+                reject(`Error saving note with id ${note.uuid} to storage`)
+            }
+        });
+    }
+}
+
+/**
+ * Takes the given note and deletes it from storage.
+ * @param {*} db The initialized indexedDB object.
+ * @param {*} note The note object to delete.
  * @returns Promise<void>
  */
-function saveNoteToStorage(db, note) {
+function deleteNoteFromStorage(db, note) {
     return new Promise((resolve, reject) => {
-        const objectStore = db.transaction(OBJECT_STORE_NAME,'readwrite').objectStore(OBJECT_STORE_NAME);
-        const saveNoteRequest = objectStore.put(note, note.uuid);
-
-        saveNoteRequest.onsuccess = (event) => {
+        const objectStore = db.transaction(OBJECT_STORE_NAME, 'readwrite').objectStore(OBJECT_STORE_NAME);
+        const deleteNoteRequest = objectStore.delete(note.uuid);
+        deleteNoteRequest.onsuccess = (event) => {
+            console.log(`Successfully deleted note with uuid ${saveNoteRequest.result}`);
             resolve();
         }
-
-        saveNoteRequest.onerror = (event) => {
-            reject(`Error saving note with id ${note.uuid} to storage`)
+        deleteNoteRequest.onerror = (event) => {
+            reject(`Error deleting note with id ${note.uuid} from storage`)
         }
     });
 }
-/**
- * 
- */
-function deleteNoteFromStorage(db,note) {
-}
-
-export { initializeDB, getNotesFromStorage, getNoteFromStorage, saveNoteToStorage, deleteNoteFromStorage }
