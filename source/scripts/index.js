@@ -34,8 +34,7 @@ function addNotesToDocument(notes) {
 }
 
 /**
- * Add necessary event handler for create new note button
- * For testing purpose, it will create a new note and save it to local storage
+ * Add necessary event handler for the Create New Note button
  */
 async function initEventHandler(){
   const button = document.querySelector('button')
