@@ -17,9 +17,9 @@ async function init() {
  * @param {Array<Object>} notes containing all the notes in the local storage
  */
 function addNotesToDocument(notes) {
-    let dashboard = document.querySelector('.dashboard');
+    const dashboard = document.querySelector('.dashboard');
     // Clear out the existing rows in the dashboard and refill with our new notes.
-    let dashboardRow = document.querySelectorAll('dashboard-row');
+    const dashboardRow = document.querySelectorAll('dashboard-row');
     dashboardRow.forEach(row => {
       row.remove();
     })
@@ -33,6 +33,7 @@ function addNotesToDocument(notes) {
     });
 
 }
+
 /**
  * @description sort the notes by last modified date
  * @param {Array<Object>} notes containing all the notes in the local storage
@@ -41,19 +42,15 @@ function addNotesToDocument(notes) {
  */
 function sortNotesByTime(notes, sortType) {
   let sortedNotes = notes.sort((note1, note2) => {
-    let time1 = note1.lastModified.split('/');
-    let time2 = note2.lastModified.split('/');
-    let date1 = new Date(time1[2], time1[0], time1[1]);
-    let date2 = new Date(time2[2], time2[0], time2[1]);
+    const dateList1 = note1.lastModified.split('/');
+    const dateList2 = note2.lastModified.split('/');
+    const date1 = new Date(dateList1[2], dateList1[0], dateList1[1]);
+    const date2 = new Date(dateList2[2], dateList2[0], dateList2[1]);
     if(sortType === 'asc') {
       return date1 - date2;
     }
-    if(sortType === 'desc') {
-      return date2 - date1;
-    }
-  }
-  )
-
+    return date2 - date1;
+  })
   return sortedNotes;
 }
 
@@ -64,19 +61,14 @@ function sortNotesByTime(notes, sortType) {
  * @returns sortedNotes
  */
  function sortNotesByTitle(notes, sortType) {
-  let sortedNotes = notes.sort((note1, note2) => {
+  const sortedNotes = notes.sort((note1, note2) => {
     if(sortType === 'asc') {
       return note1.title.localeCompare(note2.title);
     }
-    if(sortType === 'desc') {
-      return note2.title.localeCompare(note1.title);
-    }
-  }
-  )
-
+    return note2.title.localeCompare(note1.title);
+  })
   return sortedNotes;
 }
-
 
 /**
  * @description Add necessary event handler for the Create New Note button
@@ -87,8 +79,7 @@ async function initEventHandler(){
   const dashboard = document.querySelector('.dashboard');
   const db = await initializeDB(indexedDB);
   const notes = await getNotesFromStorage(db);
-  // TODO: Get user's input on title name and 
-  // navigate to note page in order for the user to write note
+  //navigate to note page in order for the user to write note
   button.addEventListener('click', async event => {
     /* let noteObject = {
       "title": "Midterm Prep",
@@ -108,7 +99,6 @@ async function initEventHandler(){
   const timeCol = document.querySelector('.timeCol');
   let counter1 = 0;
   timeCol.addEventListener('click', async event => {
-    let dashboardRow = document.querySelectorAll('dashboard-row');
     let sortedNotes = sortNotesByTime(notes, counter1 % 2 === 0 ? 'asc' : 'desc');
     counter1++;
     addNotesToDocument(sortedNotes);
@@ -117,15 +107,10 @@ async function initEventHandler(){
   const titleCol = document.querySelector('.titleCol');
   let counter2 = 0;
   titleCol.addEventListener('click', async event => {
-    let dashboardRow = document.querySelectorAll('dashboard-row');
-    let sortedNotes = sortNotesByTitle(notes, counter2 % 2 === 0 ? 'asc' : 'desc');
+    const sortedNotes = sortNotesByTitle(notes, counter2 % 2 === 0 ? 'asc' : 'desc');
     counter2++;
     addNotesToDocument(sortedNotes);
   })
-  
-
-
-
 }
 
 
