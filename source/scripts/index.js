@@ -9,7 +9,7 @@ async function init() {
     const db = await initializeDB(indexedDB);
     const notes = await getNotesFromStorage(db);
     addNotesToDocument(notes);
-    await initEventHandler(notes);
+    await initEventHandler();
 }
 
 /**
@@ -19,21 +19,17 @@ async function init() {
 function addNotesToDocument(notes) {
     let dashboard = document.querySelector('.dashboard');
     // Clear out the existing rows in the dashboard and refill with our new notes.
-    dashboard.innerHTML = `
-      <div class="columnTitle">
-        <p class="titleCol">Title</p>
-        <p class="timeCol">Last Modified</p>
-      </div>
-      `;
-
+    let dashboardRow = document.querySelectorAll('dashboard-row');
+    dashboardRow.forEach(row => {
+      row.remove();
+    })
     notes.forEach(note => {
         let row = document.createElement('dashboard-row');  
         row.note = note;
         dashboard.appendChild(row);
         row.shadowRoot.querySelector('.title').addEventListener('click', async event => {
             window.location.href = `./notes/notes.html`;
-        });
-
+        }); 
     });
 
 }
@@ -43,7 +39,7 @@ function addNotesToDocument(notes) {
  * @param {String} sortType the type of sort, either ascending or descending
  * @returns sortedNotes
  */
-function sortNotes(notes, sortType) {
+function sortNotesByTime(notes, sortType) {
   let sortedNotes = notes.sort((note1, note2) => {
     let time1 = note1.lastModified.split('/');
     let time2 = note2.lastModified.split('/');
@@ -61,52 +57,71 @@ function sortNotes(notes, sortType) {
   return sortedNotes;
 }
 
+/**
+ * @description sort the notes by title
+ * @param {Array<Object>} notes containing all the notes in the local storage
+ * @param {String} sortType the type of sort, either ascending or descending
+ * @returns sortedNotes
+ */
+ function sortNotesByTitle(notes, sortType) {
+  let sortedNotes = notes.sort((note1, note2) => {
+    if(sortType === 'asc') {
+      return note1.title.localeCompare(note2.title);
+    }
+    if(sortType === 'desc') {
+      return note2.title.localeCompare(note1.title);
+    }
+  }
+  )
+
+  return sortedNotes;
+}
 
 
 /**
  * @description Add necessary event handler for the Create New Note button
  * @param {Array<Object>} notes containing all the notes in the local storage
  */
-async function initEventHandler(notes){
+async function initEventHandler(){
   const button = document.querySelector('button')
   const dashboard = document.querySelector('.dashboard');
+  const db = await initializeDB(indexedDB);
+  const notes = await getNotesFromStorage(db);
   // TODO: Get user's input on title name and 
   // navigate to note page in order for the user to write note
   button.addEventListener('click', async event => {
-    let noteObject = {
-      "title": "New Note",
-      "lastModified": "01/01/2021",
+    /* let noteObject = {
+      "title": "Midterm Prep",
+      "lastModified": "11/17/2022",
       "content": ""
     };
 
     // Add notes to storage
-    const db = await initializeDB(indexedDB);
+    
     saveNoteToStorage(db, noteObject);
-    addNotesToDocument(await getNotesFromStorage(db));
+    addNotesToDocument(await getNotesFromStorage(db)); */
 
-    /* window.location.href = `./notes/notes.html`; */
+    window.location.href = `./notes/notes.html`;
   })
 
   // sort the notes to display in dashboard by last modified date
   const timeCol = document.querySelector('.timeCol');
-  let count = 0;
+  let counter1 = 0;
   timeCol.addEventListener('click', async event => {
     let dashboardRow = document.querySelectorAll('dashboard-row');
-    dashboardRow.forEach(row => {
-      row.remove();
-    })
-    let sortedNotes = sortNotes(notes, count % 2 === 0 ? 'asc' : 'desc');
-    count++;
-    notes.forEach(note => {
-      let row = document.createElement('dashboard-row');  
-      row.note = note;
-      dashboard.appendChild(row);
-      row.shadowRoot.querySelector('.title').addEventListener('click', async event => {
-          window.location.href = `./notes/notes.html`;
-      });
+    let sortedNotes = sortNotesByTime(notes, counter1 % 2 === 0 ? 'asc' : 'desc');
+    counter1++;
+    addNotesToDocument(sortedNotes);
   });
+  // sort the notes to display in dashboard by title
+  const titleCol = document.querySelector('.titleCol');
+  let counter2 = 0;
+  titleCol.addEventListener('click', async event => {
+    let dashboardRow = document.querySelectorAll('dashboard-row');
+    let sortedNotes = sortNotesByTitle(notes, counter2 % 2 === 0 ? 'asc' : 'desc');
+    counter2++;
+    addNotesToDocument(sortedNotes);
   })
- 
   
 
 

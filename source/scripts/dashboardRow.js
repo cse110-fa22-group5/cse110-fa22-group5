@@ -46,7 +46,14 @@ class dashboardRow extends HTMLElement{
             <p class = "title">${note.title}</p>
             <p class = "lastModified">${note.lastModified}</p>
         `;
+
+        
     }
-}
+      
+
+
+}   
+
+
 
 customElements.define('dashboard-row', dashboardRow);
