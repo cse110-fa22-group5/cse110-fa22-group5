@@ -1,32 +1,15 @@
+import { initializeDB, saveNoteToStorage, getNotesFromStorage, getNoteFromStorage } from "./noteStorage.js";
+
 window.addEventListener('DOMContentLoaded', init);
 
 /**
  * @description call all the functions after the DOM is loaded
  */
-function init() {
-    //let nodes = getNotes();
-    let notes = getNotesFromStorage();
+async function init() {
+    const db = await initializeDB(indexedDB);
+    const notes = await getNotesFromStorage(db);
     addNotesToDocument(notes);
-
-    initEventHandler();
-}
-
-/**
- * @description For testing purpose, it will create a new note and save it to local storage
- * Retrive all notes from local storage
- * @returns either the notes json data or the empty list
- */
-function getNotesFromStorage() {
-    const notes =  localStorage.getItem('notes');
-    return notes ? JSON.parse(notes) : [];
-}
-
-/**
- * @description For testing purpose, it will save the notes to local storage, Takes in an array of recipes, converts it to a string, and then, saves that string to 'notes' in localStorage
- * @param {Array<Object>} notes An array of notes
- */
-function saveNotesToStorage(notes) {
-    localStorage.setItem('notes',JSON.stringify(notes));
+    await initEventHandler();
 }
 
 /**
@@ -35,6 +18,13 @@ function saveNotesToStorage(notes) {
  */
 function addNotesToDocument(notes) {
     let dashboard = document.querySelector('.dashboard');
+    // Clear out the existing rows in the dashboard and refill with our new notes.
+    dashboard.innerHTML = `
+      <div class="columnTitle">
+        <p class="titleCol">Title</p>
+        <p class="timeCol">Last Modified</p>
+      </div>
+      `;
 
     notes.forEach(note => {
         let row = document.createElement('dashboard-row');
@@ -44,30 +34,23 @@ function addNotesToDocument(notes) {
 }
 
 /**
- * Add necessary event handler for create new note button
- * For testing purpose, it will create a new note and save it to local storage
+ * Add necessary event handler for the Create New Note button
  */
-function initEventHandler(){
-    const button = document.querySelector('button')
-    const dashboard = document.querySelector('.dashboard');
-
+async function initEventHandler(){
+  const button = document.querySelector('button')
+  const dashboard = document.querySelector('.dashboard');
   // TODO: Get user's input on title name and 
   // navigate to note page in order for the user to write note
-    button.addEventListener('click', event => {
-    let row = document.createElement('dashboard-row');
+  button.addEventListener('click', async event => {
     let noteObject = {
-      "uuid": "3",
       "title": "Lecture 1",
       "lastModified": "11/8/2022",
       "content": ""
     };
 
-    row.note = noteObject;
-    dashboard.appendChild(row);
-
     // Add notes to storage
-    let currentNotes = getNotesFromStorage();
-    currentNotes.push(noteObject);
-    saveNotesToStorage(currentNotes);
+    const db = await initializeDB(indexedDB);
+    saveNoteToStorage(db, noteObject);
+    addNotesToDocument(await getNotesFromStorage(db));
   })
 }
