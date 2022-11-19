@@ -18,11 +18,14 @@ async function init() {
  */
 function addNotesToDocument(notes) {
     const dashboard = document.querySelector('.dashboard');
-    // Clear out the existing rows in the dashboard and refill with our new notes.
+
+    // Clear out the existing rows in the dashboard
     const dashboardRow = document.querySelectorAll('dashboard-row');
     dashboardRow.forEach(row => {
       row.remove();
     })
+
+    // Repopulate dashboard with new notes
     notes.forEach(note => {
         let row = document.createElement('dashboard-row');  
         row.note = note;
@@ -31,7 +34,6 @@ function addNotesToDocument(notes) {
             window.location.href = `./notes/notes.html`;
         }); 
     });
-
 }
 
 /**
@@ -51,6 +53,7 @@ function sortNotesByTime(notes, sortType) {
     }
     return date2 - date1;
   })
+
   return sortedNotes;
 }
 
@@ -97,18 +100,19 @@ async function initEventHandler(){
 
   // sort the notes to display in dashboard by last modified date
   const timeCol = document.querySelector('.timeCol');
-  let counter1 = 0;
+  let timeSortCount = 0;
   timeCol.addEventListener('click', async event => {
-    let sortedNotes = sortNotesByTime(notes, counter1 % 2 === 0 ? 'asc' : 'desc');
-    counter1++;
+    let sortedNotes = sortNotesByTime(notes, timeSortCount % 2 === 0 ? 'asc' : 'desc');
+    timeSortCount++;
     addNotesToDocument(sortedNotes);
   });
+
   // sort the notes to display in dashboard by title
   const titleCol = document.querySelector('.titleCol');
-  let counter2 = 0;
+  let titleSortCount = 0;
   titleCol.addEventListener('click', async event => {
-    const sortedNotes = sortNotesByTitle(notes, counter2 % 2 === 0 ? 'asc' : 'desc');
-    counter2++;
+    const sortedNotes = sortNotesByTitle(notes, titleSortCount % 2 === 0 ? 'asc' : 'desc');
+    titleSortCount++;
     addNotesToDocument(sortedNotes);
   })
 }
