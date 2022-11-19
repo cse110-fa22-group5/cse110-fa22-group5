@@ -8,7 +8,7 @@ class dashboardRow extends HTMLElement{
         let note = document.createElement('div');
         note.setAttribute('class', 'note');
 
-        const style = document. createElement('style');
+        const style = document.createElement('style');
         style.textContent = 
             `.note {
                 display: flex;
@@ -29,7 +29,6 @@ class dashboardRow extends HTMLElement{
                 color: #D6CDF2;
                 cursor: pointer;
             }
-
         `;
         shadow.append(style);
         shadow.append(note);
@@ -47,6 +46,6 @@ class dashboardRow extends HTMLElement{
             <p class = "lastModified">${note.lastModified}</p>
         `;
     }
-}
+}   
 
 customElements.define('dashboard-row', dashboardRow);
