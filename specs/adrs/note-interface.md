@@ -2,25 +2,23 @@
 
 ## Context and Problem Statement
 
-- Users are able to create a new note, edit a note, save a note and delete a note.
-- Page should look similar to the designed one, title, last modified time and tags are on the top left corner, delete button and save button are on the top right corner.
-- Users should be able to go to the dashboard home page from the back arrow.
-- Text boxes should be transparent and the content window should be auto resizable.
-- The color should be consistent with the main dashboard page.
-
+- How are users are able to create a new note, edit a note, save a note and delete a note?
+- How should the note text area be formatted and the code be structured? 
+- How can the users go back to the dashboard home page? 
+- How should the text area be colored in reference to the dashboard?
+- Should our delete and save buttons have icons?
+- Should there be an organizational element for each note?
 ## Considered Options
 
-- Using the textarea and label field
-- Create customized element for title, button and textarea
-- Button for delete and save. 
-- Time_label for save time
-- Selection of tag
-- Makin the color of the textare simailar to the background
+- Create a text area attribute, or form attribute with text element
+- Create custom labels/ids for title, button and textarea
+- Using delete and save icons from the online library, or no icons and only text 
+- Using option for the tags, drop down list for organization element
+- Set background to transparent or to match dashboard color
 
 ## Decision Outcome
-- Come out as expected from the pitch slide.
-- Time can only be change at the time saving, set time input to read-only. 
-- Using delete and save icons from the online library 
-- Set background of textarea to transparent
-- Using option for the tags, drop down list
-- Here is the expected page from the pitch powerpoint.
+
+- Create a text area attribute which corresponds to our note input body, makes more sense than text as text does not have multiple input. Create custom id for buttons to seperately manipulate buttons from other section of html body
+- Create a dropdown list of default tags as opposed to custom tags, in order to prevent errors from non standard inputs
+- Use icons to illustrate save and delete button, to add visual representation of save and delete buttons along with their text values
+- Text area body can have the same background color as our dashboard interface, but slightly lighter gradient for practical use of text input
