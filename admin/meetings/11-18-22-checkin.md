@@ -13,13 +13,13 @@
 <!-- [x] for present -->
 ## Attendance:
 - [x] Yaya Jiang
-- [] Kevin Lam
+[] Kevin Lam
 - [x] Aaryan Tiwary
 - [x] Lauren Lee
 - [x] Priya Senthilkumar
 - [x] Duy Vu
 - [x] Alex Zhang
-- [] Akanksha Pandey
+[] Akanksha Pandey
 - [x] Zelong Zhou
 - [x] Guidong Luo
 ​
