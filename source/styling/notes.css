@@ -13,6 +13,10 @@ a {
     margin: 5px;
 }
 
+a:active {
+    color: #D6CDF2
+}
+
 /*Header*/
 header {
     width: 90%;
