@@ -1,36 +1,55 @@
+/*Body*/
 body {
     background: linear-gradient( #221C35 30.73%, rgba(75, 54, 95, 0) 91.67%), #4B365F;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
-    /* padding-left: .5em;
-    padding-right: .5em; */
-    padding: 0 5vw 0 5vw;
-    /* height: 95%;
-    width:98%; */
+    align-items: center;
 }
 
+/*Back Button*/
+a {
+    font-size: 3vw;
+    margin: 5px;
+}
 
-header > a{
-    float:left;
-    /* padding:px; */
-    width: 800px;
+/*Header*/
+header {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
 
-    font-size: 30px;
-    padding-left: 2vw;
-    /* display: flex; */
-    /* flex-direction: row; */
-    /* padding-left: .5em; */
+#subheader {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    /* width: 80%; */
-    margin: 0;
 }
 
+#notes-info {
+    display: flex;
+    flex-direction: column;
+}
+
+#notes-title, #notes-last-modified {
+    background-color: white;
+    padding: 5px 100px 5px 5px;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bolder;
+    color: #221C35;
+    filter: drop-shadow(0px 0px 5px black);
+    background: linear-gradient( white 30.73%, rgba(75, 54, 95, 0) 91.67%), #D6CDF2;
+    margin-bottom: 20px;
+}
+
+/*Save Button*/
 button {
-    /* padding: 10px 15px; */
     font-family: 'Poppins', sans-serif;
     font-size: 1.5em;
+    font-weight: bolder;
     color: black;
     background-color: #D6CDF2;
     border-radius: 10px;
@@ -40,138 +59,28 @@ button {
     button { 
        font-size: 1em; 
     }
- }
+}
 
 button:hover {
     background-color: #B8B0D9;
     cursor: pointer;
 }
 
-h1 {
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    font-size: 7vh;
-    font-weight: 400;
-    line-height: 48px;
-    letter-spacing: 0em;
-}
-.title:hover{
-    cursor: pointer;
-}
-
+/*Text Area*/
 main {
-    display: flex;
-    flex-direction: column;
-    padding: 0 15px 0 15px;
-}
-
-.columnTitle {
-    float:left;
-    grid-area: left;
-    /* width: 550px; */
-
-    color: white;
-    justify-content : flex-start;
-    flex-direction:column;
-
-    font-family: sans-serif;
-    /* margin: 1px; */
-    padding: 10px 30px;
-    justify-content: space-between;
-    /* background: #47216c; */
-}
-/* .columnTitle > label:hover {
-    color: #D6CDF2;
-    cursor: pointer;    
-} */
-
-p {
-    color: white;
-    font-family: 'Poppins', sans-serif;
-}
-
-.features {
-    display: grid;
-    grid: 
-        'left left left left left right'
-        'bottom bottom bottom bottom bottom bottom';
-    grid-auto-columns: auto auto;
-    margin: 0 5vw 5vh 5vw;
-
-}
-
-.option_button{
-    float:right;
-    justify-self: end;
-    grid-area: right;
-    padding-right:15px;
-    width: 150px;
-
-    display: flex;
-    flex-direction: column;
-    /* margin-right: 5vw; */
-}
-
-.option_button > button{
-    margin: 10px;
-}
-
-label{
-    background: #61358e;
-    padding-right: 8px;
-    padding-left: 8px;
-}
-
-
-.text_area{
-    margin-right: 0;
-    margin-left: 0;
-    justify-self: center;
-    grid-area: bottom;
-    width: 100%;
+    width: 90%;
     height: 60vh;
-    padding-right:15px;
-    padding-left: 30px;
 }
 
 textarea {
-    justify-self: center;
-    resize: none;
-    outline: none;
-    height: 100%;
     width: 100%;
-}
-
-.main_note{
-    box-sizing: border-box;
-    background: transparent;
-    color: white;
-    align-self: center;
-}
-
-#titleCol{
-    background: transparent;
-    color: white;
+    height: 100%;
     outline: none;
-    border-color: #8b65ae;
-    text-align: center;
-}
-
-#tagCol{
-    background: transparent;
-    color: white;
-    border-color: #8b65ae;
-    text-align: center;
-}
-
-option{
-    color: black;
-}
-
-#timeCol{
-    background: transparent;
-    color: white;
-    outline: none;
-    border: transparent;
-    text-align: center;
+    overflow-y: scroll;
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1vw;
+    color: #221C35;
+    background: linear-gradient( white 30.73%, rgba(75, 54, 95, 0) 91.67%), #D6CDF2;
+    border-radius: 10px;
 }

@@ -9,34 +9,26 @@
   <link rel="stylesheet" href="./styling/notes.css" />
   <script src="./scripts/notesEditor.js" type="module"></script>
 </head>
-<body>
+<body id="notes-editor">
     <header>
-        <a href="./index.html" class="back"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
-    </header>
-
-    <main id="notes-editor">
-        <div id="notes-editor">
-            
+        <a href="./index.html" id="back-button"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+        
+        <div id="subheader">
             <div id="notes-info">
-                <span id="notes-title-label">Title: </span>
                 <span id="notes-title"></span>
-                <span id="notes-last-modified-label">Last Modified: </span>
                 <span id="notes-last-modified"></span>
-                
             </div>
 
             <div id="option-button">
-                <button id = "delete-button"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
-                <br>
+                <!-- <button id = "delete-button"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                <br> -->
                 <button id = "save-button"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
             </div>  
-
-            <div id="notes-content">
-                <textarea id="notes-content-input"></textarea>
-            </div>
-
         </div>
-        
+    </header>
+
+    <main id="notes-content">
+        <textarea id="notes-content-input"></textarea>
     </main>
 </body>
 </html>

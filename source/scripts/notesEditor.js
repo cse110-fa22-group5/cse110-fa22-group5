@@ -20,9 +20,9 @@ async function addNotesToDocument(note) {
     let title = document.querySelector('#notes-title');
     let lastModified = document.querySelector('#notes-last-modified')
     let content = document.querySelector('#notes-content-input');
-    
+
     // put the note title in the title input
-    title.innerHTML = note.title;
-    lastModified.innerHTML = `${note.lastModified}`;
+    title.innerHTML = `Title: ${note.title}`;
+    lastModified.innerHTML = `Last Modified: ${note.lastModified}`;
     content.value = `${note.content}`;
 }
