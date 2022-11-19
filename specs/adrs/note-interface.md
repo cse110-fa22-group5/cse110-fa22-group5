@@ -12,11 +12,15 @@
 
 - Using the textarea and label field
 - Create customized element for title, button and textarea
-- Using delete and save icons from the online library 
-- Using option for the tags, drop down list
-- Set background to transparent
+- Button for delete and save. 
+- Time_label for save time
+- Selection of tag
+- Makin the color of the textare simailar to the background
 
 ## Decision Outcome
 - Come out as expected from the pitch slide.
-- Here is the preview.
-![image](https://user-images.githubusercontent.com/60903767/201571092-66b946e4-ff8b-4322-af0f-cfac5b6a1e32.png)
+- Time can only be change at the time saving, set time input to read-only. 
+- Using delete and save icons from the online library 
+- Set background of textarea to transparent
+- Using option for the tags, drop down list
+- Here is the expected page from the pitch powerpoint.
