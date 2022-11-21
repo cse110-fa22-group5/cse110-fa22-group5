@@ -48,7 +48,10 @@ class dashboardRow extends HTMLElement{
                 content: '';
                 height: 3em;
                 width: 2.5em;
-                background-image: url('./images/trash-can-solid.svg');
+                background: transparent;
+                border-color: transparent;
+                border-style: none;
+                margin-top: 1.2ex
             }
 
             .note > div > button:hover {
@@ -77,7 +80,7 @@ class dashboardRow extends HTMLElement{
             <p class = "title">${note.title}</p>
             <div>
                 <p class = "lastModified">${note.lastModified}</p>
-                <button></button>
+                <button><img src='./images/trash-can-solid.svg'></button>
             </div>
         `;
         let button = shadow.querySelector('.note > div > button');
