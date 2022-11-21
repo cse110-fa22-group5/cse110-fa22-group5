@@ -49,6 +49,7 @@ class dashboardRow extends HTMLElement{
                 height: 3em;
                 width: 2.5em;
                 background-image: url('./images/trash-can-solid.svg');
+                margin-top: 0.5em
             }
 
             .note > div > button:hover {
