@@ -74,6 +74,7 @@ class dashboardRow extends HTMLElement{
         let shadow = this.shadowRoot;
         let noteDiv = shadow.querySelector('.note');
         noteDiv.innerHTML = `
+            <p class = "title">${note.title}</p>
             <div>
                 <p class = "lastModified">${note.lastModified}</p>
                 <button></button>
