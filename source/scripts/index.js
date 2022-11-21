@@ -84,7 +84,7 @@ async function initEventHandler(){
   const notes = await getNotesFromStorage(db);
   //navigate to note page in order for the user to write note
   button.addEventListener('click', async event => {
-    /* let noteObject = {
+     let noteObject = {
       "title": "Midterm Prep",
       "lastModified": "11/17/2022",
       "content": ""
@@ -93,7 +93,7 @@ async function initEventHandler(){
     // Add notes to storage
     
     saveNoteToStorage(db, noteObject);
-    addNotesToDocument(await getNotesFromStorage(db)); */
+    addNotesToDocument(await getNotesFromStorage(db)); 
 
     window.location.href = `./notes/notes.html`;
   })
@@ -115,6 +115,9 @@ async function initEventHandler(){
     titleSortCount++;
     addNotesToDocument(sortedNotes);
   })
+
+
+
 }
 
 
