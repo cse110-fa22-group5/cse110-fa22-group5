@@ -1,3 +1,5 @@
+import { initializeDB, deleteNoteFromStorage } from './noteStorage.js';
+
 class dashboardRow extends HTMLElement{
     /**
      * create the shadow dom for the dashboard row
@@ -28,12 +30,33 @@ class dashboardRow extends HTMLElement{
             }
             
            .note:hover {
-            transform: scale(1.05);
-            transition: transform .2s;
-            cursor: pointer;    
-            filter: drop-shadow(0px 0px 10px black);
+                transform: scale(1.05);
+                transition: transform .2s;
+                cursor: pointer;    
+                filter: drop-shadow(0px 0px 10px black);
             }
-            
+           .note > div{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 10px 30px;
+            }
+
+            .note > div > button{
+                margin-left: 2ex;
+                display: block;
+                content: '';
+                height: 3em;
+                width: 2.5em;
+                background-image: url('./images/trash-can-solid.svg');
+            }
+
+            .note > div > button:hover {
+                transform: scale(1.05);
+                transition: transform .1s;
+                cursor: pointer;    
+                filter: drop-shadow(0px 0px 2px black);
+            }
 
         `;
         
@@ -51,9 +74,20 @@ class dashboardRow extends HTMLElement{
         let shadow = this.shadowRoot;
         let noteDiv = shadow.querySelector('.note');
         noteDiv.innerHTML = `
-            <p class = "title">${note.title}</p>
-            <p class = "lastModified">${note.lastModified}</p>
+            <div>
+                <p class = "lastModified">${note.lastModified}</p>
+                <button></button>
+            </div>
         `;
+        let button = shadow.querySelector('.note > div > button');
+        // button.innerHTML = `
+        //     <i class="fa fa-trash" aria-hidden="true"></i>
+        // `;
+        button.addEventListener('click', async ()=>{
+            const db = await initializeDB(indexedDB);
+            deleteNoteFromStorage(db, note);
+            location.reload();
+        })
     }
 }   
 
