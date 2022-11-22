@@ -25,8 +25,9 @@ class dashboardRow extends HTMLElement{
                 
             }
             button { 
-                position: absolute;
+                // position: absolute;
                 display: none;
+                margin-left: 10px;
                 z-index:2;
             }
             p {
@@ -46,6 +47,7 @@ class dashboardRow extends HTMLElement{
             }
            .note:hover div > button {
                 display:block;
+                // source: url('../source/images/trash.png');
                 background: url('../source/images/trash-can-solid.svg');
                 // height: 100%;
                 // width: 100%;
@@ -54,7 +56,13 @@ class dashboardRow extends HTMLElement{
                 //     resize: both;
                 //     height: auto;
                 // }
-                cursor: pointer;    
+                // grid-column-start: 2;
+                grid-area: b;
+                cursor: pointer;   
+                height: 3em;
+                width: 2.5em; 
+                // margin-top: 1.2ex
+                // border-style: none;
                 
                 // filter: drop-shadow(0px 0px 10px black);
                 
@@ -63,18 +71,39 @@ class dashboardRow extends HTMLElement{
             .note:hover div > button:hover {
                 filter: drop-shadow(0px 0px 5px black);
             }
-        //    .note > div {
-        //         position: relative;
-        //         source: url('../source/images/trash-can-solid.svg');
-        //         display: flex;
-        //         flex-direction: row;
-        //         justify-content: space-between;
-        //         padding: 10px 30px;
-        //     }
+           .note:hover > div {
+                // position: relative;
+                // source: url('../source/images/trash-can-solid.svg');
+                display: grid;
+                // display: flex;
+                // grid-template-columns: repeat(2, 1fr);
+                grid-template-areas: "a b";
+                // flex-direction: row;
+                justify-content: space-between;
+                padding: 10px 30px;
+            }
+
+            // .note > div > p {
+            //     justify-items: start;
+            // }
+
+            // .note:hover > div > button {
+            //     grid-column-start: 2;
+            //     grid-area: b;
+            //     // grid-column-end: 3;
+            // }
+
+            .note:hover > div > p {
+                // grid-column-start: 2;
+                grid-area: a;
+                // grid-column-end: 3;
+            }
 
 
-            // .note > div > button {
-            //     source: url('../source/images/trash-can-solid.svg');
+
+            .note > div > button {
+            //     // source: url('../source/images/trash-can-solid.svg');
+            //     // source = url('../source/images/bin.jpg');
             //     margin-left: 2ex;
             //     display: block;
             //     content: '';
@@ -82,9 +111,9 @@ class dashboardRow extends HTMLElement{
             //     width: 2.5em;
             //     background: transparent;
             //     border-color: transparent;
-            //     border-style: none;
-            //     margin-top: 1.2ex
-            // }
+                border-style: none;
+                margin-top: 1.2ex
+            }
             // .note > div > button:hover {
             //     img.src = '../source/images/bin.jpg';
             //     transform: scale(1.05);
@@ -110,8 +139,8 @@ class dashboardRow extends HTMLElement{
         let noteDiv = shadow.querySelector('.note');
         noteDiv.innerHTML = `
             <p class = "title">${note.title}</p>
-            <p class = "lastModified">${note.lastModified}</p>
             <div>
+                <p class = "lastModified">${note.lastModified}</p>
                 <button><img src=''></button>
             </div>
         `;
