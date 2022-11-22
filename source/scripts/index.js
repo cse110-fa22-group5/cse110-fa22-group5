@@ -31,7 +31,7 @@ function addNotesToDocument(notes) {
         row.note = note;
         dashboard.appendChild(row);
         row.shadowRoot.querySelector('.title').addEventListener('click', async event => {
-            window.location.href = `./notes/notes.html`;
+            window.location.href = `./notes.html`;
         }); 
     });
 }
@@ -95,7 +95,7 @@ async function initEventHandler(){
     saveNoteToStorage(db, noteObject);
     addNotesToDocument(await getNotesFromStorage(db)); 
 
-    window.location.href = `./notes/notes.html`;
+    window.location.href = `./notes.html`;
   })
 
   // sort the notes to display in dashboard by last modified date
