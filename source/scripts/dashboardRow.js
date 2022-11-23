@@ -46,6 +46,7 @@ class dashboardRow extends HTMLElement{
                 // padding: 20px 20px;
                 justify-content: space-between;
                 display: flex;
+                z-index:2;
                 
             }
             .note > p{
