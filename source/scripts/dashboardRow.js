@@ -12,134 +12,55 @@ class dashboardRow extends HTMLElement{
         const style = document.createElement('style');
         style.textContent = 
             `.note {
-                position: relative;
-                z-index: 1;
-
                 display: flex;
                 flex-direction: row;
                 font-family: sans-serif;
                 justify-content: space-between;
-                // width: 100%;
                 margin: 1px;
-                // padding: 10px 30px;
-                padding: 10px;
+                padding: 10px 30px 10px 30px;
                 background: #9867C5;
-                
             }
-            button { 
-                // position: absolute;
+            
+            .note > div {
+                display: flex;
+            }
+
+            .deleteButton { 
                 display: none;
-                margin-left: 10px;
-                z-index:2;
+                margin-right: 1.5em;
             }
-            p {
+
+            .note > p, .lastModified {
                 color: white;
                 font-family: 'Poppins', sans-serif;
             }
+
             .note:hover {
                 filter: drop-shadow(0px 0px 10px black);
-                source: url('../source/images/trash-can-solid.svg');
-                transform: scale(1.05);
-                transition: transform .2s;
-                cursor: pointer;    
-                // padding: 20px 40px;
-                // padding: 20px 20px;
-                justify-content: space-between;
-                display: flex;
-                z-index:2;
-                
+                outline: 1px black;
+                cursor: pointer;
             }
-            .note > p{
-                padding-left: 20px;
-            }
-            .note:hover > p{
-                padding-left: 40px;
-            }
+
            .note:hover div > button {
                 display:block;
-                // source: url('../source/images/trash.png');
                 background: url('../source/images/trash-can-solid.svg');
-                // height: 100%;
-                // width: 100%;
-                // img {
-                //     max-width: 10%;
-                //     resize: both;
-                //     height: auto;
-                // }
-                // grid-column-start: 2;
-                grid-area: b;
                 cursor: pointer;   
                 height: 1.7em;
-                width: 1.5em; 
-                // margin-top: 1.2ex
-                // border-style: none;
-                
-                // filter: drop-shadow(0px 0px 10px black);
-                
+                width: 1.5em;
             }
 
             .note:hover div > button:hover {
                 filter: drop-shadow(0px 0px 5px white);
             }
-           .note:hover > div {
-                // position: relative;
-                // source: url('../source/images/trash-can-solid.svg');
-                display: grid;
-                // display: flex;
-                grid-template-areas: "a b";
-                // flex-direction: row;
-                justify-content: space-between;
-                // padding: 10px 30px;
-            }
-
-            .note > div > p {
-                padding-right: 20px;
-            }
-
-            // .note:hover > div > button {
-            //     grid-column-start: 2;
-            //     grid-area: a;
-            //     // grid-column-end: 3;
-            // }
-
-            .note:hover > div > p {
-                // grid-column-start: 2;
-                grid-area: a;
-                padding-right: 10px;
-                // margin-left: 10px;
-                // grid-column-end: 3;
-            }
-
-
 
             .note > div > button {
-            //     // source: url('../source/images/trash-can-solid.svg');
-            //     // source = url('../source/images/bin.jpg');
-            //     margin-left: 2ex;
-            //     display: block;
-            //     content: '';
-            //     height: 3em;
-            //     width: 2.5em;
-            //     background: transparent;
-            //     border-color: transparent;
                 border-style: none;
                 margin-top: 2.3ex;
-                // margin-left: 20px;
-
             }
-            // .note > div > button:hover {
-            //     img.src = '../source/images/bin.jpg';
-            //     transform: scale(1.05);
-            //     transition: transform .1s;
-            //     cursor: pointer;    
-            //     filter: drop-shadow(0px 0px 2px black);
-            // }
-
         `;
         
         shadow.append(style);
         shadow.append(note);
-        
         
     }
 
@@ -151,13 +72,19 @@ class dashboardRow extends HTMLElement{
         let shadow = this.shadowRoot;
         let noteDiv = shadow.querySelector('.note');
         noteDiv.innerHTML = `
-            <p class = "title">${note.title}</p>
+            <p class="title">${note.title}</p>
             <div>
-                <p class = "lastModified">${note.lastModified}</p>
-                <button><img src=''></button>
+                <button class="deleteButton"></button>
+                <p class="lastModified">${note.lastModified}</p>
             </div>
         `;
-
+        let button = shadow.querySelector('.note > div > button');
+        button.addEventListener('click', async (event)=>{
+            event.stopPropagation();
+            const db = await initializeDB(indexedDB);
+            deleteNoteFromStorage(db, note);
+            location.reload();
+        })
         noteDiv.onclick = () => {
             window.location.href = `./notes.html?id=${note.uuid}?preview=true`;
         }
