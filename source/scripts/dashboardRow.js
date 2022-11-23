@@ -26,10 +26,9 @@ class dashboardRow extends HTMLElement{
             }
             
            .note:hover {
-                transform: scale(1.05);
-                transition: transform .2s;
                 cursor: pointer;    
                 filter: drop-shadow(0px 0px 10px black);
+                outline: 1px black;
             }
             
 

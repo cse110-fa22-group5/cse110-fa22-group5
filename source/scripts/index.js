@@ -17,7 +17,7 @@ async function init() {
  * @param {Array<Object>} notes containing all the notes in the local storage
  */
 function addNotesToDocument(notes) {
-    const dashboard = document.querySelector('.dashboard');
+    const dashboard = document.querySelector('.dashboardItems');
 
     // Clear out the existing rows in the dashboard
     const dashboardRow = document.querySelectorAll('dashboard-row');

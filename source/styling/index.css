@@ -7,11 +7,13 @@ html, body {
 }
 
 body {
+    overscroll-behavior: none;
     background: linear-gradient( #221C35 30.73%, rgba(75, 54, 95, 0) 91.67%), #4B365F;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0;
 }
 
 .header {
@@ -68,7 +70,18 @@ main {
     align-self: center;
 }
 
+.dashboard {
+    height: 100%;
+    overflow: auto;
+    margin-bottom: 1.5rem;
+}
+
+.dashboardItems {
+    overflow: auto;
+}
+
 .columnTitle {
+    position: sticky;
     display: flex;
     flex-direction: row;
     font-family: sans-serif;
@@ -124,6 +137,7 @@ p {
     background-color: #ffffff;
     padding: 0.5rem;
 }
+
 .searchIcon {
     padding: 0.5rem;
 }
