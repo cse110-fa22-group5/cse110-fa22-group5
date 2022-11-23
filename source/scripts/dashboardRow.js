@@ -18,8 +18,10 @@ class dashboardRow extends HTMLElement{
                 flex-direction: row;
                 font-family: sans-serif;
                 justify-content: space-between;
+                // width: 100%;
                 margin: 1px;
-                padding: 10px 30px;
+                // padding: 10px 30px;
+                padding: 10px;
                 background: #9867C5;
                 filter: drop-shadow(10px black);
                 
@@ -40,10 +42,17 @@ class dashboardRow extends HTMLElement{
                 transform: scale(1.05);
                 transition: transform .2s;
                 cursor: pointer;    
-                padding: 20px 40px;
+                // padding: 20px 40px;
+                // padding: 20px 20px;
                 justify-content: space-between;
                 display: flex;
                 
+            }
+            .note > p{
+                padding-left: 20px;
+            }
+            .note:hover > p{
+                padding-left: 40px;
             }
            .note:hover div > button {
                 display:block;
@@ -57,10 +66,10 @@ class dashboardRow extends HTMLElement{
                 //     height: auto;
                 // }
                 // grid-column-start: 2;
-                grid-area: a;
+                grid-area: b;
                 cursor: pointer;   
-                height: 1.2em;
-                width: 1em; 
+                height: 1.7em;
+                width: 1.5em; 
                 // margin-top: 1.2ex
                 // border-style: none;
                 
@@ -76,16 +85,15 @@ class dashboardRow extends HTMLElement{
                 // source: url('../source/images/trash-can-solid.svg');
                 display: grid;
                 // display: flex;
-                // grid-template-columns: repeat(2, 1fr);
                 grid-template-areas: "a b";
                 // flex-direction: row;
                 justify-content: space-between;
-                padding: 10px 30px;
+                // padding: 10px 30px;
             }
 
-            // .note > div > p {
-            //     justify-items: start;
-            // }
+            .note > div > p {
+                padding-right: 20px;
+            }
 
             // .note:hover > div > button {
             //     grid-column-start: 2;
@@ -95,8 +103,9 @@ class dashboardRow extends HTMLElement{
 
             .note:hover > div > p {
                 // grid-column-start: 2;
-                grid-area: b;
-                margin-left: 10px;
+                grid-area: a;
+                padding-right: 10px;
+                // margin-left: 10px;
                 // grid-column-end: 3;
             }
 
@@ -113,7 +122,8 @@ class dashboardRow extends HTMLElement{
             //     background: transparent;
             //     border-color: transparent;
                 border-style: none;
-                margin-top: 2.8ex
+                margin-top: 2.3ex;
+                // margin-left: 20px;
             }
             // .note > div > button:hover {
             //     img.src = '../source/images/bin.jpg';
