@@ -92,6 +92,7 @@ async function initEventHandler(){
   const notes = await getNotesFromStorage(db);
   //navigate to note page in order for the user to write note
   button.addEventListener('click', async event => {
+
     window.location.href = `./notes.html`;
   })
 
