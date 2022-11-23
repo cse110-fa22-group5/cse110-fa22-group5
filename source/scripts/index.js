@@ -31,7 +31,7 @@ function addNotesToDocument(notes) {
         row.note = note;
         dashboard.appendChild(row);
         row.shadowRoot.querySelector('.title').addEventListener('click', async event => {
-            window.location.href = `./notes.html?id=${note.uuid}?preview=true`;
+            window.location.href = `./notes.html?id=${note.uuid}`;
         }); 
     });
 }
