@@ -1,7 +1,7 @@
 describe('Basic user flow for Website', () => {
     // First, visit the website
     beforeAll(async () => {
-      await page.goto('http://localhost:5501/source/notes.html');
+      await page.goto('https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/index.html');
     });
   
     // Next, check to make sure that all 20 <product-item> elements have loaded
