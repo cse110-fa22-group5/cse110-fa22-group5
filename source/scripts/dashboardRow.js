@@ -10,7 +10,6 @@ class dashboardRow extends HTMLElement{
         const style = document.createElement('style');
         style.textContent = 
             `.note {
-                
                 display: flex;
                 flex-direction: row;
                 font-family: sans-serif;
@@ -18,20 +17,18 @@ class dashboardRow extends HTMLElement{
                 margin: 1px;
                 padding: 10px 30px;
                 background: #9867C5;
-                filter: drop-shadow(10px black);
                 
             }
             
-            p {
+            .note > p {
                 color: white;
                 font-family: 'Poppins', sans-serif;
             }
             
            .note:hover {
-            transform: scale(1.05);
-            transition: transform .2s;
-            cursor: pointer;    
-            filter: drop-shadow(0px 0px 10px black);
+                cursor: pointer;    
+                filter: drop-shadow(0px 0px 10px black);
+                outline: 1px black;
             }
             
 
@@ -54,6 +51,9 @@ class dashboardRow extends HTMLElement{
             <p class = "title">${note.title}</p>
             <p class = "lastModified">${note.lastModified}</p>
         `;
+        noteDiv.onclick = () => {
+            window.location.href = './notes.html'
+        }
     }
 }   
 
