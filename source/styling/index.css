@@ -1,5 +1,5 @@
 * {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 html, body {
@@ -45,7 +45,7 @@ button {
  }
 
 button:hover {
-    background-color: #B8B0D9;
+    filter: drop-shadow(0px 0px 5px rgb(196, 195, 195));
     cursor: pointer;
 }
 
@@ -92,10 +92,12 @@ main {
 }
 
 .titleColHeader {
+    font-size: 3vh;
     padding-right: 10px;
 }
 
 .timeColHeader {
+    font-size: 3vh;
     padding-left: 10px;
 }
 
@@ -107,6 +109,7 @@ main {
 p {
     color: white;
     font-family: 'Poppins', sans-serif;
+   
 }
 
 .titleCol, .timeCol {
