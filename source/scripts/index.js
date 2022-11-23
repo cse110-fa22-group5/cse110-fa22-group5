@@ -104,6 +104,9 @@ async function initEventHandler(){
     titleSortCount++;
     addNotesToDocument(sortedNotes);
   })
+
+
+
 }
 
 
