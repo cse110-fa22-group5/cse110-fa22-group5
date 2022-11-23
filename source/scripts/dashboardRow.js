@@ -52,7 +52,7 @@ class dashboardRow extends HTMLElement{
             <p class = "lastModified">${note.lastModified}</p>
         `;
         noteDiv.onclick = () => {
-            window.location.href = `./notes.html?id=${note.uuid}?preview=true`;
+            window.location.href = `./notes.html?id=${note.uuid}`;
         }
     }
 }   
