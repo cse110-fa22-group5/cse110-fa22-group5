@@ -7,31 +7,37 @@ class dashboardRow extends HTMLElement{
         let shadow = this.attachShadow({mode: 'open'});
         let note = document.createElement('div');
         note.setAttribute('class', 'note');
-
         const style = document.createElement('style');
         style.textContent = 
             `.note {
                 display: flex;
                 flex-direction: row;
                 font-family: sans-serif;
+                justify-content: space-between;
                 margin: 1px;
                 padding: 10px 30px;
-                justify-content: space-between;
                 background: #9867C5;
-                filter: drop-shadow(10px black);
-            }
-            p {
-                color: white;
-                font-family: 'Poppins', sans-serif;
                 
             }
-            .title:hover {
-                color: #D6CDF2;
-                cursor: pointer;
+            
+            .note > p {
+                color: white;
+                font-family: 'Poppins', sans-serif;
             }
+            
+           .note:hover {
+                cursor: pointer;    
+                filter: drop-shadow(0px 0px 10px black);
+                outline: 1px black;
+            }
+            
+
         `;
+        
         shadow.append(style);
         shadow.append(note);
+        
+        
     }
 
     /**
@@ -45,6 +51,9 @@ class dashboardRow extends HTMLElement{
             <p class = "title">${note.title}</p>
             <p class = "lastModified">${note.lastModified}</p>
         `;
+        noteDiv.onclick = () => {
+            window.location.href = `./notes.html?id=${note.uuid}?preview=true`;
+        }
     }
 }   
 
