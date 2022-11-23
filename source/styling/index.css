@@ -7,7 +7,6 @@ html, body {
 }
 
 body {
-    overscroll-behavior: none;
     background: linear-gradient( #221C35 30.73%, rgba(75, 54, 95, 0) 91.67%), #4B365F;
     background-repeat: no-repeat;
     display: flex;
