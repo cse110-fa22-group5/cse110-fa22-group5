@@ -31,7 +31,9 @@ function addNotesToDocument(notes) {
         row.note = note;
         dashboard.appendChild(row);
         row.shadowRoot.querySelector('.title').addEventListener('click', async event => {
+
             window.location.href = `./notes.html?id=${note.uuid}?preview=true`;
+
         }); 
     });
 }
@@ -92,6 +94,7 @@ async function initEventHandler(){
   const notes = await getNotesFromStorage(db);
   //navigate to note page in order for the user to write note
   button.addEventListener('click', async event => {
+
     window.location.href = `./notes.html`;
   })
 

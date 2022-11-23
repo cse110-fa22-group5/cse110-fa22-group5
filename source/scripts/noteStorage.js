@@ -116,12 +116,12 @@ export function saveNoteToStorage(db, note) {
  * @param {*} note The note object to delete.
  * @returns Promise<void>
  */
-function deleteNoteFromStorage(db, note) {
+export function deleteNoteFromStorage(db, note) {
     return new Promise((resolve, reject) => {
         const objectStore = db.transaction(OBJECT_STORE_NAME, 'readwrite').objectStore(OBJECT_STORE_NAME);
         const deleteNoteRequest = objectStore.delete(note.uuid);
         deleteNoteRequest.onsuccess = (event) => {
-            console.log(`Successfully deleted note with uuid ${saveNoteRequest.result}`);
+            console.log(`Successfully deleted note with uuid ${deleteNoteRequest.result}`);
             resolve();
         }
         deleteNoteRequest.onerror = (event) => {
