@@ -17,11 +17,6 @@ async function init() {
         id = urlArray[1];
         preview = true;
     }
-    //if preview is set to true in url
-    /* if (urlArray.length == 3) {
-        id = urlArray[1].split('?')[0];
-        preview = true;
-    } */
     //if id doesn't exist meaning it's a new note, only edit mode
     if (!id){
         let noteObject = {
@@ -39,10 +34,6 @@ async function init() {
         addNotesToDocument(note, !preview);
         addEditToggle(preview, parseInt(id),db);
     }
-    /* //show save button in edit mode
-    if (!preview) {
-        addNewNoteButtons(parseInt(id), db);
-    } */
 }
 
 /**
@@ -88,7 +79,6 @@ function addEditToggle(preview, id, db){
             editButton.innerHTML = 'View';
             addNewNoteButtons(parseInt(id), db);
         }
-        
     })
     
 
@@ -106,7 +96,6 @@ function addNewNoteButtons(id, db) {
     saveButton.innerHTML = 'Save';
     let buttonSection = document.querySelector('#option-button');
     buttonSection.appendChild(saveButton);
-
     // add event listener to save button
     saveButton.addEventListener('click', () => {
         let title = document.querySelector('#title-input').value;
@@ -149,7 +138,6 @@ async function addNotesToDocument(note, editable) {
     titleInput.value = note.title;
     lastModified.innerHTML = `${note.lastModified}`;
     content.value = `${note.content}`;
-
     // disable editing pages if in view only mode
     if (!editable) {
         //make input field uneditable
