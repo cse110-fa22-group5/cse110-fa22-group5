@@ -74,7 +74,7 @@ function sortNotesByTime(notes, sortType) {
  * @description Return the notes that match the query string. Case insensitive.
  * @param {Array<Object>} notes Array containing all the notes in local storage
  * @param {String} query The search string to filter the notes on
- * @returns 
+ * @returns filtered notes array
  */
 function filterNotesByQuery(notes, query) {
   query = query.toLowerCase();
