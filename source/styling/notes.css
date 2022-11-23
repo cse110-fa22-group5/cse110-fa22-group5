@@ -22,7 +22,6 @@ header {
     width: 90%;
     display: flex;
     flex-direction: column;
-    align-items: left;
 }
 
 #subheader {
