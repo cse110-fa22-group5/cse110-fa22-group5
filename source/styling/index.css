@@ -1,9 +1,18 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+html, body {
+    height: 100%;
+}
+
 body {
     background: linear-gradient( #221C35 30.73%, rgba(75, 54, 95, 0) 91.67%), #4B365F;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0;
 }
 
 .header {
@@ -12,13 +21,17 @@ body {
     align-items: center;
     justify-content: space-between;
     width: 80%;
-    margin: 0;
+    margin: 1rem;
 
 }
 
+.controlPanel {
+    display: flex;
+    align-items: center;
+}
+
 button {
-    padding: 10px 15px;
-    font-family: 'Poppins', sans-serif;
+    padding: 10px 15px 10px 15px;
     font-size: 1.5em;
     color: black;
     background-color: #D6CDF2;
@@ -44,18 +57,30 @@ h1 {
     line-height: 48px;
     letter-spacing: 0em;
 }
+
 .title:hover{
     cursor: pointer;
 }
+
 main {
     display: flex;
     width: 80%;
     flex-direction: column;
     align-self: center;
-    margin: 50px;
+}
+
+.dashboard {
+    height: 100%;
+    overflow: auto;
+    margin-bottom: 1.5rem;
+}
+
+.dashboardItems {
+    overflow: auto;
 }
 
 .columnTitle {
+    position: sticky;
     display: flex;
     flex-direction: row;
     font-family: sans-serif;
@@ -63,10 +88,18 @@ main {
     padding: 10px 30px;
     justify-content: space-between;
     background: #47216c;
-    filter: drop-shadow(0px 0px 10px black);
+    filter: drop-shadow(0px 0px 5px black);
 }
 
-.columnTitle > p:hover {
+.titleColHeader {
+    padding-right: 10px;
+}
+
+.timeColHeader {
+    padding-left: 10px;
+}
+
+.titleCol:hover, .timeCol:hover {
     color: #D6CDF2;
     cursor: pointer;    
 }
@@ -74,5 +107,46 @@ main {
 p {
     color: white;
     font-family: 'Poppins', sans-serif;
-    
+}
+
+.titleCol, .timeCol {
+    display: flex;
+    align-items: center;
+}
+
+.titleColSortOrder, .timeColSortOrder {
+    display: none;
+}
+
+.titleColSortOrder[direction="asc"], .timeColSortOrder[direction="asc"] {
+    display: initial;
+}
+
+.titleColSortOrder[direction="desc"], .timeColSortOrder[direction="desc"] {
+    display: initial;
+    transform: rotate(180deg);
+}
+
+.searchBarDiv {
+    margin-right: 2rem;
+    display: flex;
+    height: 36px;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 0.5rem;
+}
+
+.searchIcon {
+    padding: 0.5rem;
+}
+.searchBar {
+    border: none;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.searchBar:focus {
+    border: none;
+    outline: none;
 }

@@ -14,6 +14,7 @@ class dashboardRow extends HTMLElement{
             `.note {
                 position: relative;
                 z-index: 1;
+
                 display: flex;
                 flex-direction: row;
                 font-family: sans-serif;
@@ -23,7 +24,6 @@ class dashboardRow extends HTMLElement{
                 // padding: 10px 30px;
                 padding: 10px;
                 background: #9867C5;
-                filter: drop-shadow(10px black);
                 
             }
             button { 
@@ -125,6 +125,7 @@ class dashboardRow extends HTMLElement{
                 border-style: none;
                 margin-top: 2.3ex;
                 // margin-left: 20px;
+
             }
             // .note > div > button:hover {
             //     img.src = '../source/images/bin.jpg';
@@ -156,15 +157,10 @@ class dashboardRow extends HTMLElement{
                 <button><img src=''></button>
             </div>
         `;
-        let button = shadow.querySelector('.note > div > button');
-        // button.innerHTML = `
-        //     <i class="fa fa-trash" aria-hidden="true"></i>
-        // `;
-        button.addEventListener('click', async ()=>{
-            const db = await initializeDB(indexedDB);
-            deleteNoteFromStorage(db, note);
-            location.reload();
-        })
+
+        noteDiv.onclick = () => {
+            window.location.href = `./notes.html?id=${note.uuid}?preview=true`;
+        }
     }
 }   
 
