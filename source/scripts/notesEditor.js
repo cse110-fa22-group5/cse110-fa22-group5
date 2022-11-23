@@ -72,6 +72,9 @@ function addEditToggle(preview, id, db){
         await addNotesToDocument(note, !preview);
         if (preview) {
             editButton.innerHTML = 'Edit';
+            //delete save button
+            let saveButton = document.querySelector('.save-button');
+            saveButton.remove();    
         } else {
             editButton.innerHTML = 'View';
             addNewNoteButtons(parseInt(id), db);
