@@ -31,7 +31,7 @@ function addNotesToDocument(notes) {
         row.note = note;
         dashboard.appendChild(row);
         row.shadowRoot.querySelector('.title').addEventListener('click', async event => {
-            window.location.href = `./notes.html?id=${note.uuid}`;
+            window.location.href = `./notes.html?id=${note.uuid}?preview=true`;
         }); 
     });
 }
@@ -84,19 +84,7 @@ async function initEventHandler(){
   const notes = await getNotesFromStorage(db);
   //navigate to note page in order for the user to write note
   button.addEventListener('click', async event => {
-    let noteObject = {
-      "title": "Midterm Prep 1",
-      "lastModified": "11/20/2022",
-      "content": "hiiiii", 
-      "uuid": 1,
-    };
-
-    // Add notes to storage
-    
-    saveNoteToStorage(db, noteObject);
-    addNotesToDocument(await getNotesFromStorage(db));
-
-    // window.location.href = `./notes/notes.html`;
+    window.location.href = `./notes.html`;
   })
 
   // sort the notes to display in dashboard by last modified date
