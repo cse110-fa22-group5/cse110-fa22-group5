@@ -79,7 +79,7 @@ class dashboardRow extends HTMLElement{
             }
 
             .note:hover div > button:hover {
-                filter: drop-shadow(0px 0px 5px black);
+                filter: drop-shadow(0px 0px 5px white);
             }
            .note:hover > div {
                 // position: relative;
