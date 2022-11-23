@@ -57,10 +57,10 @@ class dashboardRow extends HTMLElement{
                 //     height: auto;
                 // }
                 // grid-column-start: 2;
-                grid-area: b;
+                grid-area: a;
                 cursor: pointer;   
-                height: 3em;
-                width: 2.5em; 
+                height: 1.2em;
+                width: 1em; 
                 // margin-top: 1.2ex
                 // border-style: none;
                 
@@ -89,13 +89,14 @@ class dashboardRow extends HTMLElement{
 
             // .note:hover > div > button {
             //     grid-column-start: 2;
-            //     grid-area: b;
+            //     grid-area: a;
             //     // grid-column-end: 3;
             // }
 
             .note:hover > div > p {
                 // grid-column-start: 2;
-                grid-area: a;
+                grid-area: b;
+                margin-left: 10px;
                 // grid-column-end: 3;
             }
 
@@ -112,7 +113,7 @@ class dashboardRow extends HTMLElement{
             //     background: transparent;
             //     border-color: transparent;
                 border-style: none;
-                margin-top: 1.2ex
+                margin-top: 2.8ex
             }
             // .note > div > button:hover {
             //     img.src = '../source/images/bin.jpg';
