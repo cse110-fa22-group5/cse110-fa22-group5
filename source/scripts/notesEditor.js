@@ -72,9 +72,6 @@ function addEditToggle(preview, id, db){
         await addNotesToDocument(note, !preview);
         if (preview) {
             editButton.innerHTML = 'Edit';
-            if(document.querySelector('.button-button')){
-                document.querySelector('.button-button').remove();
-            }
         } else {
             editButton.innerHTML = 'View';
             addNewNoteButtons(parseInt(id), db);
@@ -91,11 +88,14 @@ function addEditToggle(preview, id, db){
  */
 function addNewNoteButtons(id, db) {
     // create a save button
-    let saveButton = document.createElement('button');
-    saveButton.setAttribute('class', 'button-button');
-    saveButton.innerHTML = 'Save';
-    let buttonSection = document.querySelector('#option-button');
-    buttonSection.appendChild(saveButton);
+    let saveButton =document.querySelector('.save-button')
+    if(!saveButton){
+        saveButton = document.createElement('button');
+        saveButton.setAttribute('class', 'save-button');
+        saveButton.innerHTML = 'Save';
+        let buttonSection = document.querySelector('#option-button');
+        buttonSection.appendChild(saveButton);
+    }
     // add event listener to save button
     saveButton.addEventListener('click', () => {
         let title = document.querySelector('#title-input').value;
