@@ -61,7 +61,7 @@ function sortNotesByTime(notes, sortType) {
  * @description sort the notes by title
  * @param {Array<Object>} notes containing all the notes in the local storage
  * @param {String} sortType the type of sort, either ascending or descending
- * @returns sortedNotes
+ * @returns sortedNotes hello
  */
  function sortNotesByTitle(notes, sortType) {
   return notes.sort((note1, note2) => {
