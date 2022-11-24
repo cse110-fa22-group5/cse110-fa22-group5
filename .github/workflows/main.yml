@@ -38,9 +38,7 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./jsdocs
-        publish_branch: jsDocs
-        destination_dir: ./jsdocs
+        publish_dir: ./
 
 #     - name: Build jsDocs
 #       run: ./node_modules/jsdoc/jsdoc.js ./source -r -d ./jsdocs
