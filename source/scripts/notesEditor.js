@@ -11,11 +11,9 @@ async function init() {
     let url = window.location.href;
     let urlArray = url.split('=');
     let id;
-    let preview = false;
     //if preview is not set to true in url
     if(urlArray.length == 2){
         id = urlArray[1];
-        preview = true;
     }
     //if id doesn't exist meaning it's a new note, only edit mode
     if (!id){
@@ -30,9 +28,8 @@ async function init() {
     //if id exists meaning it's an existing note, pass preview to toggle edit/view button
     else {
         let note = await getNoteFromStorage(db, parseInt(id));
-        await addNotesToDocument(note, !preview);
-        addNotesToDocument(note, !preview);
-        addEditToggle(preview, parseInt(id),db);
+        await addNotesToDocument(note, false);
+        addEditToggle(parseInt(id),db);
     }
 }
 
@@ -53,23 +50,17 @@ function getDate(){
  * @param {boolean} preview true if user is in view only mode or not
  * @param {Integer} id unique uuid of current note
  */
-function addEditToggle(preview, id, db){
+function addEditToggle(id, db){
+    let preview = true;
     let editButton = document.createElement('button');
     editButton.setAttribute('class', 'edit-button');
-    console.log(editButton);
     // add edit button
     let buttonSection = document.querySelector('#option-button');
-    if (preview) {
-        editButton.innerHTML = 'Edit';
-    } else {
-        editButton.innerHTML = 'View';
-        addNewNoteButtons(parseInt(id), db);
-    }
+    editButton.innerHTML = 'Edit';
     buttonSection.appendChild(editButton);
     editButton.addEventListener('click', async () => {
         preview = !preview;
-        let note = await getNoteFromStorage(db, parseInt(id));
-        await addNotesToDocument(note, !preview);
+        switchEditable(!preview);
         if (preview) {
             editButton.innerHTML = 'Edit';
             //delete save button
@@ -91,14 +82,12 @@ function addEditToggle(preview, id, db){
  */
 function addNewNoteButtons(id, db) {
     // create a save button
-    let saveButton =document.querySelector('.save-button')
-    if(!saveButton){
-        saveButton = document.createElement('button');
+    let saveButton = document.createElement('button');
         saveButton.setAttribute('class', 'save-button');
         saveButton.innerHTML = 'Save';
         let buttonSection = document.querySelector('#option-button');
         buttonSection.appendChild(saveButton);
-    }
+    
     // add event listener to save button
     saveButton.addEventListener('click', () => {
         let title = document.querySelector('#title-input').value;
@@ -142,6 +131,16 @@ async function addNotesToDocument(note, editable) {
     lastModified.innerHTML = `${note.lastModified}`;
     content.value = `${note.content}`;
     // disable editing pages if in view only mode
+    await switchEditable(editable);
+}
+
+/**
+ * @description disable editing if in view only mode
+ * @param {*} editable false if user is in view only mode
+ */
+async function switchEditable(editable) {
+    let content = document.querySelector('#notes-content-input');
+    let titleInput = document.querySelector('#title-input');
     if (!editable) {
         //make input field uneditable
         titleInput.setAttribute('disabled', 'true');
