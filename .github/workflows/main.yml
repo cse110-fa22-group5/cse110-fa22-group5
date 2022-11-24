@@ -33,11 +33,11 @@ jobs:
     #     name: jsdocs
     #     path: ./jsdocs
       
-    # - name: Deploy
-    #   uses: peaceiris/actions-gh-pages@v3
-    #   with:
-    #     deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-    #     publish_dir: ./jsdocs
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        publish_dir: ./jsdocs
 
     - name: HTML5 Validator
       uses: Cyb3r-Jak3/html5validator-action@v7.2.0
