@@ -27,8 +27,21 @@ jobs:
 #         template: minami
 #         front_page: README.md
 
-    - name: Build jsDocs
-      run: ./node_modules/jsdoc/jsdoc.js ./source -r -d ./jsdocs
+    - name: Generate jsDocs
+      uses: andstor/jsdoc-action@v1
+      with:
+        source_dir:  ./source/scripts
+        recurse: true
+        output_dir:  ./jsdocs
+        
+    - name: Deploy jsDocs
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./jsdocs
+
+#     - name: Build jsDocs
+#       run: ./node_modules/jsdoc/jsdoc.js ./source -r -d ./jsdocs
 
     # - name: Upload artifact from jsdoc generation
     #   uses: actions/upload-artifact@v2
