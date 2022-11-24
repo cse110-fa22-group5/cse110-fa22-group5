@@ -18,14 +18,17 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build jsDocs 
-      uses: andstor/jsdoc-action@v1.2.1
-      with:
-        source_dir: ./source/scripts
-        recurse: true
-        output_dir: ./jsdocs
-        template: minami
-        front_page: README.md
+#     - name: Build jsDocs 
+#       uses: andstor/jsdoc-action@v1.2.1
+#       with:
+#         source_dir: ./source/scripts
+#         recurse: true
+#         output_dir: ./jsdocs
+#         template: minami
+#         front_page: README.md
+
+    - name: Build jsDocs
+      run: ./node_modules/jsdoc/jsdoc.js ./source -r -d ./jsdocs
 
     # - name: Upload artifact from jsdoc generation
     #   uses: actions/upload-artifact@v2
