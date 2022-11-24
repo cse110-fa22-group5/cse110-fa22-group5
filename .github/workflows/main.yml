@@ -39,6 +39,7 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./jsdocs
+        publish_branch: jsDocs
         destination_dir: ./jsdocs
 
 #     - name: Build jsDocs
