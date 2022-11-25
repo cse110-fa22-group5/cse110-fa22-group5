@@ -102,3 +102,29 @@ describe('Basic user flow for Website', () => {
     }, 2500);
 
   });
+
+  /**
+     * Check to make sure the back button direct to dashboard
+     */
+   it('Check to make sure the back button direct to dashboard', async () => {
+      
+    console.log('Checking "back...');
+    const newButton = await page.$('#back-button');
+    await newButton.click();
+    await page.waitForNavigation(); 
+    expect(page.url()).toBe('https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/index.html');
+
+  }, 2500);
+
+  /**
+     *  Check if there have 1 note objects created
+     */
+   it('Check if there have 1 note objects created', async () => {
+
+    console.log('Checking for 1 Note objects...');
+    const numNotes = await page.$$eval('dashboard-row', (noteItems) => {
+      return noteItems.length;
+    });
+    expect(numNotes).toBe(1);
+
+  });
