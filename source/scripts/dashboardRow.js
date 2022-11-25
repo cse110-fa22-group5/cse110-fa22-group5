@@ -86,7 +86,7 @@ class dashboardRow extends HTMLElement{
             location.reload();
         })
         noteDiv.onclick = () => {
-            window.location.href = `./notes.html?id=${note.uuid}?preview=true`;
+            window.location.href = `./notes.html?id=${note.uuid}`;
         }
     }
 }   
