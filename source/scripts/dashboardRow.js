@@ -16,6 +16,7 @@ class dashboardRow extends HTMLElement{
                 flex-direction: row;
                 font-family: sans-serif;
                 justify-content: space-between;
+                // width: 100%;
                 margin: 1px;
                 padding: 10px 30px 10px 30px;
                 background: #9867C5;

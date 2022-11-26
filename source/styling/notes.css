@@ -9,6 +9,7 @@ body {
 
 /*Back Button*/
 a {
+    color:#7658b1;
     font-size: 3vw;
     margin: 5px;
 }
@@ -31,23 +32,38 @@ header {
     justify-content: space-between;
 }
 
+
 #notes-info {
     display: flex;
     flex-direction: column;
 }
 
-#notes-title, #notes-last-modified {
-    background-color: white;
+/* Title Input */
+#notes-title > #title-input {
+    color: rgb(245, 240, 249);
+    padding: 3px;
+    border-radius: 3px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 4vh;
+    max-width: 60%;
+    border-color: rgba(136, 86, 174, 0.388);
+    background-color:transparent;/*hsl(270, 16%, 27%);*/
+}
+#notes-title, #notes-last-modified  {
     padding: 5px 100px 5px 5px;
-    font-size: 20px;
+    font-size: 3vh;
     font-family: 'Poppins', sans-serif;
     font-weight: bolder;
-    color: #221C35;
+    color: white;
     filter: drop-shadow(0px 0px 5px black);
-    background: linear-gradient( white 30.73%, rgba(75, 54, 95, 0) 91.67%), #D6CDF2;
+    background: transparent; /*linear-gradient( white 30.73%, rgba(75, 54, 95, 0) 91.67%), #D6CDF2;*/
     margin-bottom: 20px;
 }
 
+#notes-title { 
+    color: white;
+    font-size: 4vh;
+}
 /*Save Button*/
 button {
     font-family: 'Poppins', sans-serif;
@@ -65,7 +81,7 @@ button {
 }
 
 button:hover {
-    background-color: #B8B0D9;
+    filter: drop-shadow(0px 0px 5px rgb(196, 195, 195));
     cursor: pointer;
 }
 
@@ -82,8 +98,8 @@ textarea {
     overflow-y: scroll;
     padding: 20px;
     font-family: 'Poppins', sans-serif;
-    font-size: 1vw;
+    font-size: 1.5vw;
     color: #221C35;
-    background: linear-gradient( white 30.73%, rgba(75, 54, 95, 0) 91.67%), #D6CDF2;
-    border-radius: 10px;
+    background: linear-gradient( rgba(255, 255, 255, 0.523) 30.73%, rgba(237, 205, 252, 0.393) 91.67%), #c99df3;
+    border-radius: 3px;
 }
