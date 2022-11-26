@@ -127,4 +127,25 @@ describe('Basic user flow for Website', () => {
     });
     expect(numNotes).toBe(1);
 
-  });
+  }, 2500);
+
+   /**
+     *  Check if delete button work
+     */
+    it('Check if delete button work', async () => {
+
+      console.log('Checking for delete...');
+      page.hover('dashboard-row');
+      const row = await page.$('dashboard-row');
+      const shadow = await row.getProperty('shadowRoot');
+      const button = await shadow.$('.note > div > button');
+      button.click();
+      await page.waitForNavigation(); 
+
+      // there should be not item left
+      const numNotes = await page.$$eval('dashboard-row', (noteItems) => {
+        return noteItems.length;
+      });
+      expect(numNotes).toBe(0);
+
+    }, 100000);
