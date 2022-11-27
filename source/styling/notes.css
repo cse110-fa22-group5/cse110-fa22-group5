@@ -2,6 +2,7 @@
 body {
     background: linear-gradient( #221C35 30.73%, rgba(75, 54, 95, 0) 91.67%), #4B365F;
     background-repeat: no-repeat;
+    max-width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,7 +14,10 @@ a {
     font-size: 3vw;
     margin: 5px;
 }
-
+a:hover {
+    color: #9867C5;
+    transition: color 0.2s ease-in-out;
+}
 a:active {
     color: #D6CDF2
 }
@@ -47,7 +51,7 @@ header {
     font-size: 4vh;
     max-width: 60%;
     border-color: rgba(136, 86, 174, 0.388);
-    background-color:transparent;/*hsl(270, 16%, 27%);*/
+    background-color:rgba(30, 8, 74, 0.237);/*hsl(270, 16%, 27%);*/
 }
 #notes-title, #notes-last-modified  {
     padding: 5px 100px 5px 5px;
@@ -81,7 +85,8 @@ button {
 }
 
 button:hover {
-    filter: drop-shadow(0px 0px 5px rgb(196, 195, 195));
+    background-color: #9867C5;
+    transition: background-color 0.25s ease-in-out;
     cursor: pointer;
 }
 
@@ -100,6 +105,6 @@ textarea {
     font-family: 'Poppins', sans-serif;
     font-size: 1.5vw;
     color: #221C35;
-    background: linear-gradient( rgba(255, 255, 255, 0.523) 30.73%, rgba(237, 205, 252, 0.393) 91.67%), #c99df3;
+    background: linear-gradient( rgba(255, 255, 255, 0.575) 30.73%, rgba(237, 205, 252, 0.393) 70.67%), #c99df3;
     border-radius: 3px;
 }

@@ -3,7 +3,14 @@ import { initializeDB, saveNoteToStorage, getNotesFromStorage, getNoteFromStorag
 window.addEventListener('DOMContentLoaded', init);
 
 /**
- * @description call all the functions after the DOM is loaded
+ * @description call all the functions after the DOM is loaded, initialize our indexedDB for user notes storage,
+ * get notes from storage or add notes to the page, and create our Edit and Save buttons for our note input page.
+ * 
+ * We check if a note id exists, to indicate whether it is an existing or new note.
+ * 
+ * We check whether the preview of the window url is set to true, to represent if the user is in view mode or edit
+ * mode for a given note.  
+ *  
  */
 async function init() {
     const db = await initializeDB(indexedDB);
@@ -25,54 +32,52 @@ async function init() {
         await addNotesToDocument(noteObject, true);
         addNewNoteButtons(parseInt(id), db);
     } 
-    //if id exists meaning it's an existing note, pass preview to toggle edit/view button
+    //if id exists meaning it's an existing note, pass preview to enable edit mode button
     else {
         let note = await getNoteFromStorage(db, parseInt(id));
-        await addNotesToDocument(note, false);
-        addEditToggle(parseInt(id),db);
+        await addNotesToDocument(note, !preview);
+        addEditButton(preview, parseInt(id));
+    }
+    //show save button in edit mode
+    if (!preview) {
+        saveNoteButton(parseInt(id), db);
     }
 }
 
 /**
- * @description get the current date
- * @returns {string} current date in format of mm/dd/yyyy
+ * @description get the current date and time for the dashboard 
+ * @returns {string} current date in format of mm/dd/yyyy XX:XX XM
  */
 function getDate(){
     let date = new Date();
     let month = date.getMonth() + 1;
     let day = date.getDate();
     let year = date.getFullYear();
-    return `${month}/${day}/${year}`;
+    let time = date.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+    return `${month}/${day}/${year} &nbsp ${time}`;
 }
 
 /**
- * @description append the edit or view button to the page
+ * @description append the edit button to the page to enable note edit mode
  * @param {boolean} preview true if user is in view only mode or not
  * @param {Integer} id unique uuid of current note
  */
-function addEditToggle(id, db){
-    let preview = true;
+function addEditButton(preview, id){
+    if (preview) {
     let editButton = document.createElement('button');
     editButton.setAttribute('class', 'edit-button');
     // add edit button
     let buttonSection = document.querySelector('#option-button');
     editButton.innerHTML = 'Edit';
     buttonSection.appendChild(editButton);
-    editButton.addEventListener('click', async () => {
-        preview = !preview;
-        switchEditable(!preview);
-        if (preview) {
-            editButton.innerHTML = 'Edit';
-            //delete save button
-            let saveButton = document.querySelector('.save-button');
-            saveButton.remove();    
-        } else {
-            editButton.innerHTML = 'View';
-            addNewNoteButtons(parseInt(id), db);
-        }
+    editButton.addEventListener('click', () => {
+        window.location.href = `./notes.html?id=${id}`;
     })
     
-
+    }
 }
 
 /**
@@ -80,7 +85,7 @@ function addEditToggle(id, db){
  * @param {Integer} id unique uuid of current note
  * @param {*} db The initialized indexedDB object.
  */
-function addNewNoteButtons(id, db) {
+function saveNoteButton(id, db) {
     // create a save button
     let saveButton = document.createElement('button');
         saveButton.setAttribute('class', 'save-button');
@@ -98,14 +103,19 @@ function addNewNoteButtons(id, db) {
             "lastModified": lastModified,
             "content": content,
         };
+        // if the note id exists, update the current noteObject id
         if (id) {
             noteObject.uuid = id;
-        }
+        } 
+        // save this noteObject to storage, new id formed for non existing note
         saveNoteToStorage(db, noteObject);
         if (!id) {
+            // update the window for user feedback of saved note
             getNotesFromStorage(db).then(res => {
-                window.location.href = `./notes.html?id=${res[res.length - 1].uuid}`;
+                window.location.href = `./notes.html?id=${res[res.length - 1].uuid}$preview=true`;
             })
+        } else {
+            window.location.href = `./notes.html?id=${noteObject.uuid}$preview=true`;
         }
     });
 }
@@ -142,10 +152,16 @@ async function switchEditable(editable) {
     let content = document.querySelector('#notes-content-input');
     let titleInput = document.querySelector('#title-input');
     if (!editable) {
-        //make input field uneditable
-        titleInput.setAttribute('disabled', 'true');
-        //make content textarea uneditable
-        content.setAttribute('readonly', 'readonly');
+        // make input field uneditable
+        title.innerHTML = titleInput.value;
+        titleInput.setAttribute('hidden', 'true');
+       
+        lastModified.style.width = 'auto';
+        lastModified.style.textAlign = 'center';
+        // make content textarea uneditable
+        content.setAttribute('disabled','disabled');
+        // change background color of read/view only mode for user recognition
+        content.style.background = 'linear-gradient(-90deg, #7658b1,#D6CDF2)';
     } 
     else{
         titleInput.removeAttribute('disabled');
