@@ -14,7 +14,10 @@ a {
     font-size: 3vw;
     margin: 5px;
 }
-
+a:hover {
+    color: #9867C5;
+    transition: color 0.2s ease-in-out;
+}
 a:active {
     color: #D6CDF2
 }
@@ -48,7 +51,7 @@ header {
     font-size: 4vh;
     max-width: 60%;
     border-color: rgba(136, 86, 174, 0.388);
-    background-color:transparent;/*hsl(270, 16%, 27%);*/
+    background-color:rgba(30, 8, 74, 0.237);/*hsl(270, 16%, 27%);*/
 }
 #notes-title, #notes-last-modified  {
     padding: 5px 100px 5px 5px;
