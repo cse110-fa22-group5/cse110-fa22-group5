@@ -151,10 +151,12 @@ async function addNotesToDocument(note, editable) {
     if (!editable) {
         // make input field uneditable
         title.innerHTML = titleInput.value;
+        title.style.pointerEvents = 'none';
         titleInput.setAttribute('hidden', 'true');
        
         lastModified.style.width = 'auto';
         lastModified.style.textAlign = 'center';
+        lastModified.style.pointerEvents = 'none';
         // make content textarea uneditable
         content.setAttribute('disabled','disabled');
         // change background color of read/view only mode for user recognition
