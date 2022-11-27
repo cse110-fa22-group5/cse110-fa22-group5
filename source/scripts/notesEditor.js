@@ -18,15 +18,9 @@ async function init() {
     let url = window.location.href;
     let urlArray = url.split('=');
     let id;
-    let preview = false;
     //if preview is not set to true in url
     if(urlArray.length == 2){
         id = urlArray[1];
-    }
-    //if preview is set to true in url
-    if (urlArray.length == 3) {
-        id = urlArray[1].split('?')[0];
-        preview = true;
     }
     //if id doesn't exist meaning it's a new note, only edit mode
     if (!id){
@@ -36,6 +30,7 @@ async function init() {
             "content": "", 
         };
         await addNotesToDocument(noteObject, true);
+        addNewNoteButtons(parseInt(id), db);
     } 
     //if id exists meaning it's an existing note, pass preview to enable edit mode button
     else {
@@ -74,7 +69,6 @@ function addEditButton(preview, id){
     if (preview) {
     let editButton = document.createElement('button');
     editButton.setAttribute('class', 'edit-button');
-    console.log(editButton);
     // add edit button
     let buttonSection = document.querySelector('#option-button');
     editButton.innerHTML = 'Edit';
@@ -94,11 +88,11 @@ function addEditButton(preview, id){
 function saveNoteButton(id, db) {
     // create a save button
     let saveButton = document.createElement('button');
-    saveButton.setAttribute('class', 'button-button');
-    saveButton.innerHTML = 'Save';
-    let buttonSection = document.querySelector('#option-button');
-    buttonSection.appendChild(saveButton);
-
+        saveButton.setAttribute('class', 'save-button');
+        saveButton.innerHTML = 'Save';
+        let buttonSection = document.querySelector('#option-button');
+        buttonSection.appendChild(saveButton);
+    
     // add event listener to save button
     saveButton.addEventListener('click', () => {
         let title = document.querySelector('#title-input').value;
@@ -137,17 +131,26 @@ async function addNotesToDocument(note, editable) {
     let title = document.querySelector('#notes-title');
     let lastModified = document.querySelector('#notes-last-modified')
     let content = document.querySelector('#notes-content-input');
-
+    //empty the html items
     // populate html with notes data
     title.innerHTML = `<label for="title-input">Title:</label>
         <input type="text" id="title-input" name="title-input">
         `;
     let titleInput = document.querySelector('#title-input');
     titleInput.value = note.title;
-    lastModified.innerHTML += `${note.lastModified}`;
-    content.value += `${note.content}`;
+    lastModified.innerHTML = `${note.lastModified}`;
+    content.value = `${note.content}`;
+    // disable editing pages if in view only mode
+    await switchEditable(editable);
+}
 
-    // disable editing priveleges if in view only mode
+/**
+ * @description disable editing if in view only mode
+ * @param {*} editable false if user is in view only mode
+ */
+async function switchEditable(editable) {
+    let content = document.querySelector('#notes-content-input');
+    let titleInput = document.querySelector('#title-input');
     if (!editable) {
         // make input field uneditable
         title.innerHTML = titleInput.value;
@@ -162,4 +165,8 @@ async function addNotesToDocument(note, editable) {
         // change background color of read/view only mode for user recognition
         content.style.background = 'linear-gradient(-90deg, #7658b1,#D6CDF2)';
     } 
+    else{
+        titleInput.removeAttribute('disabled');
+        content.removeAttribute('readonly');
+    }
 }
