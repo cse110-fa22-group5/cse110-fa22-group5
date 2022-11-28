@@ -225,11 +225,12 @@ it('Click "Back" button to be redirected to the note Dashboard url', async () =>
     it('Check if delete button work', async () => {
 
       console.log('Checking for delete...');
-      page.hover('dashboard-row');
+      await page.hover('dashboard-row');
       const row = await page.$('dashboard-row');
       const shadow = await row.getProperty('shadowRoot');
       const button = await shadow.$('.note > div > button');
-      button.click();
+      
+      await button.click();
       await page.waitForNavigation(); 
 
       // there should be not item left
