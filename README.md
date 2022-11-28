@@ -1,5 +1,6 @@
 # cse110-fa22-group5
-## Short description of project: 
+## Short description of project: https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/index.html
+
 Personal note taking app that enables users to share their notes with other users while maintaining of their own notes.
 
 <br> 
