@@ -45,7 +45,7 @@ async function init() {
 
 /**
  * @description get the current date and time for the dashboard 
- * @returns {string} current date in format of mm/dd/yyyy XX:XX XM
+ * @returns {string} current date in format of mm/dd/yyyy at XX:XX XM
  */
 function getDate() {
     let date = new Date();
@@ -60,9 +60,8 @@ function getDate() {
 }
 
 /**
- * @description append the edit or view button to the page
- * @param {boolean} preview true if user is in view only mode or not
- * @param {Integer} id unique uuid of current note
+ * @description Initialize the button that toggles between edit and preview modes
+ * @param {boolean} editEnabled True if the note is initially in edit mode, false if in preview mode
  */
  function initEditToggle(editEnabled) {
     const editButton = document.querySelector('#change-view-button');
@@ -106,19 +105,28 @@ function initSaveButton(id, db) {
         }
         saveNoteToStorage(db, noteObject);
         if (!id) {
+            // Navigate to the saved note page if we're saving a brand new note
             getNotesFromStorage(db).then(res => {
                 window.location.href = `./notes.html?id=${res[res.length - 1].uuid}`;
             });
         }
+        // Switch to preview mode
         setEditable(false);
     });
 }
 
+/**
+ * @description Deletes the current note and returns to the dashboard.
+ * @param {Integer} id unique uuid of current note
+ * @param {*} db The initialized indexedDB object.
+ */
 function initDeleteButton(id, db) {
     const deleteButton = document.querySelector("#delete-button");
 
     deleteButton.addEventListener('click', () => {
         if (id) {
+            // Only do this if the id has already been saved; 
+            // otherwise return directly to the dashboard
             deleteNoteFromStorage(db, { uuid: id });
         }
         window.location.href = './index.html';
@@ -134,7 +142,7 @@ async function addNotesToDocument(note) {
     let title = document.querySelector('#notes-title');
     let lastModified = document.querySelector('#notes-last-modified')
     let content = document.querySelector('#edit-content');
-    //empty the html items
+    // empty the html items
     // populate html with notes data
     title.innerHTML = '<input type="text" id="title-input" name="title-input">';
     let titleInput = document.querySelector('#title-input');
@@ -144,8 +152,8 @@ async function addNotesToDocument(note) {
 }
 
 /**
- * @description disable editing if in view only mode
- * @param {*} editable false if user is in view only mode
+ * @description Switches between edit/view modes on the page
+ * @param {*} editable True for edit mode, false for preview mode
  */
 async function setEditable(editable) {
     let editContent = document.querySelector('#edit-content');
