@@ -222,7 +222,7 @@ it('Click "Back" button to be redirected to the note Dashboard url', async () =>
 
    /**
    *  Check that our local indexedDB database is populated with the current note
-   * */ 
+   * 
   
     it('Check that our local indexedDB database is populated with the current note', async () => {
 
@@ -238,7 +238,7 @@ it('Click "Back" button to be redirected to the note Dashboard url', async () =>
       console.log(localStorage);
       expect(localStorage).toEqual([]);
     }, 2500);
-
+*/
     /**
      *  Check if delete button work
      */
