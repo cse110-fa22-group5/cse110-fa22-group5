@@ -232,6 +232,32 @@ it('Click "Back" button to be redirected to the note Dashboard url', async () =>
     expect(numNotes).toBe(1);
 
   }, 2500);
+
+   /**
+   * Open an exist note
+   */
+    it('Open an exist note', async () => {
+
+      console.log('Checking for Opening an exist note...');
+      await page.click('dashboard-row');
+      // checking if in the view mode
+      var editTxtOff = await page.$eval('#edit-content', e => e.hidden);
+      var viewTxtOff = await page.$eval('#view-content', e => e.hidden);
+      expect(editTxtOff).toBe(true);
+      expect(viewTxtOff).toBe(false);
+
+      // checking if get the correct value
+      var titleText = await page.$eval('#title-input', e => e.value);
+      expect(titleText).toBe('Lecture 1 & Discussion: CSE 110');
+      var contentText = await page.$eval('#view-content', e => e.value);
+      expect(contentText).toBe('Lecture 1 CSE 110. Hello this is my first note! Adding discussion text');
+
+      // back to main page
+      const newButton = await page.$('#back-button');
+      await newButton.click();
+      await page.waitForNavigation(); 
+  
+    }, 10000);
   
     /**
      *  Check if delete button work
