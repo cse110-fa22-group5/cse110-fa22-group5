@@ -219,12 +219,25 @@ it('Click "Back" button to be redirected to the note Dashboard url', async () =>
 
   }, 2500);
 
-   /**
+    /**
      *  Check if delete button work
      */
     it('Check if delete button work', async () => {
 
       console.log('Checking for delete...');
-      // TO DO
-    }, 2500);
+      await page.hover('dashboard-row');
+      const row = await page.$('dashboard-row');
+      const shadow = await row.getProperty('shadowRoot');
+      const button = await shadow.$('.note > div > button');
+      
+      await button.click();
+      await page.waitForNavigation(); 
+
+      // there should be not item left
+      const numNotes = await page.$$eval('dashboard-row', (noteItems) => {
+        return noteItems.length;
+      });
+      expect(numNotes).toBe(0);
+
+    }, 10000);
   });
