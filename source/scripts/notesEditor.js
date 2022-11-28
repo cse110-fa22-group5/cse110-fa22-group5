@@ -110,7 +110,7 @@ function initSaveButton(id, db) {
                 window.location.href = `./notes.html?id=${res[res.length - 1].uuid}`;
             });
         }
-        // window.location.reload();
+        setEditable(false);
     });
 }
 
