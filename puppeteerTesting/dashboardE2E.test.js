@@ -249,7 +249,7 @@ it('Click "Back" button to be redirected to the note Dashboard url', async () =>
       // checking if get the correct value
       var titleText = await page.$eval('#title-input', e => e.value);
       expect(titleText).toBe('Lecture 1 & Discussion: CSE 110');
-      var contentText = await page.$eval('#view-content', e => e.value);
+      var contentText = await page.$eval('#edit-content', e => e.value);
       expect(contentText).toBe('Lecture 1 CSE 110. Hello this is my first note! Adding discussion text');
 
       // back to main page
