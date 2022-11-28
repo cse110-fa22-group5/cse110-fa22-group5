@@ -90,7 +90,7 @@ function getDate() {
  */
 function initSaveButton(id, db) {
     const saveButton = document.querySelector("#save-button");
-    
+
     // add event listener to save button
     saveButton.addEventListener('click', () => {
         let title = document.querySelector('#title-input').value;
@@ -155,7 +155,7 @@ async function setEditable(editable) {
         viewContent.innerHTML = markdown(editContent.value);
         viewContent.hidden = false;
         editContent.hidden = true;
-        titleInput.removeAttribute('edit')
+        titleInput.setAttribute('disabled', true);
     } else {
         editContent.hidden = false;
         viewContent.hidden = true;
