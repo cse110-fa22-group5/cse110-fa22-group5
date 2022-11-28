@@ -1,4 +1,5 @@
-import { initializeDB, saveNoteToStorage, getNotesFromStorage, getNoteFromStorage } from "./noteStorage.js";
+import { initializeDB, saveNoteToStorage, getNotesFromStorage, getNoteFromStorage, deleteNoteFromStorage } from "./noteStorage.js";
+import { markdown } from "./markdown.js";
 
 window.addEventListener('DOMContentLoaded', init);
 
@@ -18,42 +19,35 @@ async function init() {
     let url = window.location.href;
     let urlArray = url.split('=');
     let id;
-    let preview = false;
     //if preview is not set to true in url
-    if(urlArray.length == 2){
+    if (urlArray.length == 2) {
         id = urlArray[1];
     }
-    //if preview is set to true in url
-    if (urlArray.length == 3) {
-        id = urlArray[1].split('?')[0];
-        preview = true;
-    }
     //if id doesn't exist meaning it's a new note, only edit mode
-    if (!id){
+    if (!id) {
         let noteObject = {
             "title": "Untitled Note",
             "lastModified": `${getDate()}`,
             "content": "", 
         };
-        await addNotesToDocument(noteObject, true);
-    } 
-    //if id exists meaning it's an existing note, pass preview to enable edit mode button
-    else {
+        await addNotesToDocument(noteObject);
+        initEditToggle(true);
+    } else {
+        //if id exists meaning it's an existing note, pass preview to enable edit mode button
+        id = parseInt(id);
         let note = await getNoteFromStorage(db, parseInt(id));
-        await addNotesToDocument(note, !preview);
-        addEditButton(preview, parseInt(id));
+        await addNotesToDocument(note);
+        initEditToggle(false);
     }
-    //show save button in edit mode
-    if (!preview) {
-        saveNoteButton(parseInt(id), db);
-    }
+    initDeleteButton(id, db);
+    initSaveButton(id, db);
 }
 
 /**
  * @description get the current date and time for the dashboard 
  * @returns {string} current date in format of mm/dd/yyyy XX:XX XM
  */
-function getDate(){
+function getDate() {
     let date = new Date();
     let month = date.getMonth() + 1;
     let day = date.getDate();
@@ -62,28 +56,31 @@ function getDate(){
         hour: '2-digit',
         minute: '2-digit'
     });
-    return `${month}/${day}/${year} &nbsp ${time}`;
+    return `${month}/${day}/${year} at ${time}`;
 }
 
 /**
- * @description append the edit button to the page to enable note edit mode
+ * @description append the edit or view button to the page
  * @param {boolean} preview true if user is in view only mode or not
  * @param {Integer} id unique uuid of current note
  */
-function addEditButton(preview, id){
-    if (preview) {
-    let editButton = document.createElement('button');
-    editButton.setAttribute('class', 'edit-button');
-    console.log(editButton);
-    // add edit button
-    let buttonSection = document.querySelector('#option-button');
-    editButton.innerHTML = 'Edit';
-    buttonSection.appendChild(editButton);
-    editButton.addEventListener('click', () => {
-        window.location.href = `./notes.html?id=${id}`;
-    })
-    
+ function initEditToggle(editEnabled) {
+    const editButton = document.querySelector('#change-view-button');
+    if (editEnabled) {
+        editButton.innerHTML = 'View Note';
+    } else {
+        editButton.innerHTML = 'Edit Note'
     }
+    setEditable(editEnabled);
+    editButton.onclick = async () => {
+        const editEnabled = editButton.innerHTML === 'Edit Note';
+        setEditable(editEnabled);
+        if (editEnabled) {
+            editButton.innerHTML = 'View Note';
+        } else {
+            editButton.innerHTML = 'Edit Note';
+        }
+    };
 }
 
 /**
@@ -91,73 +88,75 @@ function addEditButton(preview, id){
  * @param {Integer} id unique uuid of current note
  * @param {*} db The initialized indexedDB object.
  */
-function saveNoteButton(id, db) {
-    // create a save button
-    let saveButton = document.createElement('button');
-    saveButton.setAttribute('class', 'button-button');
-    saveButton.innerHTML = 'Save';
-    let buttonSection = document.querySelector('#option-button');
-    buttonSection.appendChild(saveButton);
-
+function initSaveButton(id, db) {
+    const saveButton = document.querySelector("#save-button");
+    
     // add event listener to save button
     saveButton.addEventListener('click', () => {
         let title = document.querySelector('#title-input').value;
-        let content = document.querySelector('#notes-content-input').value;
+        let content = document.querySelector('#edit-content').value;
         let lastModified = getDate();
         let noteObject = {
             "title": title,
             "lastModified": lastModified,
             "content": content,
         };
-        // if the note id exists, update the current noteObject id
         if (id) {
             noteObject.uuid = id;
-        } 
-        // save this noteObject to storage, new id formed for non existing note
+        }
         saveNoteToStorage(db, noteObject);
         if (!id) {
-            // update the window for user feedback of saved note
             getNotesFromStorage(db).then(res => {
-                window.location.href = `./notes.html?id=${res[res.length - 1].uuid}$preview=true`;
-            })
-        } else {
-            window.location.href = `./notes.html?id=${noteObject.uuid}$preview=true`;
+                window.location.href = `./notes.html?id=${res[res.length - 1].uuid}`;
+            });
         }
+        window.location.reload();
     });
 }
 
+function initDeleteButton(id, db) {
+    const deleteButton = document.querySelector("#delete-button");
+
+    deleteButton.addEventListener('click', () => {
+        if (id) {
+            deleteNoteFromStorage(db, { uuid: id });
+        }
+        window.location.href = './index.html';
+    });
+}
 
 /**
  * @description append the notes title, last modified date, and content to page
  * @param {*} note note object with data
- * @param {boolean} editable false if user is in view only mode
  */
-async function addNotesToDocument(note, editable) {
+async function addNotesToDocument(note) {
     // select html items
     let title = document.querySelector('#notes-title');
     let lastModified = document.querySelector('#notes-last-modified')
-    let content = document.querySelector('#notes-content-input');
-
+    let content = document.querySelector('#edit-content');
+    //empty the html items
     // populate html with notes data
-    title.innerHTML = `<label for="title-input">Title:</label>
-        <input type="text" id="title-input" name="title-input">
-        `;
+    title.innerHTML = '<input type="text" id="title-input" name="title-input">';
     let titleInput = document.querySelector('#title-input');
     titleInput.value = note.title;
-    lastModified.innerHTML += `${note.lastModified}`;
-    content.value += `${note.content}`;
+    lastModified.innerHTML = `Last Modified: ${note.lastModified}`;
+    content.value = `${note.content}`;
+}
 
-    // disable editing priveleges if in view only mode
+/**
+ * @description disable editing if in view only mode
+ * @param {*} editable false if user is in view only mode
+ */
+async function setEditable(editable) {
+    let editContent = document.querySelector('#edit-content');
+    let viewContent = document.querySelector('#view-content');
+    let titleInput = document.querySelector('#title-input');
     if (!editable) {
-        // make input field uneditable
-        title.innerHTML = titleInput.value;
-        titleInput.setAttribute('hidden', 'true');
-       
-        lastModified.style.width = 'auto';
-        lastModified.style.textAlign = 'center';
-        // make content textarea uneditable
-        content.setAttribute('disabled','disabled');
-        // change background color of read/view only mode for user recognition
-        content.style.background = 'linear-gradient(-90deg, #7658b1,#D6CDF2)';
-    } 
+        viewContent.innerHTML = markdown(editContent.value);
+        viewContent.removeAttribute('hidden');
+        editContent.setAttribute('hidden', true);
+    } else {
+        editContent.removeAttribute('hidden');
+        viewContent.setAttribute('hidden', true);
+    }
 }
