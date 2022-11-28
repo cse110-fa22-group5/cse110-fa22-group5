@@ -1,3 +1,4 @@
+
 /**
  * describe() function that contains all E2E testing and user flow for the website
  */
@@ -219,6 +220,25 @@ it('Click "Back" button to be redirected to the note Dashboard url', async () =>
 
   }, 2500);
 
+   /**
+   *  Check that our local indexedDB database is populated with the current note
+   * */ 
+  
+    it('Check that our local indexedDB database is populated with the current note', async () => {
+
+      console.log('Checking local storage (indexedDB)...');
+
+      const localStorage = await page.evaluate( async () => {
+        const db = indexedDB.open('NotesDB',1);
+        db.onsuccess = function (e) {
+          console.log(db.result);
+        }
+      });
+    
+      console.log(localStorage);
+      expect(localStorage).toEqual([]);
+    }, 2500);
+
     /**
      *  Check if delete button work
      */
@@ -240,4 +260,5 @@ it('Click "Back" button to be redirected to the note Dashboard url', async () =>
       expect(numNotes).toBe(0);
 
     }, 10000);
+
   });
