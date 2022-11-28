@@ -155,8 +155,10 @@ async function setEditable(editable) {
         viewContent.innerHTML = markdown(editContent.value);
         viewContent.removeAttribute('hidden');
         editContent.setAttribute('hidden', true);
+        titleInput.removeAttribute('edit')
     } else {
         editContent.removeAttribute('hidden');
         viewContent.setAttribute('hidden', true);
+        titleInput.setAttribute('edit', true);
     }
 }

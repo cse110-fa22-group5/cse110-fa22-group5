@@ -67,15 +67,19 @@ header {
 }
 
 /* Title Input */
-#notes-title > #title-input {
+#title-input {
     color: rgb(245, 240, 249);
     padding: 1rem;
     border-radius: 1rem;
     font-family: 'Poppins', sans-serif;
     font-size: 4vh;
     max-width: 80%;
-    border: 0.25rem solid rgba(136, 86, 174, 0.388);
     background-color:rgba(30, 8, 74, 0.237);
+    border: none;
+}
+
+#title-input[edit="true"] {
+    border: 0.25rem solid rgba(136, 86, 174, 0.388);
 }
 
 #title-input:focus {
