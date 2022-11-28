@@ -76,10 +76,11 @@ header {
     max-width: 80%;
     background-color:rgba(30, 8, 74, 0.237);
     border: none;
+    border: 0.25rem solid rgba(136, 86, 174, 0.388);
 }
 
-#title-input[edit="true"] {
-    border: 0.25rem solid rgba(136, 86, 174, 0.388);
+#title-input[disabled="true"] {
+    border-color: rgba(30, 8, 74, 0.237);
 }
 
 #title-input:focus {
@@ -148,8 +149,9 @@ main {
     color: #ffffff;
     border-radius: 1rem;
     background-color:rgba(30, 8, 74, 0.237);
+    border: 0.25rem solid rgba(30, 8, 74, 0.237);
 }
 
 #edit-content {
-    border: 0.25rem solid rgba(136, 86, 174, 0.388);
+    border-color: rgba(136, 86, 174, 0.388);
 }

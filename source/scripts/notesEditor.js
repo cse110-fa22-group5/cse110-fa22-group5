@@ -67,18 +67,18 @@ function getDate() {
  function initEditToggle(editEnabled) {
     const editButton = document.querySelector('#change-view-button');
     if (editEnabled) {
-        editButton.innerHTML = 'View Note';
+        editButton.innerHTML = 'Preview';
     } else {
-        editButton.innerHTML = 'Edit Note'
+        editButton.innerHTML = 'Edit'
     }
     setEditable(editEnabled);
     editButton.onclick = async () => {
-        const editEnabled = editButton.innerHTML === 'Edit Note';
+        const editEnabled = editButton.innerHTML === 'Edit';
         setEditable(editEnabled);
         if (editEnabled) {
-            editButton.innerHTML = 'View Note';
+            editButton.innerHTML = 'Preview';
         } else {
-            editButton.innerHTML = 'Edit Note';
+            editButton.innerHTML = 'Edit';
         }
     };
 }
@@ -159,6 +159,6 @@ async function setEditable(editable) {
     } else {
         editContent.hidden = false;
         viewContent.hidden = true;
-        titleInput.setAttribute('edit', true);
+        titleInput.removeAttribute('disabled');
     }
 }
