@@ -153,12 +153,12 @@ async function setEditable(editable) {
     let titleInput = document.querySelector('#title-input');
     if (!editable) {
         viewContent.innerHTML = markdown(editContent.value);
-        viewContent.removeAttribute('hidden');
-        editContent.setAttribute('hidden', true);
+        viewContent.hidden = false;
+        editContent.hidden = true;
         titleInput.removeAttribute('edit')
     } else {
-        editContent.removeAttribute('hidden');
-        viewContent.setAttribute('hidden', true);
+        editContent.hidden = false;
+        viewContent.hidden = true;
         titleInput.setAttribute('edit', true);
     }
 }
