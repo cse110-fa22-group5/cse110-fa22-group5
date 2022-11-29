@@ -25,9 +25,6 @@ async function init() {
     }
     //if id doesn't exist meaning it's a new note, only edit mode
     if (!id) {
-        const deleteButton = document.querySelector('#delete-button');
-        deleteButton.hidden = true;
-
         let noteObject = {
             "title": "Untitled Note",
             "lastModified": `${getDate()}`,
@@ -37,6 +34,9 @@ async function init() {
         initEditToggle(true);
     } else {
         //if id exists meaning it's an existing note, pass preview to enable edit mode button
+        const deleteButton = document.querySelector('#delete-button');
+        deleteButton.hidden = false;
+
         id = parseInt(id);
         let note = await getNoteFromStorage(db, parseInt(id));
         await addNotesToDocument(note);
