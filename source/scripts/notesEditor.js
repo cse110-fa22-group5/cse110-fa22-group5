@@ -24,6 +24,7 @@ async function init() {
         id = urlArray[1];
     }
     //if id doesn't exist meaning it's a new note, only edit mode
+    const deleteButton = document.querySelector('#delete-button');
     if (!id) {
         let noteObject = {
             "title": "Untitled Note",
@@ -32,10 +33,11 @@ async function init() {
         };
         await addNotesToDocument(noteObject);
         initEditToggle(true);
+        deleteButton.classList.add('disabled-button');
+        deleteButton.disabled = true;
     } else {
         //if id exists meaning it's an existing note, pass preview to enable edit mode button
-        const deleteButton = document.querySelector('#delete-button');
-        deleteButton.hidden = false;
+        deleteButton.disabled = false;
 
         id = parseInt(id);
         let note = await getNoteFromStorage(db, parseInt(id));
@@ -116,7 +118,7 @@ function initSaveButton(id, db) {
         saveNoteToStorage(db, noteObject);
         if (!id) {
             // Navigate to the saved note page if we're saving a brand new note
-            getNotesFromStorage(db).then(res => {
+            getNotesFromStorage(db).then(res => { 
                 window.location.href = `./notes.html?id=${res[res.length - 1].uuid}`;
             });
         }
