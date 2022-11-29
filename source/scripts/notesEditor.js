@@ -25,6 +25,11 @@ async function init() {
     }
     //if id doesn't exist meaning it's a new note, only edit mode
     if (!id) {
+        const deleteButton = document.querySelector('#delete-button');
+        const editButton = document.querySelector('#change-view-button');
+        deleteButton.hidden = true;
+        editButton.hidden = true;
+
         let noteObject = {
             "title": "Untitled Note",
             "lastModified": `${getDate()}`,
@@ -39,6 +44,7 @@ async function init() {
         await addNotesToDocument(note);
         initEditToggle(false);
     }
+
     initDeleteButton(id, db);
     initSaveButton(id, db);
 }
@@ -65,10 +71,14 @@ function getDate() {
  */
  function initEditToggle(editEnabled) {
     const editButton = document.querySelector('#change-view-button');
+    const saveButton = document.querySelector('#save-button');
+
     if (editEnabled) {
         editButton.innerHTML = 'Preview';
+        saveButton.hidden = false;
     } else {
-        editButton.innerHTML = 'Edit'
+        editButton.innerHTML = 'Edit';
+        saveButton.hidden = true;
     }
     setEditable(editEnabled);
     editButton.onclick = async () => {
@@ -111,6 +121,7 @@ function initSaveButton(id, db) {
             });
         }
         // Switch to preview mode
+        initEditToggle(false);
         setEditable(false);
     });
 }
@@ -159,14 +170,18 @@ async function setEditable(editable) {
     let editContent = document.querySelector('#edit-content');
     let viewContent = document.querySelector('#view-content');
     let titleInput = document.querySelector('#title-input');
+    const saveButton = document.querySelector('#save-button');
+
     if (!editable) {
         viewContent.innerHTML = markdown(editContent.value);
         viewContent.hidden = false;
         editContent.hidden = true;
         titleInput.setAttribute('disabled', true);
+        saveButton.hidden = true;
     } else {
         editContent.hidden = false;
         viewContent.hidden = true;
         titleInput.removeAttribute('disabled');
+        saveButton.hidden = false;
     }
 }
