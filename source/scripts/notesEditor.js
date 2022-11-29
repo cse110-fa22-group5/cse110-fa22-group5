@@ -26,9 +26,7 @@ async function init() {
     //if id doesn't exist meaning it's a new note, only edit mode
     if (!id) {
         const deleteButton = document.querySelector('#delete-button');
-        const editButton = document.querySelector('#change-view-button');
         deleteButton.hidden = true;
-        editButton.hidden = true;
 
         let noteObject = {
             "title": "Untitled Note",
