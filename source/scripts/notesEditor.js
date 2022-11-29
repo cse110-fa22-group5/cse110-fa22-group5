@@ -73,10 +73,12 @@ function getDate() {
 
     if (editEnabled) {
         editButton.innerHTML = 'Preview';
-        saveButton.hidden = false;
+        saveButton.classList.remove('disabled-button');
+        saveButton.disabled = false;
     } else {
         editButton.innerHTML = 'Edit';
-        saveButton.hidden = true;
+        saveButton.classList.add('disabled-button');
+        saveButton.disabled = true;
     }
     setEditable(editEnabled);
     editButton.onclick = async () => {
@@ -175,11 +177,13 @@ async function setEditable(editable) {
         viewContent.hidden = false;
         editContent.hidden = true;
         titleInput.setAttribute('disabled', true);
-        saveButton.hidden = true;
+        saveButton.classList.add('disabled-button');
+        saveButton.disabled = true;
     } else {
         editContent.hidden = false;
         viewContent.hidden = true;
         titleInput.removeAttribute('disabled');
-        saveButton.hidden = false;
+        saveButton.classList.remove('disabled-button');
+        saveButton.disabled = false;
     }
 }
