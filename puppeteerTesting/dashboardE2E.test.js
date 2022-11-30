@@ -283,4 +283,56 @@ it('Click "Back" button to be redirected to the note Dashboard url', async () =>
 
     }, 10000);
 
+    /**
+     * Check for search
+     */
+    it('Check for search', async () => {
+      
+      console.log('Check for search...');
+
+      for (let i = 0; i < 3; i++){
+        // create new note
+        const newButton = await page.$('button');
+        await newButton.click();
+        await page.waitForNavigation(); 
+
+        // set title 
+        let TTxt = await page.$('#title-input');
+        var titleText = await page.$eval('#title-input', e => e.value);
+        await TTxt.click({clickCount: 2});
+        for (let j = 0; j < titleText.length; j++) {
+          await page.keyboard.press('Backspace');
+        }
+        await page.type('#title-input',`Lecture ${i+1} CSE 110`);
+
+        // set content
+        var inputTxt = await page.$('#edit-content');
+        await inputTxt.click({clickCount: 2});
+        await page.type('#edit-content',`Lecture ${i+1} CSE 110. ` +
+        `Hello this is my ${i+1} note!'`);
+
+        // save the note
+        const saveButton = await page.$('#save-button');
+        await saveButton.click();
+        await page.waitForNavigation();
+
+        // back to main page
+        const backButton = await page.$('#back-button');
+        await backButton.click();
+        await page.waitForNavigation(); 
+      }
+
+      // search Lecture 2
+      const search = await page.$('#search');
+      await search.click({clickCount: 2});
+      await page.type('#search', 'Lecture 2');
+      const numNotes = await page.$$eval('dashboard-row', (noteItems) => {
+        return noteItems.length;
+      });
+      expect(numNotes).toBe(1);
+
+    }, 100000);
+
+    
+
   });
