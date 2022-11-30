@@ -155,3 +155,16 @@ main {
 #edit-content {
     border-color: rgba(136, 86, 174, 0.388);
 }
+
+/*Disabled Button*/
+.disabled-button {
+    background-color: gray;
+    color: black;
+    opacity: 20%;
+}
+
+.disabled-button:hover {
+    background-color: gray;
+    color: black;
+    opacity: 20%;
+}
