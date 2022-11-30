@@ -22,11 +22,11 @@
   });
 
   /**
-   * Check to make sure "+ New" button should redirect to the note editor window
+   * Check to make sure "+ New Note" button should redirect to the note editor window
    */
-  it('Checking to make sure "+ New" button should redirect to note editor page', async () => {
+  it('Checking to make sure "+ New Note" button should redirect to note editor page', async () => {
     
-    console.log('Checking "+ New" button...');
+    console.log('Checking "+ New Note" button...');
     const newButton = await page.$('button');
     await newButton.click();
     await page.waitForNavigation(); 
@@ -99,10 +99,8 @@
     await newButton.click();
     await page.waitForNavigation(); 
     expect(page.url()).toBe('https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html?id=1');
-    const titleEditable = await page.$eval('#title-input',e => e.disabled);
-    expect(titleEditable).toBe(true);
 
-  }, 2500);
+  }, 10000);
 
 /**
  * Check to make sure after clicking Save the notes-title innerHTML for the title is 'Lecture 1 CSE 110'
@@ -149,19 +147,22 @@
   }, 2500);  
 
   /**
- * Check to make sure when you click the "Edit" button, title is now 'Title: '
+ * Check to make sure when you click the "Edit" button, title input is now editable
  */
     it('Check to make sure when you click the "Edit" button, title is now editable', async () => {
 
     console.log('Check to make sure title is now editable ...');
     const editButton = await page.$('#change-view-button');
     await editButton.click();
+    const titleText = await page.$eval('#notes-title',e => e.innerHTML);
+    console.log(titleText);
+    expect(titleText).toBe('<input type="text" id="title-input" name="title-input">');
     const titleOff = await page.$eval('#title-input',e => e.disabled);
     console.log(titleOff);
     expect(titleOff).toBe(false);
     
     
-  }, 2500);  
+  }, 1000 );  
 
 /**
  * Check to make sure title is now 'Lecture 1 & Discussion: CSE 110'

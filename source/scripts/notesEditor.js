@@ -24,6 +24,7 @@ async function init() {
         id = urlArray[1];
     }
     //if id doesn't exist meaning it's a new note, only edit mode
+    const deleteButton = document.querySelector('#delete-button');
     if (!id) {
         let noteObject = {
             "title": "Untitled Note",
@@ -32,13 +33,18 @@ async function init() {
         };
         await addNotesToDocument(noteObject);
         initEditToggle(true);
+        deleteButton.classList.add('disabled-button');
+        deleteButton.disabled = true;
     } else {
         //if id exists meaning it's an existing note, pass preview to enable edit mode button
+        deleteButton.disabled = false;
+
         id = parseInt(id);
         let note = await getNoteFromStorage(db, parseInt(id));
         await addNotesToDocument(note);
         initEditToggle(false);
     }
+
     initDeleteButton(id, db);
     initSaveButton(id, db);
 }
@@ -65,10 +71,16 @@ function getDate() {
  */
  function initEditToggle(editEnabled) {
     const editButton = document.querySelector('#change-view-button');
+    const saveButton = document.querySelector('#save-button');
+
     if (editEnabled) {
         editButton.innerHTML = 'Preview';
+        saveButton.classList.remove('disabled-button');
+        saveButton.disabled = false;
     } else {
-        editButton.innerHTML = 'Edit'
+        editButton.innerHTML = 'Edit';
+        saveButton.classList.add('disabled-button');
+        saveButton.disabled = true;
     }
     setEditable(editEnabled);
     editButton.onclick = async () => {
@@ -106,11 +118,12 @@ function initSaveButton(id, db) {
         saveNoteToStorage(db, noteObject);
         if (!id) {
             // Navigate to the saved note page if we're saving a brand new note
-            getNotesFromStorage(db).then(res => {
+            getNotesFromStorage(db).then(res => { 
                 window.location.href = `./notes.html?id=${res[res.length - 1].uuid}`;
             });
         }
         // Switch to preview mode
+        initEditToggle(false);
         setEditable(false);
     });
 }
@@ -159,14 +172,20 @@ async function setEditable(editable) {
     let editContent = document.querySelector('#edit-content');
     let viewContent = document.querySelector('#view-content');
     let titleInput = document.querySelector('#title-input');
+    const saveButton = document.querySelector('#save-button');
+
     if (!editable) {
         viewContent.innerHTML = markdown(editContent.value);
         viewContent.hidden = false;
         editContent.hidden = true;
         titleInput.setAttribute('disabled', true);
+        saveButton.classList.add('disabled-button');
+        saveButton.disabled = true;
     } else {
         editContent.hidden = false;
         viewContent.hidden = true;
         titleInput.removeAttribute('disabled');
+        saveButton.classList.remove('disabled-button');
+        saveButton.disabled = false;
     }
 }
