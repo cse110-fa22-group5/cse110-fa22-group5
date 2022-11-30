@@ -2,6 +2,8 @@ name: CI
 on: push
 jobs:
   build:
+
+  # Installs Yarn (npm alternative) to run jest tests
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -10,6 +12,7 @@ jobs:
     - name: Run tests
       run: yarn test
     
+  # Code Coverage Report
     - name: Create Coverage
       run: node ./node_modules/jest/bin/jest.js --coverage
 
@@ -18,27 +21,22 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build jsDocs 
-      uses: andstor/jsdoc-action@v1.2.1
+  # Autogenerate jsDocs and output files to ./jsdocs
+    - name: Generate jsDocs
+      uses: andstor/jsdoc-action@v1
       with:
-        source_dir: ./source/scripts
+        source_dir:  ./source/scripts
         recurse: true
-        output_dir: ./jsdocs
-        template: minami
-        front_page: README.md
+        output_dir:  ./jsdocs
 
-    # - name: Upload artifact from jsdoc generation
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: jsdocs
-    #     path: ./jsdocs
-      
-    # - name: Deploy
-    #   uses: peaceiris/actions-gh-pages@v3
-    #   with:
-    #     deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-    #     publish_dir: ./jsdocs
+  # Push generated files onto a new branch called gh-pages     
+    - name: Deploy jsDocs
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./jsdocs
 
+  # Validate HTML and CSS
     - name: HTML5 Validator
       uses: Cyb3r-Jak3/html5validator-action@v7.2.0
       with:
