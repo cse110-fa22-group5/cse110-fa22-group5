@@ -1,17 +1,27 @@
 <!-- Note taker: Alex Zhang-->
 <!-- October 22, 2022-->
+
 # October 2, 2022 Meeting Minutes
+
 ​
+
 <!-- 7:00 PM -->
+
 ## Time
+
 - Start: 7:00 PM
 - End: 8:30 PM
 ​
 <!-- TA or team, etc.-->
+
 ## Type of meeting: Brainstorming Session
+
 ​
+
 <!-- [x] for present -->
+
 ## Attendance:
+
 - [x] Yaya Jiang
 - [x] Kevin Lam
 - [x] Aaryan Tiwary
@@ -22,22 +32,29 @@
 - [x] Akanksha Pandey
 - [x] Zelong Zhou
 - [x] Guidong Luo
-​
+    ​
 <!-- Topics for the meeting-->
+
 # Agenda
+
 - Complete Brainstorming Assignment
   - Clarifying definitions and requirements
   - Thinking about users and their expectations
   - Deciding on app's themes/mood
   - Surveying competition
-​
-<!-- homework basically zzzz-->
+  ​
+  <!-- homework basically zzzz-->
+
 # Things to do for next meeting:
+
 - TO DO
 ​
 <!-- what was discussed for each topic-->
+
 # Main Ideas:
+
 - Note Taking App
+
   - Features
     - Must Have
       - Make a new note
@@ -81,6 +98,7 @@
       - Get all the items - makes a call to our database and pulls them all up
 
 - Use Cases / User Needs
+
   - Making quick notes/reminders
     - Want a simple interface
     - Want formatting (like Google Docs)
@@ -96,6 +114,7 @@
     - Most recent notes are easily accessible
 
 - Design themes/mood
+
   - Simple, not cluttered
   - Dark mode
     - People will use this at night
@@ -104,6 +123,7 @@
   - Responsive, works with different screen sizes/on mobile
 
 - Surveying competition
+
   - Notability/GoodNotes
     - Pros
       - File system: folders, hierarchical structure
