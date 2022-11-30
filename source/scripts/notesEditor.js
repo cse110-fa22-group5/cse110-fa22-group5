@@ -140,9 +140,14 @@ function initDeleteButton(id, db) {
         if (id) {
             // Only do this if the id has already been saved; 
             // otherwise return directly to the dashboard
-            deleteNoteFromStorage(db, { uuid: id });
+            if (confirm("Are you sure you want to delete this note?")) {
+                deleteNoteFromStorage(db, { uuid: id });
+                window.location.href = './index.html';
+            } else {
+
+            }
         }
-        window.location.href = './index.html';
+        
     });
 }
 
