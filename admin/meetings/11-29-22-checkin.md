@@ -1,4 +1,4 @@
-<!-- Note taker: YOUR NAME HERE-->
+<!-- Note taker: Zelong Zhou-->
 <!-- Month Date, Year-->
 # November 29, 2022 Meeting Minutes
 ​
@@ -14,23 +14,23 @@
 ## Attendance:
 - [X] Yaya Jiang
 - [x] Kevin Lam
-- [] Aaryan Tiwary
+- [ ] Aaryan Tiwary
 - [x] Lauren Lee
 - [x] Priya Senthilkumar
 - [X] Duy Vu
 - [x] Alex Zhang
-- [] Akanksha Pandey
+- [ ] Akanksha Pandey
 - [x] Zelong Zhou
 - [x] Guidong Luo
 ​- [x] Priyanka Bhatla
 
 <!-- Topics for the meeting-->
 # Agenda
-- Demon to TA
+- Demonstrate to TA
 ​
 <!-- homework basically zzzz-->
 # Things to do for next meeting:
-- Individual interview meeting with priyanka Thursday morning at 8am or 8pm
+- Individual interview meeting with Priyanka Thursday morning at 8am or 8pm
 ​
 <!-- what was discussed for each topic-->
 # Main Ideas:
