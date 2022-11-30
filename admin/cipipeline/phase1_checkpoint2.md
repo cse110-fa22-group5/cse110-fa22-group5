@@ -22,6 +22,7 @@
   - to keep team members notified on progress
 - spell check (using prettier rn)
   - to avoid errors involving typos in syntax/variables
+- having jsDocs be pushed onto main as well with a pr
 
 ## Goal
 - streamline the proccess of: source, build, test, deploy
