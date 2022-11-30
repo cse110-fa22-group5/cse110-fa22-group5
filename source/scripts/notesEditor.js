@@ -38,13 +38,13 @@ async function init() {
     } else {
         //if id exists meaning it's an existing note, pass preview to enable edit mode button
         deleteButton.disabled = false;
-
         id = parseInt(id);
         let note = await getNoteFromStorage(db, parseInt(id));
         await addNotesToDocument(note);
         initEditToggle(false);
+        
     }
-
+    
     initDeleteButton(id, db);
     initSaveButton(id, db);
 }
@@ -70,6 +70,7 @@ function getDate() {
  * @param {boolean} editEnabled True if the note is initially in edit mode, false if in preview mode
  */
  function initEditToggle(editEnabled) {
+    
     const editButton = document.querySelector('#change-view-button');
     const saveButton = document.querySelector('#save-button');
 
@@ -84,6 +85,7 @@ function getDate() {
     }
     setEditable(editEnabled);
     editButton.onclick = async () => {
+        
         const editEnabled = editButton.innerHTML === 'Edit';
         setEditable(editEnabled);
         if (editEnabled) {
@@ -143,13 +145,35 @@ function initDeleteButton(id, db) {
             if (confirm("Are you sure you want to delete this note?")) {
                 deleteNoteFromStorage(db, { uuid: id });
                 window.location.href = './index.html';
-            } else {
-
             }
         }
         
     });
 }
+
+/**
+ * @description The back button when creating/updating/viewing a note
+ * @param {Integer} id unique uuid of current note
+ */
+ function initBackButton() {
+    const backButton = document.querySelector("#back-button");
+    const backButtonSelector = document.querySelector('.note-control-bar > a');
+    backButton.addEventListener('click', () => {
+            // Only do this if the id has already been saved; 
+            // otherwise return directly to the dashboard
+            
+            if (!confirm("Are you sure you want to return to the main dashboard? Your note will not be saved.") === true) {
+               backButtonSelector.removeAttribute('href');
+               
+            } else {
+                backButtonSelector.setAttribute('href','./index.html');
+            }
+           
+        });
+        
+    
+}
+
 
 /**
  * @description append the notes title, last modified date, and content to page
@@ -192,5 +216,6 @@ async function setEditable(editable) {
         titleInput.removeAttribute('disabled');
         saveButton.classList.remove('disabled-button');
         saveButton.disabled = false;
+        initBackButton();
     }
 }
