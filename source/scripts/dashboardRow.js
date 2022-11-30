@@ -82,9 +82,14 @@ class dashboardRow extends HTMLElement{
         let button = shadow.querySelector('.note > div > button');
         button.addEventListener('click', async (event)=>{
             event.stopPropagation();
-            const db = await initializeDB(indexedDB);
-            deleteNoteFromStorage(db, note);
-            location.reload();
+            // confirm note deletion with user
+            if (confirm("Are you sure you want to delete this note?")) {
+                const db = await initializeDB(indexedDB);
+                deleteNoteFromStorage(db, note);
+                location.reload();
+            } else {
+                // do nothing if user does not confirm deletion
+            }
         })
         noteDiv.onclick = () => {
             window.location.href = `./notes.html?id=${note.uuid}`;
