@@ -1,5 +1,3 @@
-const { Browser } = require("puppeteer");
-
 /**
  * describe() function that contains all E2E testing and user flow for the website
  */
@@ -263,16 +261,10 @@ describe('Basic user flow for Website', () => {
     console.log('Checking for delete button...');
     await page.hover('dashboard-row');
     const row = await page.$('dashboard-row');
-    console.log(row);
     const shadow = await row.getProperty('shadowRoot');
     const button = await shadow.$('.note > div > button');
-    page.on('dialog', async (dialog) => {
-        //get alert message
-        // console.log(dialog.message());
-        await page.waitFor(2000);
-        //accept alert
-        await dialog.accept();
-    })
+    // Set the confirm function to automatically return true so we don't need to interact with it
+    await page.evaluate('window.confirm = () => true');
     await button.click();
     await page.waitForNavigation();
 
