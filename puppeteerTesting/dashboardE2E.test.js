@@ -256,7 +256,7 @@ describe('Basic user flow for Website', () => {
   /**
    *  Check if the delete button in the dashboard works (reject)
    */
-   it('Check if delete button in the dashboard works', async () => {
+  it('Check if delete button in the dashboard works', async () => {
     console.log('Checking for delete button...');
     await page.hover('dashboard-row');
     const row = await page.$('dashboard-row');
@@ -271,7 +271,6 @@ describe('Basic user flow for Website', () => {
     const numNotes = await page.$$eval('dashboard-row', (noteItems) => noteItems.length);
     expect(numNotes).toBe(1);
   }, 100000);
-
 
   /**
    *  Check if the delete button in the dashboard works (accept)
