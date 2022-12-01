@@ -18,9 +18,10 @@ Personal note taking app that enables users to share their notes with other user
 
 Video and tutorial on how our project works.
 
-## Documentation
+## Documentation  
 
-All documentation via JSDocs or tbd.
+Our project has been documented via jsDocs. Read through our documentation [here](https://akanksha-maker-ucsd.github.io/jsDocs/).
+
 
 ## Running and Scripts
 
