@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: markdown.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: markdown.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * drawdown.js
+ * (c) Adam Leggett
+ * Initial code taken from https://github.com/adamvleggett/drawdown and linted and modified by Alex
+ */
+
+export default function markdown(src) {
+  let ret = src;
+  const regexLessThan = /&lt;/g;
+  const regexGreaterThan = />/g;
+  const regexSpace = /\t|\r|\uf8ff/g;
+  const regexEscape = /\\([\\|`*_{}[\]()#+\-~])/g;
+  const regexHorizontalRule = /^([*\-=_] *){3,}$/gm;
+  const regexBlockQuote = /\n *&amp;gt; *([^]*?)(?=(\n|$){2})/g;
+  const regexList = /\n( *)(?:[*\-+]|((\d+)|([a-z])|[A-Z])[.)]) +([^]*?)(?=(\n|$){2})/g;
+  const regexListJoin = /&lt;\/(ol|ul)>\n\n&lt;\1>/g;
+  const regexHighlight = /(^|[^A-Za-z\d\\])(([*_])|(~)|(\^)|(--)|(\+\+)|`)(\2?)([^&lt;]*?)\2\8(?!\2)(?=\W|_|$)/g;
+  const regexCode = /\n((```|~~~).*\n?([^]*?)\n?\2|(( {4}.*?\n)+))/g;
+  const regexLink = /((!?)\[(.*?)\]\((.*?)( ".*")?\)|\\([\\`*_{}[\]()#+\-.!~]))/g;
+  const regexTable = /\n(( *\|.*?\| *\n)+)/g;
+  const regexTableHead = /^.*\n( *\|( *:?-+:?-+:? *\|)* *\n|)/;
+  const regexRow = /.*\n/g;
+  const regexCell = /\||(.*?[^\\])\|/g;
+  const regexHeading = /(?=^|>|\n)([>\s]*?)(#{1,6}) (.*?)( #*)? *(?=\n|$)/g;
+  const regexParagraph = /(?=^|>|\n)\s*\n+([^&lt;]+?)\n+\s*(?=\n|&lt;|$)/g;
+  const regexStash = /-\d+\uf8ff/g;
+
+  function replace(rex, fn) {
+    ret = ret.replace(rex, fn);
+  }
+
+  function element(tag, content) {
+    return `&lt;${tag}>${content}&lt;/${tag}>`;
+  }
+
+  function highlight(s) {
+    return s.replace(
+      regexHighlight,
+      (all, _, p1, emp, sub, sup, small, big, p2, content) => {
+        let elem;
+        if (emp) {
+          if (p2) {
+            elem = 'strong';
+          } else {
+            elem = 'em';
+          }
+        } else if (sub) {
+          if (p2) {
+            elem = 's';
+          } else {
+            elem = 'sub';
+          }
+        } else if (sup) {
+          elem = 'sup';
+        } else if (small) {
+          elem = 'small';
+        } else if (big) {
+          elem = 'big';
+        } else {
+          elem = 'code';
+        }
+        return _ + element(elem, highlight(content));
+      }
+    );
+  }
+
+  function blockquote(s) {
+    return s.replace(regexBlockQuote, (all, content) => element(
+      'blockquote',
+      blockquote(highlight(content.replace(/^ *&amp;gt; */gm, '')))
+    ));
+  }
+
+  function list(s) {
+    return s.replace(regexList, (all, ind, ol, num, low, content) => {
+      const entry = element(
+        'li',
+        highlight(
+          content
+            .split(RegExp(`\n ?${ind}(?:(?:\\d+|[a-zA-Z])[.)]|[*\\-+]) +`, 'g'))
+            .map(list)
+            .join('&lt;/li>&lt;li>')
+        )
+      );
+
+      return `\n${
+        ol
+          ? `&lt;ol start="${
+            num
+              ? `${ol}">`
+              : `${parseInt(ol, 36) - 9}" style="list-style-type:${
+                low ? 'low' : 'upp'
+              }er-alpha">`
+          }${entry}&lt;/ol>`
+          : element('ul', entry)
+      }`;
+    });
+  }
+
+  function unesc(str) {
+    return str.replace(regexEscape, '$1');
+  }
+
+  const stash = [];
+  let si = 0;
+
+  ret = `\n${ret}\n`;
+
+  replace(regexLessThan, '&amp;lt;');
+  replace(regexGreaterThan, '&amp;gt;');
+  replace(regexSpace, '  ');
+
+  // blockquote
+  ret = blockquote(ret);
+
+  // horizontal rule
+  replace(regexHorizontalRule, '&lt;hr/>');
+
+  // list
+  ret = list(ret);
+  replace(regexListJoin, '');
+
+  // code
+  replace(regexCode, (all, p1, p2, p3, p4) => {
+    si -= 1;
+    stash[si] = element(
+      'pre',
+      element('code', p3 || p4.replace(/^ {4}/gm, ''))
+    );
+    return `${si}\uf8ff`;
+  });
+
+  // link or image
+  // Note: for an external link, there needs to be https:// before the link
+  replace(regexLink, (all, p1, p2, p3, p4, p5, p6) => {
+    si -= 1;
+    if (p4) {
+      if (p2) {
+        stash[si] = `&lt;img src="${p4}" alt="${p3}"/>`;
+      } else {
+        stash[si] = `&lt;a href="${p4}">${unesc(highlight(p3))}&lt;/a>`;
+      }
+    } else {
+      stash[si] = p6;
+    }
+    return `${si}\uf8ff`;
+  });
+
+  // table
+  replace(regexTable, (all, table) => {
+    const sep = table.match(regexTableHead)[1];
+    return `\n${element(
+      'table',
+      table.replace(regexRow, (row, ri) => (row === sep
+        ? ''
+        : element(
+          'tr',
+          row.replace(regexCell, (_all, cell, ci) => (ci
+            ? element(
+              sep &amp;&amp; !ri ? 'th' : 'td',
+              unesc(highlight(cell || ''))
+            )
+            : ''))
+        )))
+    )}`;
+  });
+
+  // heading
+  replace(
+    regexHeading,
+    (all, _, p1, p2) => _ + element(`h${p1.length}`, unesc(highlight(p2)))
+  );
+
+  // paragraph
+  replace(regexParagraph, (all, content) => element('p', unesc(highlight(content))));
+
+  // stash
+  replace(regexStash, (all) => stash[parseInt(all, 10)]);
+
+  return ret.trim();
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="dashboardRow.html">dashboardRow</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addNotesToDocument">addNotesToDocument</a></li><li><a href="global.html#deleteNoteFromStorage">deleteNoteFromStorage</a></li><li><a href="global.html#filterNotesByQuery">filterNotesByQuery</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getNoteFromStorage">getNoteFromStorage</a></li><li><a href="global.html#getNotesFromStorage">getNotesFromStorage</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initDeleteButton">initDeleteButton</a></li><li><a href="global.html#initEditToggle">initEditToggle</a></li><li><a href="global.html#initEventHandler">initEventHandler</a></li><li><a href="global.html#initializeDB">initializeDB</a></li><li><a href="global.html#initSaveButton">initSaveButton</a></li><li><a href="global.html#saveNoteToStorage">saveNoteToStorage</a></li><li><a href="global.html#setEditable">setEditable</a></li><li><a href="global.html#sortNotesByTime">sortNotesByTime</a></li><li><a href="global.html#sortNotesByTitle">sortNotesByTitle</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Dec 01 2022 11:54:43 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
