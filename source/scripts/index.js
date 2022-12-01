@@ -3,7 +3,7 @@ import { initializeDB, saveNoteToStorage, getNotesFromStorage, getNoteFromStorag
 window.addEventListener('DOMContentLoaded', init);
 
 /**
- * @description call all the functions after the DOM is loaded
+ * @description call all the functions after the DOM is loaded BING BONG 
  */
 async function init() {
     const db = await initializeDB(indexedDB);
