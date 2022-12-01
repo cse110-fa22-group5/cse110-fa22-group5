@@ -266,50 +266,20 @@ describe('Basic user flow for Website', () => {
     console.log(row);
     const shadow = await row.getProperty('shadowRoot');
     const button = await shadow.$('.note > div > button');
-
-    // await button.click();
-    // await page.keyboard.press('\n');//shortcut for enter key
-    
-
-    await page.click('my-link'); //Opens pop-up window
-    const newPage = await newPagePromise;
-    newPage = newPage.mainFrame();
-    // newPage.click(element);
-    await newPage.keyboard.press('\n');
-    // const pt= require('puppeteer')
-    // // const page = await pt.launch()
-    // //browser new page
-    // const newpage = await Browser.newPage();
-    // //on event listener trigger
-    // // await page.evaluate(`window.confirm = () => true`);
-    // await page.waitForNavigation();
-    // await page.on('dialog', async (dialog) => {
-    //     //get alert message
-    //     // console.log(dialog.message());
-    //     //accept alert
-    //     await dialog.accept();
-    // })
-    // await page.on("dialog", async dialog => {
-    //   try {
-    //    await dialog.accept();
-    //   } catch (e) {}
-    //  });
-    // await page.evaluate(`window.confirm = () => true`);
-    // await newpage.on("dialog", (dialog) => {
-    //   console.log("Dialog is up...");
-    //       delay(1000);
-    //   console.log("Accepted...");
-    //   // window.confirm("confirm");
-    //   dialog.accept();
-    //       delay(1000);
-    //   });
-
+    page.on('dialog', async (dialog) => {
+        //get alert message
+        // console.log(dialog.message());
+        await page.waitFor(2000);
+        //accept alert
+        await dialog.accept();
+    })
+    await button.click();
     await page.waitForNavigation();
 
     // there should be no items left
     const numNotes = await page.$$eval('dashboard-row', (noteItems) => noteItems.length);
     expect(numNotes).toBe(0);
-  }, 10000);
+  }, 100000);
 
   /**
    * Check search bar functionality
