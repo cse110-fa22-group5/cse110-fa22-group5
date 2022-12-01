@@ -253,25 +253,43 @@ describe('Basic user flow for Website', () => {
     await page.waitForNavigation();
   }, 10000);
 
-  // TODO: Update test to match delete confirmation
-  // /**
-  //  *  Check if the delete button works
-  //  */
-  // it('Check if delete button work', async () => {
-  //   console.log('Checking for delete...');
-  //   await page.hover('dashboard-row');
-  //   const row = await page.$('dashboard-row');
-  //   console.log(row);
-  //   const shadow = await row.getProperty('shadowRoot');
-  //   const button = await shadow.$('.note > div > button');
+  /**
+   *  Check if the delete button in the dashboard works (reject)
+   */
+  it('Check if delete button in the dashboard works', async () => {
+    console.log('Checking for delete button...');
+    await page.hover('dashboard-row');
+    const row = await page.$('dashboard-row');
+    const shadow = await row.getProperty('shadowRoot');
+    const button = await shadow.$('.note > div > button');
+    // Set the confirm function to automatically return true so we don't need to interact with it
+    await page.evaluate('window.confirm = () => false');
+    await button.click();
+    // await page.waitForNavigation();
 
-  //   await button.click();
-  //   await page.waitForNavigation();
+    // there should be no items left
+    const numNotes = await page.$$eval('dashboard-row', (noteItems) => noteItems.length);
+    expect(numNotes).toBe(1);
+  }, 100000);
 
-  //   // there should be no items left
-  //   const numNotes = await page.$$eval('dashboard-row', (noteItems) => noteItems.length);
-  //   expect(numNotes).toBe(0);
-  // }, 10000);
+  /**
+   *  Check if the delete button in the dashboard works (accept)
+   */
+  it('Check if delete button in the dashboard works', async () => {
+    console.log('Checking for delete button...');
+    await page.hover('dashboard-row');
+    const row = await page.$('dashboard-row');
+    const shadow = await row.getProperty('shadowRoot');
+    const button = await shadow.$('.note > div > button');
+    // Set the confirm function to automatically return true so we don't need to interact with it
+    await page.evaluate('window.confirm = () => true');
+    await button.click();
+    await page.waitForNavigation();
+
+    // there should be no items left
+    const numNotes = await page.$$eval('dashboard-row', (noteItems) => noteItems.length);
+    expect(numNotes).toBe(0);
+  }, 100000);
 
   /**
    * Check search bar functionality
