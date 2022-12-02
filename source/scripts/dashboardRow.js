@@ -1,17 +1,16 @@
 import { initializeDB, deleteNoteFromStorage } from './noteStorage.js';
 
-class dashboardRow extends HTMLElement{
-    /**
-     * create the shadow dom for the dashboard row
-     */
-    constructor(){
-        super();
-        let shadow = this.attachShadow({mode: 'open'});
-        let note = document.createElement('div');
-        note.setAttribute('class', 'note');
-        const style = document.createElement('style');
-        style.textContent = 
-            `.note {
+class dashboardRow extends HTMLElement {
+  /**
+   * create the shadow dom for the dashboard row
+   */
+  constructor() {
+    super();
+    const shadow = this.attachShadow({ mode: 'open' });
+    const note = document.createElement('div');
+    note.setAttribute('class', 'note');
+    const style = document.createElement('style');
+    style.textContent = `.note {
                 display: flex;
                 flex-direction: row;
                 font-family: sans-serif;
@@ -59,42 +58,41 @@ class dashboardRow extends HTMLElement{
                 margin-top: 2.3ex;
             }
         `;
-        
-        shadow.append(style);
-        shadow.append(note);
-        
-    }
 
-    /**
-     * Set the note property
-     * @param {Object} note containing the note data
-     */
-    set note(note){
-        let shadow = this.shadowRoot;
-        let noteDiv = shadow.querySelector('.note');
-        noteDiv.innerHTML = `
+    shadow.append(style);
+    shadow.append(note);
+  }
+
+  /**
+   * Set the note property
+   * @param {Object} note containing the note data
+   */
+  set note(note) {
+    const shadow = this.shadowRoot;
+    const noteDiv = shadow.querySelector('.note');
+    noteDiv.innerHTML = `
             <p class="title">${note.title}</p>
             <div>
                 <button class="deleteButton"></button>
                 <p class="lastModified">${note.lastModified}</p>
             </div>
         `;
-        let button = shadow.querySelector('.note > div > button');
-        button.addEventListener('click', async (event)=>{
-            event.stopPropagation();
-            // confirm note deletion with user
-            if (confirm("Are you sure you want to delete this note?")) {
-                const db = await initializeDB(indexedDB);
-                deleteNoteFromStorage(db, note);
-                location.reload();
-            } else {
-                // do nothing if user does not confirm deletion
-            }
-        })
-        noteDiv.onclick = () => {
-            window.location.href = `./notes.html?id=${note.uuid}`;
-        }
-    }
-}   
+    const button = shadow.querySelector('.note > div > button');
+    button.addEventListener('click', async (event) => {
+      event.stopPropagation();
+      // confirm note deletion with user
+      if (window.confirm('Are you sure you want to delete this note?')) {
+        const db = await initializeDB(indexedDB);
+        deleteNoteFromStorage(db, note);
+        window.location.reload();
+      } else {
+        // do nothing if user does not confirm deletion
+      }
+    });
+    noteDiv.onclick = () => {
+      window.location.href = `./notes.html?id=${note.uuid}`;
+    };
+  }
+}
 
 customElements.define('dashboard-row', dashboardRow);

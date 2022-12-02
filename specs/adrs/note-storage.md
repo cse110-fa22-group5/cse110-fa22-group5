@@ -5,6 +5,7 @@
 How to implement the local first software functionality, local storage or local machine? What functionalities are needed? Where and how should the notes be stored?
 
 ## Considered Options
+
 - Local Storage (Lab 6)
 - IndexedDB (Client-side object database)
 - Directly on the machine (in a file)

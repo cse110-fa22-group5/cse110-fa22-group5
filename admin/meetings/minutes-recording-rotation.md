@@ -11,7 +11,4 @@
 - [3] Lauren Lee
 - [2] Priya Senthilkumar
 - [2] Yaya Jiang
-- [1] Zelong Zhou
-
-
-
+- [2] Zelong Zhou
