@@ -44,15 +44,20 @@ jobs:
         root: source/
         css: true
         
-    - name: Jest Coverage Comment
-      id: coverageComment
-      uses: MishaKav/jest-coverage-comment@main
-      with:
-        hide-comment: true
-        coverage-summary-path: ./coverage/coverage-final.json
-
-    - name: Check the output coverage
-      run: |
-        echo "Coverage Percentage - ${{ steps.coverageComment.outputs.coverage }}"
-        echo "Coverage Color - ${{ steps.coverageComment.outputs.color }}"
-        echo "Summary HTML - ${{ steps.coverageComment.outputs.summaryHtml }}"
+    - name: 'coverage'
+      on:
+      pull_request:
+        branches:
+            - main
+      jobs:
+        coverage:
+          runs-on: ubuntu-latest
+          steps:
+              - uses: actions/checkout@v3
+              - uses: ArtiomTr/jest-coverage-report-action@v2
+                id: coverage
+                with:
+                    output: report-markdown
+              - uses: marocchino/sticky-pull-request-comment@v2
+                with:
+                    message: ${{ steps.coverage.outputs.report }}
