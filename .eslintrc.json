@@ -16,6 +16,7 @@
     "sourceType": "module"
   },
   "rules": {
+    "import/no-extraneous-dependencies": "off",
     "no-alert": "off",
     "prefer-destructuring": "off",
     "import/extensions": "off",

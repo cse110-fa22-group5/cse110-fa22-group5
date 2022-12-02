@@ -3,4 +3,7 @@ module.exports = {
     headless: true,
     slowMo: 25,
   },
+  setupFiles: [
+    'fake-indexeddb/auto'
+  ]
 };
