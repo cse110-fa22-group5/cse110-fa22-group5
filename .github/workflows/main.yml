@@ -1,10 +1,29 @@
 name: CI
 on: push
+
+
 jobs:
+  if: github.ref == 'refs/heads/gh-pages'
+  runs-on: ubuntu-latest
+  steps:
+      # Merge gh-pages into main after another PR is merged onto main
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: merge
+        uses: mtanzi/action-automerge@v1
+        id: merge
+        with: 
+          github_token: ${{ github.token }}
+          source: 'gh-pages'
+          target: 'main'
+
+
+jobs:
+  if: github.ref != 'refs/heads/gh-pages'
   build:
-    # Installs Yarn (npm alternative) to run jest tests
     runs-on: ubuntu-latest
     steps:
+      # Installs Yarn (npm alternative) to run jest tests
       - uses: actions/checkout@v2
       - name: Install modules
         run: yarn
@@ -41,43 +60,4 @@ jobs:
         with:
           root: source/
           css: true
-      # Automatic Pull Request for JSDocs
-      # - name: automerge
-      # on:
-      #   pull_request:
-      #     types:
-      #       - labeled
-      #       - unlabeled
-      #       - synchronize
-      #       - opened
-      #       - edited
-      #       - ready_for_review
-      #       - reopened
-      #       - unlocked
-      #   pull_request_review:
-      #     types:
-      #       - submitted
-      #   check_suite:
-      #     types:
-      #       -completed
-      #   status: {}
-      # jobs:
-      #   automerge:
-      #     runs-on: ubuntu-latest
-      #     steps:
-      #       - id: automerge
-      #         name: automerge
-      #         uses: "pascalgn/automerge-action@v0.15.5"
-      #         env:
-      #     GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
-      # Merge gh-pages into main after another PR is merged onto main
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: merge
-        uses: mtanzi/action-automerge@v1
-        id: merge
-        with: 
-          github_token: ${{ github.token }}
-          source: 'gh-pages'
-          target: 'main'
