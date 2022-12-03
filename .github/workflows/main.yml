@@ -1,10 +1,10 @@
 name: CI
 on: push
-
-
 jobs:
+  build: 
+    runs-on: ubuntu-latest
+    
   if: github.ref == 'refs/heads/gh-pages'
-  runs-on: ubuntu-latest
   steps:
       # Merge gh-pages into main after another PR is merged onto main
       - name: checkout
@@ -17,12 +17,7 @@ jobs:
           source: 'gh-pages'
           target: 'main'
 
-
-jobs:
   if: github.ref != 'refs/heads/gh-pages'
-  build:
-    runs-on: ubuntu-latest
-    steps:
       # Installs Yarn (npm alternative) to run jest tests
       - uses: actions/checkout@v2
       - name: Install modules
