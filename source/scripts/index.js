@@ -70,7 +70,7 @@ function filterNotesByQuery(notes, query) {
   const queryString = query.toLowerCase();
   return notes.filter(
     (note) => note.title.toLowerCase().includes(queryString)
-      || note.lastModified.toLowerCase().includes(queryString)
+      || note.lastModified.replace('at','').toLowerCase().includes(queryString)
   );
 }
 
