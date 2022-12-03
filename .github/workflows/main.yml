@@ -60,4 +60,3 @@ jobs:
         with:
           root: source/
           css: true
-
