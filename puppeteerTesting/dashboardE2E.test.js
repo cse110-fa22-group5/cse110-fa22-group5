@@ -146,14 +146,15 @@ describe('Basic user flow for Website', () => {
     );
   }, 10000);
   /**
-   * Click "Back" button should alert user with confirmation to leave since note body is modified
+   * Check to make sure "Save" button should update note editor page url with unique id of note
    */
   it('Check to make sure "Save" button should redirect to the note view mode window', async () => {
     console.log('Checking "Save" button...');
     const newButton = await page.$('#save-button');
     await newButton.click();
+    await page.waitForNavigation();
     expect(page.url()).toBe(
-      'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html'
+      'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html?id=1'
     );
   }, 10000);
   /**
@@ -176,7 +177,6 @@ describe('Basic user flow for Website', () => {
     },
     2500
   );
-
 
   /**
    * Check to make sure the element note-content-input attribute
@@ -383,7 +383,6 @@ describe('Basic user flow for Website', () => {
       await inputTxt.click({ clickCount: 2 });
       await page.type('#edit-content', `Lecture ${i + 1}!`);
 
-
       // save the note
       const saveButton = await page.$('#save-button');
       await saveButton.click();
@@ -406,6 +405,7 @@ describe('Basic user flow for Website', () => {
 
     expect(numNotes).toBe(1);
   }, 100000);
+
   /**
    * Check that the Back button works for an existing note:
    * When title is edited, back button shows alert
