@@ -67,10 +67,10 @@ function sortNotesByTitle(notes, sortType) {
  * @returns filtered notes array
  */
 function filterNotesByQuery(notes, query) {
-  const queryString = query.toLowerCase();
+  const queryString = query.toLowerCase().replace(/\s+/g, ' ').trim();
   return notes.filter(
     (note) => note.title.toLowerCase().includes(queryString)
-      || note.lastModified.toLowerCase().includes(queryString)
+      || note.lastModified.replace('at', '').toLowerCase().includes(queryString)
   );
 }
 

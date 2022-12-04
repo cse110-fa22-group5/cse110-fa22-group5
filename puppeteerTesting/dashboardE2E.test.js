@@ -145,16 +145,16 @@ describe('Basic user flow for Website', () => {
       'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html'
     );
   }, 10000);
+
   /**
-   * Check to make sure "Save" button should update note editor page url with unique id of note
+   * Click "Back" button should alert user with confirmation to leave since note body is modified
    */
   it('Check to make sure "Save" button should redirect to the note view mode window', async () => {
     console.log('Checking "Save" button...');
     const newButton = await page.$('#save-button');
     await newButton.click();
-    await page.waitForNavigation();
     expect(page.url()).toBe(
-      'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html?id=1'
+      'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html'
     );
   }, 10000);
   /**
