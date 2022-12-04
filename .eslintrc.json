@@ -1,9 +1,6 @@
 {
   "root": true,
-  "plugins": [
-    "jest",
-    "prettier"
-  ],
+  "plugins": ["jest", "prettier"],
   "env": {
     "jest/globals": true,
     "browser": true,

@@ -54,9 +54,16 @@ function initBackButton() {
   const oldTitleInput = titleInput.value;
   const oldNoteBody = editContent.value;
   function dis() {
-    if (saveButton.disabled !== true && (titleInput.value !== '' || editContent.value !== '')
-         && (titleInput.value !== oldTitleInput || oldNoteBody !== editContent.value)) {
-      if (!(window.confirm('Are you sure you want to return to the main dashboard? Your note will not be saved.'))) {
+    if (
+      saveButton.disabled !== true
+      && (titleInput.value !== '' || editContent.value !== '')
+      && (titleInput.value !== oldTitleInput || oldNoteBody !== editContent.value)
+    ) {
+      if (
+        !window.confirm(
+          'Are you sure you want to return to the main dashboard? Your note will not be saved.'
+        )
+      ) {
         backButton.removeAttribute('href');
       } else {
         backButton.setAttribute('href', './index.html');
@@ -118,7 +125,7 @@ function initSaveButton(id, db) {
       }
       saveNoteToStorage(db, noteObject);
       if (!id) {
-      // Navigate to the saved note page if we're saving a brand new note
+        // Navigate to the saved note page if we're saving a brand new note
         getNotesFromStorage(db).then((res) => {
           window.location.href = `./notes.html?id=${res[res.length - 1].uuid}`;
         });
