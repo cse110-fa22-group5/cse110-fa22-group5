@@ -104,7 +104,7 @@ export function saveNoteToStorage(database, note) {
           `Successfully saved note with uuid ${saveNoteRequest.result}`
         );
         console.log(saveNoteRequest.result);
-        resolve();
+        resolve(saveNoteRequest.result);
       };
       saveNoteRequest.onerror = () => {
         reject(new Error('Error saving new note to storage'));
