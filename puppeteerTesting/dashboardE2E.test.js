@@ -37,33 +37,12 @@ describe('Basic user flow for Website', () => {
   /**
    * Check to make sure the title is initially inputted as "Untitled Note" by default
    */
-  it('Checking to make sure the Title is initially inputted as "Untitled Note" on the note editor window', async () => {
+  it('Checking to make sure the Title is initially inputted as "Untitled Note" on the note'
+   + 'editor window', async () => {
     console.log('Checking to make sure Title is initially "Untitled Note"');
-    const titleText = await page.$eval('#title-input', (e) => e.value);
-    expect(titleText).toBe('Untitled Note');
+    const titleText = await page.$eval('#title-input', (e) => e.innerHTML);
+    expect(titleText).toBe('');
   }, 2500);
-
-  /**
-   * Check to make sure the title input is changed from "Untitled Note" to "Lecture 1 CSE 110"
-   */
-  it('Check to make sure the title input is changed from "Untitled Note" to "Lecture 1 CSE 110"', async () => {
-    console.log(
-      'Checking to make sure the title input is now "Lecture 1 CSE 110"...'
-    );
-    const inputTxt = await page.$('#title-input');
-    let titleText = await page.$eval('#title-input', (e) => e.value);
-
-    await inputTxt.click({ clickCount: 2 });
-
-    // Clear out the text in the title field
-    await Promise.all(
-      titleText.split('').map(() => page.keyboard.press('Backspace'))
-    );
-    await page.type('#title-input', 'Lecture 1 CSE 110');
-    titleText = await page.$eval('#title-input', (e) => e.value);
-    expect(titleText).toBe('Lecture 1 CSE 110');
-  }, 100000);
-
   /**
    * Check to make sure the Note text area has no input initially
    */
@@ -74,11 +53,77 @@ describe('Basic user flow for Website', () => {
     const noteTextArea = await page.$eval('#edit-content', (e) => e.value);
     expect(noteTextArea).toBe('');
   }, 2500);
+  /**
+   * Click "Back" button to be redirected to the note Dashboard URL, no confirm alerts
+   */
+  it('Click "Back" button to be redirected to the note Dashboard URL', async () => {
+    console.log('Checking window url from "Back" button...');
+    const newButton = await page.$('#back-button');
+    await newButton.click();
+    await page.waitForNavigation();
+    expect(page.url()).toBe(
+      'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/index.html'
+    );
+    // go back to the note body page
+    const Button = await page.$('button');
+    await Button.click();
+    await page.waitForNavigation();
+  }, 10000);
+  /**
+   * Check to make sure "Save" button should alert the user to enter a valid title
+   */
+  it(
+    'Check to make sure "Save" button should alert the user to enter a valid title',
+    async () => {
+      console.log('Checking "Save" button...');
+
+      const saveButton = await page.$('#save-button');
+      await page.evaluate('window.alert = () => true');
+      await saveButton.click();
+      expect(page.url()).toBe(
+        'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html'
+      );
+    },
+    10000
+  );
+  /**
+   * Check to make sure the title input is "Lecture 1 CSE 110"
+   */
+  it(
+    'Check to make sure the title input is "Lecture 1 CSE 110"',
+    async () => {
+      console.log(
+        'Checking to make sure the title input is now "Lecture 1 CSE 110"...'
+      );
+      const inputTxt = await page.$('#title-input');
+      let titleText = await page.$eval('#title-input', (e) => e.value);
+
+      await inputTxt.click({ clickCount: 1 });
+
+      await page.type('#title-input', 'Lecture 1 CSE 110');
+      titleText = await page.$eval('#title-input', (e) => e.value);
+      expect(titleText).toBe('Lecture 1 CSE 110');
+    },
+    10000
+  );
 
   /**
-   * Check to make sure the title input is changed from "Untitled Note" to "Lecture 1 CSE 110"
+   * Click "Back" button should alert user with confirmation to leave since title is modified
    */
-  it('Check to make sure the text area input is changed from empty to 5 lines', async () => {
+  it('Click "Back" button should alert user with confirmation to leave', async () => {
+    console.log('Checking window url from "Back" button...');
+    const newButton = await page.$('#back-button');
+    await page.evaluate('window.confirm = () => false');
+    await newButton.click();
+    expect(page.url()).toBe(
+      'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html'
+    );
+  }, 10000);
+
+  /**
+   * Check to make sure the note text area is changed from "Untitled Note" to "Lecture 1 CSE 110"
+   */
+  it('Check to make sure the note text area input is changed from empty to 5 lines', async () => {
     console.log(
       'Checking to make sure the title input is now "Lecture 1 CSE 110"...'
     );
@@ -90,24 +135,41 @@ describe('Basic user flow for Website', () => {
     );
     const titleText = await page.$eval('#edit-content', (e) => e.value);
     expect(titleText).toBe('Lecture 1 CSE 110. Hello this is my first note!');
-  }, 100000);
-  /**
-   * Check to make sure "Save" button should update note editor page url with unique id of note
-   */
-  it('Check to make sure "Save" button should redirect to the note view editor mode window', async () => {
-    console.log('Checking "Save" button...');
-    const newButton = await page.$('#save-button');
-    await newButton.click();
-    await page.waitForNavigation();
-    expect(page.url()).toBe(
-      'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html?id=1'
-    );
   }, 10000);
 
   /**
+   * Click "Back" button should alert user with confirmation to leave since note body is modified
+   */
+  it('Click "Back" button should alert user with confirmation to leave', async () => {
+    console.log('Checking window url from "Back" button...');
+    const newButton = await page.$('#back-button');
+    await page.evaluate('window.confirm = () => false');
+    await newButton.click();
+    expect(page.url()).toBe(
+      'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html'
+    );
+  }, 10000);
+  /**
+   * Check to make sure "Save" button should update note editor page url with unique id of note
+   */
+  it(
+    'Check to make sure "Save" button should redirect to the note view mode window',
+    async () => {
+      console.log('Checking "Save" button...');
+      const newButton = await page.$('#save-button');
+      await newButton.click();
+      await page.waitForNavigation();
+      expect(page.url()).toBe(
+        'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html?id=1'
+      );
+    },
+    10000
+  );
+  /**
    * Check to make sure after clicking Save the innerHTML for the title is 'Lecture 1 CSE 110'
    */
-  it('Check to make sure after clicking Save the window is in view editor mode and user cannot edit note page', async () => {
+  it('Check to make sure after clicking Save the window is in view editor mode and user cannot'
+    + 'edit note page', async () => {
     console.log('Checking title input uneditable...');
     const titleText = await page.$eval('#title-input', (e) => e.value);
     console.log(titleText);
@@ -157,7 +219,7 @@ describe('Basic user flow for Website', () => {
     const titleText = await page.$eval('#notes-title', (e) => e.innerHTML);
     console.log(titleText);
     expect(titleText).toBe(
-      '<input type="text" id="title-input" name="title-input">'
+      '<input type="text" id="title-input" placeholder="Untitled Note">'
     );
     const titleOff = await page.$eval('#title-input', (e) => e.disabled);
     console.log(titleOff);
@@ -165,7 +227,7 @@ describe('Basic user flow for Website', () => {
   }, 1000);
 
   /**
-   * Check to make sure title is now 'Lecture 1 & Discussion: CSE 110'
+   * Check to make sure title is now updated to 'Lecture 1 & Discussion: CSE 110'
    */
   it('Check to make sure title is now "Lecture 1 & Discussion: CSE 110"', async () => {
     const inputTxt = await page.$('#title-input');
@@ -176,7 +238,7 @@ describe('Basic user flow for Website', () => {
   }, 10000);
 
   /**
-   * Check to make sure note body is now:
+   * Check to make sure note body is updated to:
    * Lecture 1 CSE 110. Hello this is my first note! Adding discussion text
    */
   it('Check to make sure note body is changed', async () => {
@@ -203,7 +265,7 @@ describe('Basic user flow for Website', () => {
   }, 10000);
 
   /**
-   * Click "Back" button to be redirected to the note Dashboard URL
+   * Click "Back" button after note saved to be redirected to the note Dashboard URL with no alerts
    */
   it('Click "Back" button to be redirected to the note Dashboard URL', async () => {
     console.log('Checking window url from "Back" button...');
@@ -265,12 +327,11 @@ describe('Basic user flow for Website', () => {
     // Set the confirm function to automatically return true so we don't need to interact with it
     await page.evaluate('window.confirm = () => false');
     await button.click();
-    // await page.waitForNavigation();
 
     // there should be no items left
     const numNotes = await page.$$eval('dashboard-row', (noteItems) => noteItems.length);
     expect(numNotes).toBe(1);
-  }, 100000);
+  }, 10000);
 
   /**
    *  Check if the delete button in the dashboard works (accept)
@@ -289,10 +350,10 @@ describe('Basic user flow for Website', () => {
     // there should be no items left
     const numNotes = await page.$$eval('dashboard-row', (noteItems) => noteItems.length);
     expect(numNotes).toBe(0);
-  }, 100000);
+  }, 10000);
 
   /**
-   * Check search bar functionality
+   * Check search bar functionality for Lecture 2
    */
   it('Check search bar functionality', async () => {
     console.log('Check search bar functionality...');
@@ -308,9 +369,11 @@ describe('Basic user flow for Website', () => {
       const TTxt = await page.$('#title-input');
       const titleText = await page.$eval('#title-input', (e) => e.value);
       await TTxt.click({ clickCount: 2 });
-      for (let j = 0; j < titleText.length; j += 1) {
-        await page.keyboard.press('Backspace');
-      }
+      // Clear out the text in the title field
+      await Promise.all(
+        titleText.split('').map(() => page.keyboard.press('Backspace'))
+      );
+
       await page.type('#title-input', `Lecture ${i + 1} CSE 110`);
 
       // set content
@@ -318,7 +381,7 @@ describe('Basic user flow for Website', () => {
       await inputTxt.click({ clickCount: 2 });
       await page.type(
         '#edit-content',
-        `Lecture ${i + 1} CSE 110. Hello this is my ${i + 1} note!'`
+        `Lecture ${i + 1}!`
       );
 
       // save the note
@@ -340,6 +403,28 @@ describe('Basic user flow for Website', () => {
       'dashboard-row',
       (noteItems) => noteItems.length
     );
+
     expect(numNotes).toBe(1);
   }, 100000);
+
+    /**
+   * Check that the Back button works for an existing note:
+   * When title is edited, back button shows alert 
+   */
+     it('Open an existing note', async () => {
+      console.log('Checking Opening an existing note...');
+      
+      await page.click('dashboard-row');
+      const clickEditButton = await page.$('#change-view-button');
+      await clickEditButton.click();
+      
+      const titleText = await page.$('#title-input');
+      await titleText.click({ clickCount: 1 });
+
+      const backButton = await page.$('#back-button');
+      await page.evaluate('window.confirm = () => false');
+      await backButton.click();
+      expect(page.url()).toBe('https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html?id=3');
+     
+    }, 100000);
 });
