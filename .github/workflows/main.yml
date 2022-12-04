@@ -29,13 +29,12 @@ jobs:
           recurse: true
           output_dir: ./jsdocs
 
-      # Push generated files onto a external repository to deploy on GitHub pages 
+      # Push generated files onto a new branch called gh-pages
       - name: Deploy jsDocs
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        personal_token: ${{ secrets.PERSONAL_TOKEN }}
-        publish_dir: ./jsdocs
-        external_repository: akanksha-maker-ucsd/jsDocs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./jsdocs
 
       - name: HTML5 Validator
         uses: Cyb3r-Jak3/html5validator-action@v7.2.0
