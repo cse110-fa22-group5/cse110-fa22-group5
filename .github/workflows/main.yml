@@ -28,13 +28,14 @@ jobs:
           source_dir: ./source/scripts
           recurse: true
           output_dir: ./jsdocs
+          front_page: README.md
 
       # Push generated files onto a new branch called gh-pages
       - name: Deploy jsDocs
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./jsdocs
+          publish_dir: .
 
       - name: HTML5 Validator
         uses: Cyb3r-Jak3/html5validator-action@v7.2.0
