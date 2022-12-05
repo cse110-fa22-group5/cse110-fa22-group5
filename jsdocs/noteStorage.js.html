@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: noteStorage.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: noteStorage.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const DBNAME = 'NotesDB';
+const OBJECT_STORE_NAME = 'NotesOS';
+let db;
+
+/**
+ * Sets up and returns a reference to our IndexedDB notes storage.
+ * @returns A reference to our IndexedDB notes storage.
+ */
+export function initializeDB(indexedDB) {
+  return new Promise((resolve, reject) => {
+    if (db) {
+      resolve(db);
+      return;
+    }
+    const openRequest = indexedDB.open(DBNAME, 1);
+    openRequest.onupgradeneeded = (event) => {
+      // Set up the database table if it hasn't been initialized yet.
+      db = event.target.result;
+      const objectStore = db.createObjectStore(OBJECT_STORE_NAME, {
+        keyPath: 'uuid',
+        autoIncrement: true,
+      });
+      objectStore.createIndex('notes', 'notes', { unique: false });
+    };
+    openRequest.onsuccess = (event) => {
+      db = event.target.result;
+      resolve(db);
+    };
+    openRequest.onerror = (event) => {
+      reject(new Error(`Error opening database! ${event.target.errorCode}`));
+    };
+  });
+}
+
+/**
+ * Gets all notes stored in 'NotesDB' from IndexedDB.
+ * @param {*} database The initialized indexedDB object
+ * @returns A list of note objects.
+ */
+export function getNotesFromStorage(database) {
+  return new Promise((resolve, reject) => {
+    const objectStore = database
+      .transaction(OBJECT_STORE_NAME)
+      .objectStore(OBJECT_STORE_NAME);
+    const notes = [];
+    const getNotesRequest = objectStore.openCursor();
+    getNotesRequest.onsuccess = (event) => {
+      // Iterate through all the notes received and add them to be returned.
+      const cursor = event.target.result;
+      if (cursor) {
+        notes.push(cursor.value);
+        cursor.continue();
+      } else {
+        resolve(notes);
+      }
+    };
+    getNotesRequest.onerror = (event) => {
+      reject(
+        new Error(
+          `Error fetching notes from storage: ${event.target.errorCode}`
+        )
+      );
+    };
+  });
+}
+
+/**
+ * Gets a single note from storage, if it exists.
+ * @param {*} database The initialized indexedDB object.
+ * @param {*} id UUID of the note.
+ * @returns The note object stored with the given UUID.
+ */
+export function getNoteFromStorage(database, id) {
+  return new Promise((resolve, reject) => {
+    const objectStore = database
+      .transaction(OBJECT_STORE_NAME)
+      .objectStore(OBJECT_STORE_NAME);
+    const getNoteRequest = objectStore.get(id);
+    getNoteRequest.onsuccess = () => {
+      resolve(getNoteRequest.result);
+    };
+    getNoteRequest.onerror = () => {
+      reject(new Error(`Error fetching note with id ${id} from storage.`));
+    };
+  });
+}
+
+/**
+ * Takes the given note and saves it to the database. To make a new note,
+ * pass in a Note object where the UUID is undefined and a new note will be made.
+ * @param {*} database The initialized indexedDB object.
+ * @param {*} note The note object to save.
+ * @returns Promise&lt;int> The UUID of the newly saved note.
+ */
+export function saveNoteToStorage(database, note) {
+  if (!note.uuid) {
+    return new Promise((resolve, reject) => {
+      const objectStore = database
+        .transaction(OBJECT_STORE_NAME, 'readwrite')
+        .objectStore(OBJECT_STORE_NAME);
+      const saveNoteRequest = objectStore.add(note);
+      saveNoteRequest.onsuccess = () => {
+        console.log(
+          `Successfully saved note with uuid ${saveNoteRequest.result}`
+        );
+        console.log(saveNoteRequest.result);
+        resolve(saveNoteRequest.result);
+      };
+      saveNoteRequest.onerror = () => {
+        reject(new Error('Error saving new note to storage'));
+      };
+    });
+  }
+  return new Promise((resolve, reject) => {
+    const objectStore = database
+      .transaction(OBJECT_STORE_NAME, 'readwrite')
+      .objectStore(OBJECT_STORE_NAME);
+    const saveNoteRequest = objectStore.put(note);
+    saveNoteRequest.onsuccess = () => {
+      console.log(
+        `Successfully saved note with uuid ${saveNoteRequest.result}`
+      );
+      resolve(saveNoteRequest.result);
+    };
+    saveNoteRequest.onerror = () => {
+      reject(new Error(`Error saving note with id ${note.uuid} to storage`));
+    };
+  });
+}
+
+/**
+ * Takes the given note and deletes it from storage.
+ * @param {*} database The initialized indexedDB object.
+ * @param {*} note The note object to delete.
+ * @returns Promise&lt;void>
+ */
+export function deleteNoteFromStorage(database, note) {
+  return new Promise((resolve, reject) => {
+    const objectStore = database
+      .transaction(OBJECT_STORE_NAME, 'readwrite')
+      .objectStore(OBJECT_STORE_NAME);
+    const deleteNoteRequest = objectStore.delete(note.uuid);
+    deleteNoteRequest.onsuccess = () => {
+      console.log(
+        `Successfully deleted note with uuid ${deleteNoteRequest.result}`
+      );
+      resolve();
+    };
+    deleteNoteRequest.onerror = () => {
+      reject(
+        new Error(`Error deleting note with id ${note.uuid} from storage`)
+      );
+    };
+  });
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="dashboardRow.html">dashboardRow</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addNotesToDocument">addNotesToDocument</a></li><li><a href="global.html#deleteNoteFromStorage">deleteNoteFromStorage</a></li><li><a href="global.html#filterNotesByQuery">filterNotesByQuery</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getNoteFromStorage">getNoteFromStorage</a></li><li><a href="global.html#getNotesFromStorage">getNotesFromStorage</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBackButton">initBackButton</a></li><li><a href="global.html#initDeleteButton">initDeleteButton</a></li><li><a href="global.html#initEditToggle">initEditToggle</a></li><li><a href="global.html#initEventHandler">initEventHandler</a></li><li><a href="global.html#initializeDB">initializeDB</a></li><li><a href="global.html#initSaveButton">initSaveButton</a></li><li><a href="global.html#saveNoteToStorage">saveNoteToStorage</a></li><li><a href="global.html#setEditable">setEditable</a></li><li><a href="global.html#sortNotesByTime">sortNotesByTime</a></li><li><a href="global.html#sortNotesByTitle">sortNotesByTitle</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Dec 05 2022 07:31:15 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
