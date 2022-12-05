@@ -22,7 +22,7 @@ Video and tutorial on how our project works.
 
 ## Documentation  
 
-Our project has been documented via jsDocs. Read through our documentation [here](https://akanksha-maker-ucsd.github.io/jsDocs/).
+All documentation generated via JSDocs [here](https://cse110-fa22-group5.github.io/cse110-fa22-group5/jsdocs/index.html).
 
 
 ## Running and Scripts
