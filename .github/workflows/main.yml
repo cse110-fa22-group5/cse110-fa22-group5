@@ -28,14 +28,15 @@ jobs:
           source_dir: ./source/scripts
           recurse: true
           output_dir: ./jsdocs
+          front_page: README.md
 
       # Push generated files onto a external repository to deploy on GitHub pages 
       - name: Deploy jsDocs
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        personal_token: ${{ secrets.PERSONAL_TOKEN }}
-        publish_dir: ./jsdocs
-        external_repository: akanksha-maker-ucsd/jsDocs
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
 
       - name: HTML5 Validator
         uses: Cyb3r-Jak3/html5validator-action@v7.2.0
