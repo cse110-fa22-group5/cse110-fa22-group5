@@ -33,6 +33,7 @@ jobs:
       # Push generated files onto a new branch called gh-pages
       - name: Deploy jsDocs
         uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
