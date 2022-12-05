@@ -8,7 +8,7 @@ Personal note taking app that enables users to share their notes with other user
 
 ## View our deployed project!
 
-[https://cse110-fa22-group5.github.io/cse110-fa22-group5/source](https://cse110-fa22-group5.github.io/cse110-fa22-group5/source)
+[https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/index.html](https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/index.html)
 
 ## Meet our team!
 
@@ -20,7 +20,7 @@ Video and tutorial on how our project works.
 
 ## Documentation
 
-All documentation generated via JSDocs [here](https://cse110-fa22-group5.github.io/cse110-fa22-group5/jsdocs).
+All documentation generated via JSDocs [here](https://cse110-fa22-group5.github.io/cse110-fa22-group5/jsdocs/index.html).
 
 ## Running and Scripts
 
