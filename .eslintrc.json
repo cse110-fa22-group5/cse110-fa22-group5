@@ -1,0 +1,26 @@
+{
+  "root": true,
+  "plugins": ["jest", "prettier"],
+  "env": {
+    "jest/globals": true,
+    "browser": true,
+    "es2021": true
+  },
+  "extends": "airbnb-base",
+  "overrides": [],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "import/no-extraneous-dependencies": "off",
+    "no-alert": "off",
+    "prefer-destructuring": "off",
+    "import/extensions": "off",
+    "no-console": "off",
+    "comma-dangle": "off"
+  },
+  "globals": {
+    "page": "readonly"
+  }
+}

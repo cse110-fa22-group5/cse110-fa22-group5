@@ -1,0 +1,165 @@
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: linear-gradient(#221c35 30.73%, rgba(75, 54, 95, 0) 91.67%),
+    #4b365f;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  margin: 1rem;
+}
+
+.controlPanel {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  font-size: 1.5em;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border: none;
+  border-radius: 1rem;
+  background-color: rgba(136, 86, 174, 0.388);
+  color: #ffffff;
+  filter: drop-shadow(0px 0px 10px black);
+}
+@media only screen and (max-width: 800px) {
+  button {
+    font-size: 1em;
+  }
+}
+
+button:hover {
+  background-color: #9867c5;
+  transition: background-color 0.25s ease-in-out;
+  cursor: pointer;
+}
+
+h1 {
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 7vh;
+  font-weight: 400;
+  line-height: 48px;
+  letter-spacing: 0em;
+}
+
+.title:hover {
+  cursor: pointer;
+}
+
+main {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  align-self: center;
+}
+
+.dashboard {
+  height: 100%;
+  overflow: auto;
+  margin-bottom: 1.5rem;
+}
+
+.dashboardItems {
+  overflow: auto;
+}
+
+.columnTitle {
+  position: sticky;
+  display: flex;
+  flex-direction: row;
+  font-family: sans-serif;
+  margin: 1px;
+  padding: 10px 30px;
+  justify-content: space-between;
+  background: #47216c;
+  filter: drop-shadow(0px 0px 5px black);
+}
+
+.titleColHeader {
+  font-size: 3vh;
+  padding-right: 10px;
+}
+
+.timeColHeader {
+  font-size: 3vh;
+  padding-left: 10px;
+}
+
+.titleCol:hover,
+.timeCol:hover {
+  color: #d6cdf2;
+  cursor: pointer;
+}
+
+p {
+  color: white;
+  font-family: 'Poppins', sans-serif;
+}
+
+.titleCol,
+.timeCol {
+  display: flex;
+  align-items: center;
+}
+
+.titleColSortOrder,
+.timeColSortOrder {
+  display: none;
+}
+
+.titleColSortOrder[direction='asc'],
+.timeColSortOrder[direction='asc'] {
+  display: initial;
+}
+
+.titleColSortOrder[direction='desc'],
+.timeColSortOrder[direction='desc'] {
+  display: initial;
+  transform: rotate(180deg);
+}
+
+.searchBarDiv {
+  margin-right: 2rem;
+  display: flex;
+  height: 36px;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #ffffff;
+  padding: 0.3rem;
+}
+
+.searchIcon {
+  padding: 0.5rem;
+}
+
+.searchBar {
+  width: 15vw;
+  display: flex;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.searchBar:focus {
+  border: none;
+  outline: none;
+}

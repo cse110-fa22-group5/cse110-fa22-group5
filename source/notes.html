@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <title>Notes</title>
+    <!-- Main Stylesheets & Scripts -->
+    <link rel="stylesheet" href="./styling/notes.css" />
+    <script src="./scripts/notesEditor.js" type="module"></script>
+  </head>
+  <body id="notes-editor">
+    <header>
+      <div class="note-control-bar">
+        <a href="./index.html" id="back-button"
+          ><i class="fa fa-arrow-left" aria-hidden="true"></i
+        ></a>
+        <button id="change-view-button">Edit</button>
+        <button id="save-button">Save</button>
+        <button id="delete-button">Delete</button>
+      </div>
+
+      <div id="subheader">
+        <div id="notes-info">
+          <span id="notes-title"></span>
+          <p id="notes-last-modified">Last Modified:</p>
+        </div>
+      </div>
+    </header>
+
+    <main id="notes-content">
+      <textarea
+        id="edit-content"
+        placeholder="Take a note... (Styling with Markdown is supported)"
+        hidden
+      ></textarea>
+      <div id="view-content" hidden></div>
+    </main>
+  </body>
+</html>
