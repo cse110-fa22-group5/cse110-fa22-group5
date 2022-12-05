@@ -43,3 +43,4 @@ jobs:
         with:
           root: source/
           css: true
+          skip_git_check: true
