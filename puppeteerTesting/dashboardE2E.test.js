@@ -37,12 +37,16 @@ describe('Basic user flow for Website', () => {
   /**
    * Check to make sure the title is initially inputted as "Untitled Note" by default
    */
-  it('Checking to make sure the Title is initially inputted as "Untitled Note" on the note'
-   + 'editor window', async () => {
-    console.log('Checking to make sure Title is initially "Untitled Note"');
-    const titleText = await page.$eval('#title-input', (e) => e.innerHTML);
-    expect(titleText).toBe('');
-  }, 2500);
+  it(
+    'Checking to make sure the Title is initially inputted as "Untitled Note" on the note'
+      + 'editor window',
+    async () => {
+      console.log('Checking to make sure Title is initially "Untitled Note"');
+      const titleText = await page.$eval('#title-input', (e) => e.innerHTML);
+      expect(titleText).toBe('');
+    },
+    2500
+  );
   /**
    * Check to make sure the Note text area has no input initially
    */
@@ -72,40 +76,32 @@ describe('Basic user flow for Website', () => {
   /**
    * Check to make sure "Save" button should alert the user to enter a valid title
    */
-  it(
-    'Check to make sure "Save" button should alert the user to enter a valid title',
-    async () => {
-      console.log('Checking "Save" button...');
+  it('Check to make sure "Save" button should alert the user to enter a valid title', async () => {
+    console.log('Checking "Save" button...');
 
-      const saveButton = await page.$('#save-button');
-      await page.evaluate('window.alert = () => true');
-      await saveButton.click();
-      expect(page.url()).toBe(
-        'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html'
-      );
-    },
-    10000
-  );
+    const saveButton = await page.$('#save-button');
+    await page.evaluate('window.alert = () => true');
+    await saveButton.click();
+    expect(page.url()).toBe(
+      'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html'
+    );
+  }, 10000);
   /**
    * Check to make sure the title input is "Lecture 1 CSE 110"
    */
-  it(
-    'Check to make sure the title input is "Lecture 1 CSE 110"',
-    async () => {
-      console.log(
-        'Checking to make sure the title input is now "Lecture 1 CSE 110"...'
-      );
-      const inputTxt = await page.$('#title-input');
-      let titleText = await page.$eval('#title-input', (e) => e.value);
+  it('Check to make sure the title input is "Lecture 1 CSE 110"', async () => {
+    console.log(
+      'Checking to make sure the title input is now "Lecture 1 CSE 110"...'
+    );
+    const inputTxt = await page.$('#title-input');
+    let titleText = await page.$eval('#title-input', (e) => e.value);
 
-      await inputTxt.click({ clickCount: 1 });
+    await inputTxt.click({ clickCount: 1 });
 
-      await page.type('#title-input', 'Lecture 1 CSE 110');
-      titleText = await page.$eval('#title-input', (e) => e.value);
-      expect(titleText).toBe('Lecture 1 CSE 110');
-    },
-    10000
-  );
+    await page.type('#title-input', 'Lecture 1 CSE 110');
+    titleText = await page.$eval('#title-input', (e) => e.value);
+    expect(titleText).toBe('Lecture 1 CSE 110');
+  }, 10000);
 
   /**
    * Click "Back" button should alert user with confirmation to leave since title is modified
@@ -152,35 +148,35 @@ describe('Basic user flow for Website', () => {
   /**
    * Check to make sure "Save" button should update note editor page url with unique id of note
    */
-  it(
-    'Check to make sure "Save" button should redirect to the note view mode window',
-    async () => {
-      console.log('Checking "Save" button...');
-      const newButton = await page.$('#save-button');
-      await newButton.click();
-      await page.waitForNavigation();
-      expect(page.url()).toBe(
-        'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html?id=1'
-      );
-    },
-    10000
-  );
+  it('Check to make sure "Save" button should redirect to the note view mode window', async () => {
+    console.log('Checking "Save" button...');
+    const newButton = await page.$('#save-button');
+    await newButton.click();
+    await page.waitForNavigation();
+    expect(page.url()).toBe(
+      'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html?id=1'
+    );
+  }, 10000);
   /**
    * Check to make sure after clicking Save the innerHTML for the title is 'Lecture 1 CSE 110'
    */
-  it('Check to make sure after clicking Save the window is in view editor mode and user cannot'
-    + 'edit note page', async () => {
-    console.log('Checking title input uneditable...');
-    const titleText = await page.$eval('#title-input', (e) => e.value);
-    console.log(titleText);
-    const titleEditable = await page.$eval('#title-input', (e) => e.disabled);
-    expect(titleText).toBe('Lecture 1 CSE 110');
-    expect(titleEditable).toBe(true);
-    const editTxtOff = await page.$eval('#edit-content', (e) => e.hidden);
-    const viewTxtOff = await page.$eval('#view-content', (e) => e.hidden);
-    expect(editTxtOff).toBe(true);
-    expect(viewTxtOff).toBe(false);
-  }, 2500);
+  it(
+    'Check to make sure after clicking Save the window is in view editor mode and user cannot'
+      + 'edit note page',
+    async () => {
+      console.log('Checking title input uneditable...');
+      const titleText = await page.$eval('#title-input', (e) => e.value);
+      console.log(titleText);
+      const titleEditable = await page.$eval('#title-input', (e) => e.disabled);
+      expect(titleText).toBe('Lecture 1 CSE 110');
+      expect(titleEditable).toBe(true);
+      const editTxtOff = await page.$eval('#edit-content', (e) => e.hidden);
+      const viewTxtOff = await page.$eval('#view-content', (e) => e.hidden);
+      expect(editTxtOff).toBe(true);
+      expect(viewTxtOff).toBe(false);
+    },
+    2500
+  );
 
   /**
    * Check to make sure the element note-content-input attribute
@@ -329,7 +325,10 @@ describe('Basic user flow for Website', () => {
     await button.click();
 
     // there should be no items left
-    const numNotes = await page.$$eval('dashboard-row', (noteItems) => noteItems.length);
+    const numNotes = await page.$$eval(
+      'dashboard-row',
+      (noteItems) => noteItems.length
+    );
     expect(numNotes).toBe(1);
   }, 10000);
 
@@ -348,7 +347,10 @@ describe('Basic user flow for Website', () => {
     await page.waitForNavigation();
 
     // there should be no items left
-    const numNotes = await page.$$eval('dashboard-row', (noteItems) => noteItems.length);
+    const numNotes = await page.$$eval(
+      'dashboard-row',
+      (noteItems) => noteItems.length
+    );
     expect(numNotes).toBe(0);
   }, 10000);
 
@@ -379,10 +381,7 @@ describe('Basic user flow for Website', () => {
       // set content
       const inputTxt = await page.$('#edit-content');
       await inputTxt.click({ clickCount: 2 });
-      await page.type(
-        '#edit-content',
-        `Lecture ${i + 1}!`
-      );
+      await page.type('#edit-content', `Lecture ${i + 1}!`);
 
       // save the note
       const saveButton = await page.$('#save-button');
@@ -407,24 +406,25 @@ describe('Basic user flow for Website', () => {
     expect(numNotes).toBe(1);
   }, 100000);
 
-    /**
+  /**
    * Check that the Back button works for an existing note:
-   * When title is edited, back button shows alert 
+   * When title is edited, back button shows alert
    */
-     it('Open an existing note', async () => {
-      console.log('Checking Opening an existing note...');
-      
-      await page.click('dashboard-row');
-      const clickEditButton = await page.$('#change-view-button');
-      await clickEditButton.click();
-      
-      const titleText = await page.$('#title-input');
-      await titleText.click({ clickCount: 1 });
+  it('Open an existing note', async () => {
+    console.log('Checking Opening an existing note...');
 
-      const backButton = await page.$('#back-button');
-      await page.evaluate('window.confirm = () => false');
-      await backButton.click();
-      expect(page.url()).toBe('https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html?id=3');
-     
-    }, 100000);
+    await page.click('dashboard-row');
+    const clickEditButton = await page.$('#change-view-button');
+    await clickEditButton.click();
+
+    const titleText = await page.$('#title-input');
+    await titleText.click({ clickCount: 1 });
+
+    const backButton = await page.$('#back-button');
+    await page.evaluate('window.confirm = () => false');
+    await backButton.click();
+    expect(page.url()).toBe(
+      'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html?id=3'
+    );
+  }, 100000);
 });
