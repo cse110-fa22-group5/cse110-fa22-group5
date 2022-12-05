@@ -1,5 +1,7 @@
 # cse110-fa22-group5
 
+[![Coverage Status](https://coveralls.io/repos/github/cse110-fa22-group5/cse110-fa22-group5/badge.svg?branch=main)](https://coveralls.io/github/cse110-fa22-group5/cse110-fa22-group5?branch=main)
+
 ## Short description of project:
 
 Personal note taking app that enables users to share their notes with other users while maintaining of their own notes.
@@ -18,7 +20,7 @@ Personal note taking app that enables users to share their notes with other user
 
 Video and tutorial on how our project works.
 
-## Documentation
+## Documentation  
 
 All documentation generated via JSDocs [here](https://cse110-fa22-group5.github.io/cse110-fa22-group5/jsdocs/index.html).
 
