@@ -11,8 +11,6 @@
 - Using the table element
 - Create customized element for note item
 
-
 ## Decision Outcome
 
-We decide to create the custom element for each note element because it is easier, more adaptable, and dynamic when adding notes to the List element compared to using table element, which is static and hard to do so. 
-
+We decide to create the custom element for each note element because it is easier, more adaptable, and dynamic when adding notes to the List element compared to using table element, which is static and hard to do so.

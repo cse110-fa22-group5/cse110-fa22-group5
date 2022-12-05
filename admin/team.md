@@ -1,11 +1,14 @@
 # Team Name
+
 Basement Beasts
 
 # Branding
+
 ![Logo](branding/logo.png)
 ![Mascot](branding/mascot.jpeg)
 
 # Team Values
+
 - Trust
 - Humility
 - Respect
@@ -14,7 +17,8 @@ Basement Beasts
 - Open Communication
 - Accountability
 
-# Roster 
+# Roster
+
 - Alex Zhang
   - I'm a second year Computer Engineering major from Seventh College.
   - [Github](https://github.com/alexzhang1618)

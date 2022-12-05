@@ -1,5 +1,7 @@
 ## Development Timeline
+
 # MVP (Minimum Viable Product) - Local Storage
+
 - Make a new note (Markdown file)
   - Open a new page on the frontend
 - Save a note (as a .md file)
@@ -15,6 +17,7 @@
   - Make this a clickable option on the page screen
 
 # Extra Feature 1 (Organization)
+
 - Tags
   - Previously defined tags (Notes, Homework, Lecture Notes) are selectable for each note
 - Search
@@ -28,6 +31,7 @@
   - Option on dashboard to duplicate a previously existing note
 
 # Extra Feature 2 (Publishing public notes)
+
 - Add database to store public notes
   - Database stores note title, note contents, last modified, author name
 - Add public dashboard
@@ -39,6 +43,7 @@
   - Take the public note, save to our local filesystem, and reload our local filesystem
 
 # Extra Feature 3 (Custom tags, Authentication, PDFs)
+
 - Users need to sign in to publish their notes
   - Public notes will have the user associated with it
 - Tags are customizable
@@ -48,6 +53,7 @@
   - Additional view on original page for PDFs
 
 # Extra Feature 4 (Settings, User Profiles)
+
 - Store comments/likes on public notes
 - Settings Page
   - Select appearance colors

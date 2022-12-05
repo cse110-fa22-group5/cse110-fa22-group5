@@ -1,19 +1,33 @@
 {
-    "type": "commonjs",
-    "devDependencies": {
-        "@babel/core": "^7.16.0",
-        "@babel/preset-env": "^7.16.0",
-        "babel-jest": "^27.3.1",
-        "fake-indexeddb": "^4.0.0",
-        "jest": "^27.3.1",
-        "jest-puppeteer": "^6.0.0",
-        "puppeteer": "^11.0.0"
+  "type": "commonjs",
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "babel-jest": "^27.3.1",
+    "eslint": "^8.28.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^27.1.6",
+    "eslint-plugin-prettier": "^4.2.1",
+    "fake-indexeddb": "^4.0.0",
+    "jest": "^27.3.1",
+    "jest-puppeteer": "^6.0.0",
+    "prettier": "^2.8.0",
+    "puppeteer": "^11.0.0"
+  },
+  "scripts": {
+    "test": "jest",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
+  "jest": {
+    "preset": "jest-puppeteer",
+    "transform": {
+      "^.+\\.(js|jsx)$": "babel-jest"
     },
-    "scripts": {
-        "test": "jest"
-    },
-    "jest": {
-        "preset": "jest-puppeteer",
-        "verbose": true
-    }
+    "verbose": true
+  }
 }
