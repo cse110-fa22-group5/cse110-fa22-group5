@@ -1,6 +1,10 @@
 import { indexedDB } from 'fake-indexeddb';
 import {
-  initializeDB, getNotesFromStorage, getNoteFromStorage, saveNoteToStorage, deleteNoteFromStorage
+  initializeDB,
+  getNotesFromStorage,
+  getNoteFromStorage,
+  saveNoteToStorage,
+  deleteNoteFromStorage,
 } from '../source/scripts/noteStorage.js';
 
 let db;
@@ -20,7 +24,7 @@ describe('Backend: Read/Add notes', () => {
       uuid: undefined,
       title: 'My First Note',
       lastModified: '1/1/2001 at 1:00 PM',
-      content: 'Hello World!'
+      content: 'Hello World!',
     };
     const id = await saveNoteToStorage(db, note);
     console.log(id);
@@ -33,7 +37,7 @@ describe('Backend: Read/Add notes', () => {
       uuid: 1,
       title: 'My First Note',
       lastModified: '1/1/2001 at 1:00 PM',
-      content: 'Hello World!'
+      content: 'Hello World!',
     });
   });
 
@@ -42,9 +46,11 @@ describe('Backend: Read/Add notes', () => {
       uuid: undefined,
       title: 'My First Note',
       lastModified: '1/1/2001 at 1:00 PM',
-      content: 'Hello World!'
+      content: 'Hello World!',
     };
-    await Promise.all([0, 1, 2, 3, 4, 5].map(() => saveNoteToStorage(db, note)));
+    await Promise.all(
+      [0, 1, 2, 3, 4, 5].map(() => saveNoteToStorage(db, note))
+    );
     const notes = await getNotesFromStorage(db);
     expect(notes.length).toBe(7);
   });
@@ -54,7 +60,7 @@ describe('Backend: Read/Add notes', () => {
       uuid: 5,
       title: 'Updated Note',
       lastModified: '2/1/2001 at 2:00 PM',
-      content: 'Updated note contents!'
+      content: 'Updated note contents!',
     };
     await saveNoteToStorage(db, note);
     const response = await getNoteFromStorage(db, 5);
@@ -79,7 +85,7 @@ describe('Backend: Delete notes', () => {
       uuid: 5,
       title: 'Updated Note',
       lastModified: '2/1/2001 at 2:00 PM',
-      content: 'Updated note contents!'
+      content: 'Updated note contents!',
     };
     await deleteNoteFromStorage(db, note);
     const response = await getNoteFromStorage(db, 5);
@@ -106,7 +112,7 @@ describe('Backend: Delete notes', () => {
       uuid: 2,
       title: 'My First Note',
       lastModified: '1/1/2001 at 1:00 PM',
-      content: 'Hello World!'
+      content: 'Hello World!',
     };
     const response = await deleteNoteFromStorage(db, note);
     expect(response).toBe(undefined);

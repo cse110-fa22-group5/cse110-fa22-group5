@@ -406,6 +406,28 @@ describe('Basic user flow for Website', () => {
   }, 100000);
 
   /**
+   * Check that when you click "Title" it sorts notes starting with asc order
+   */
+  it('Check that when you click "Title" it sorts notes starting with asc order', async () => {
+    console.log('Checking Title sorted...');
+    const titleColClick = await page.$('.titleCol');
+    await titleColClick.click();
+    const titleSvg = await page.$eval('.titleCol .titleColSortOrder', (e) => e.getAttribute('direction'));
+    console.log(titleSvg);
+    expect(titleSvg).toBe('asc');
+  });
+  /**
+   * Check that when you click "Title" it sorts notes starting with descending order
+   */
+  it('Check that when you click "Title" it sorts notes starting with asc order', async () => {
+    console.log('Checking Title sorted...');
+    const titleColClick = await page.$('.titleCol');
+    await titleColClick.click();
+    const titleSvg = await page.$eval('.titleCol .titleColSortOrder', (e) => e.getAttribute('direction'));
+    console.log(titleSvg);
+    expect(titleSvg).toBe('desc');
+  });
+  /**
    * Check that the Back button works for an existing note:
    * When title is edited, back button shows alert
    */
@@ -423,7 +445,7 @@ describe('Basic user flow for Website', () => {
     await page.evaluate('window.confirm = () => false');
     await backButton.click();
     expect(page.url()).toBe(
-      'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html?id=3'
+      'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html?id=4'
     );
   }, 100000);
 });
