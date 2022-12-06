@@ -40,9 +40,6 @@ function sortNotesByTime(notes, sortType) {
     const timeList2 = dateList2[2].split('at ')[1].split(' ');
     let hour1;
     let hour2;
-
-    //transform hour to 24 hour format with am/pm considering 12 am as 0 and 12pm as 12 
-    
     if (timeList1[0].split(':')[0] === '12') {
       hour1 = timeList1[1] === 'am' ? 0 : 12;
     } else {
