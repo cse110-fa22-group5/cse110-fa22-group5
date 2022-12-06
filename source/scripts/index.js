@@ -43,12 +43,12 @@ function sortNotesByTime(notes, sortType) {
     if (timeList1[0].split(':')[0] === '12') {
       hour1 = timeList1[1] === 'AM' ? 0 : 12;
     } else {
-      hour1 = timeList1[1] === 'PM' ? parseInt(timeList1[0]) + 12 : timeList1[0];
+      hour1 = timeList1[1] === 'PM' ? parseInt(timeList1[0], 10) + 12 : timeList1[0];
     }
     if (timeList2[0].split(':')[0] === '12') {
       hour2 = timeList2[1] === 'AM' ? 0 : 12;
     } else {
-      hour2 = timeList2[1] === 'PM' ? parseInt(timeList2[0]) + 12 : timeList2[0];
+      hour2 = timeList2[1] === 'PM' ? parseInt(timeList2[0], 10) + 12 : timeList2[0];
     }
     const minute1 = timeList1[0].split(':')[1];
     const minute2 = timeList2[0].split(':')[1];
