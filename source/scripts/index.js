@@ -36,8 +36,24 @@ function sortNotesByTime(notes, sortType) {
   return notes.sort((note1, note2) => {
     const dateList1 = note1.lastModified.split('/');
     const dateList2 = note2.lastModified.split('/');
-    const date1 = new Date(dateList1[2], dateList1[0], dateList1[1]);
-    const date2 = new Date(dateList2[2], dateList2[0], dateList2[1]);
+    const timeList1 = dateList1[2].split('at ')[1].split(' ');
+    const timeList2 = dateList2[2].split('at ')[1].split(' ');
+    let hour1;
+    let hour2;
+    if (timeList1[0].split(':')[0] === '12') {
+      hour1 = timeList1[1] === 'AM' ? 0 : 12;
+    } else {
+      hour1 = timeList1[1] === 'PM' ? parseInt(timeList1[0], 10) + 12 : timeList1[0];
+    }
+    if (timeList2[0].split(':')[0] === '12') {
+      hour2 = timeList2[1] === 'AM' ? 0 : 12;
+    } else {
+      hour2 = timeList2[1] === 'PM' ? parseInt(timeList2[0], 10) + 12 : timeList2[0];
+    }
+    const minute1 = timeList1[0].split(':')[1];
+    const minute2 = timeList2[0].split(':')[1];
+    const date1 = new Date(dateList1[2].split('at ')[0], dateList1[0] - 1, dateList1[1], hour1, minute1);
+    const date2 = new Date(dateList2[2].split('at ')[0], dateList2[0] - 1, dateList2[1], hour2, minute2);
     if (sortType === 'asc') {
       return date1 - date2;
     }
