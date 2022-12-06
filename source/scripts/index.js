@@ -41,14 +41,14 @@ function sortNotesByTime(notes, sortType) {
     let hour1;
     let hour2;
     if (timeList1[0].split(':')[0] === '12') {
-      hour1 = timeList1[1] === 'am' ? 0 : 12;
+      hour1 = timeList1[1] === 'AM' ? 0 : 12;
     } else {
-      hour1 = timeList1[1] === 'pm' ? parseInt(timeList1[0], 10) + 12 : parseInt(timeList1[0], 10);
+      hour1 = timeList1[1] === 'PM' ? timeList1[0] + 12 : timeList1[0];
     }
     if (timeList2[0].split(':')[0] === '12') {
-      hour2 = timeList2[0] === 'am' ? 0 : 12;
+      hour2 = timeList2[0] === 'AM' ? 0 : 12;
     } else {
-      hour2 = timeList2[0] === 'pm' ? parseInt(timeList2[0], 10) + 12 : parseInt(timeList2[0], 10);
+      hour2 = timeList2[0] === 'PM' ? timeList2[0] + 12 : timeList2[0];
     }
 
     const minute1 = timeList1[0].split(':')[1];
