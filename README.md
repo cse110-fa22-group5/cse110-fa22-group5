@@ -18,7 +18,9 @@ Personal note taking app that enables users to share their notes with other user
 
 ## Application Demo and Tutorial
 
-Video and tutorial on how our project works.
+Video and tutorial on how our project works:  
+Project video - **public** version: https://www.youtube.com/watch?v=ZP5sLODzwoQ&feature=youtu.be&ab_channel=LaurenLee  
+Project video - **private** version: https://www.youtube.com/watch?v=0lr2i0lSBv4&feature=youtu.be&ab_channel=LaurenLee
 
 ## Documentation  
 
