@@ -32,12 +32,29 @@ function addNotesToDocument(notes) {
  * @param {String} sortType the type of sort, either ascending or descending
  * @returns sortedNotes
  */
-function sortNotesByTime(notes, sortType) {
+ function sortNotesByTime(notes, sortType) {
   return notes.sort((note1, note2) => {
     const dateList1 = note1.lastModified.split('/');
     const dateList2 = note2.lastModified.split('/');
-    const date1 = new Date(dateList1[2], dateList1[0], dateList1[1]);
-    const date2 = new Date(dateList2[2], dateList2[0], dateList2[1]);
+    const timeList1 = dateList1[2].split('at ')[1].split(' ');;
+    const timeList2 = dateList2[2].split('at ')[1].split(' ');
+    let hour1, hour2;
+    //transform hour to 24 hour format with am/pm considering 12 am as 0 and 12pm as 12
+    if (timeList1[0].split(':')[0] == '12') {
+      hour1 = timeList1[1] == 'am' ? 0 : 12;
+    } else {
+      hour1 = timeList1[1] === 'pm' ? parseInt(timeList1[0], 10) + 12 : parseInt(timeList1[0], 10);
+    }
+    if (timeList2[0].split(':')[0] == '12') {
+      hour2 = timeList2[0] == 'am' ? 0 : 12;
+    } else {
+      hour2 = timeList2[0] === 'pm' ? parseInt(timeList2[0], 10) + 12 : parseInt(timeList2[0], 10);
+    }
+    //get minutes
+    const minute1 = timeList1[0].split(':')[1];
+    const minute2 = timeList2[0].split(':')[1];
+    const date1 = new Date(dateList1[2].split('at ')[0], dateList1[0] - 1, dateList1[1], hour1, minute1);
+    const date2 = new Date(dateList2[2].split('at ')[0], dateList2[0] - 1, dateList2[1], hour2, minute2);
     if (sortType === 'asc') {
       return date1 - date2;
     }
