@@ -35,13 +35,12 @@ describe('Basic user flow for Website', () => {
   }, 2500);
 
   /**
-   * Check to make sure the title is initially inputted as "Untitled Note" by default
+   * Check to make sure the title is initially blank by default
    */
   it(
-    'Checking to make sure the Title is initially inputted as "Untitled Note" on the note'
-      + 'editor window',
+    'Checking to make sure the Title is initially blank on the note editor window',
     async () => {
-      console.log('Checking to make sure Title is initially "Untitled Note"');
+      console.log('Checking to make sure Title is initially blank');
       const titleText = await page.$eval('#title-input', (e) => e.innerHTML);
       expect(titleText).toBe('');
     },
