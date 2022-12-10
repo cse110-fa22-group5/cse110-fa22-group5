@@ -22,26 +22,6 @@ function getDate() {
   });
   return `${month}/${day}/${year} at ${time}`;
 }
-
-/**
- * @description Switches between edit/view modes on the page
- * @param {*} editable True for edit mode, false for preview mode
- */
-function setEditable(editable) {
-  const editContent = document.querySelector('#edit-content');
-  const viewContent = document.querySelector('#view-content');
-  const titleInput = document.querySelector('#title-input');
-  if (!editable) {
-    viewContent.innerHTML = markdown(editContent.value);
-    viewContent.hidden = false;
-    editContent.hidden = true;
-    titleInput.setAttribute('disabled', true);
-  } else {
-    editContent.hidden = false;
-    viewContent.hidden = true;
-    titleInput.removeAttribute('disabled');
-  }
-}
 /**
  * @description Add event listener to back button to alert the
  *              user that changes may not be saved
@@ -68,11 +48,32 @@ function initBackButton() {
       } else {
         backButton.setAttribute('href', './index.html');
       }
+    } else {
+      backButton.setAttribute('href', './index.html');
     }
   }
+
   backButton.addEventListener('click', dis);
 }
-
+/**
+ * @description Switches between edit/view modes on the page
+ * @param {*} editable True for edit mode, false for preview mode
+ */
+function setEditable(editable) {
+  const editContent = document.querySelector('#edit-content');
+  const viewContent = document.querySelector('#view-content');
+  const titleInput = document.querySelector('#title-input');
+  if (!editable) {
+    viewContent.innerHTML = markdown(editContent.value);
+    viewContent.hidden = false;
+    editContent.hidden = true;
+    titleInput.setAttribute('disabled', true);
+  } else {
+    editContent.hidden = false;
+    viewContent.hidden = true;
+    titleInput.removeAttribute('disabled');
+  }
+}
 /**
  * @description Initialize the button that toggles between edit and preview modes
  * @param {boolean} editEnabled True if the note is initially in edit mode, false if in preview mode
@@ -120,8 +121,6 @@ function initSaveButton(id, db) {
       };
       if (id) {
         noteObject.uuid = id;
-        saveButton.classList.add('disabled-button');
-        saveButton.disabled = true;
       }
       saveNoteToStorage(db, noteObject);
       if (!id) {
@@ -133,7 +132,7 @@ function initSaveButton(id, db) {
       // Switch to preview mode
       initEditToggle(false);
       setEditable(false);
-
+      // Disable save button after clicking it
       saveButton.classList.add('disabled-button');
       saveButton.disabled = true;
     }
@@ -217,6 +216,10 @@ async function init() {
     const note = await getNoteFromStorage(db, parseInt(id, 10));
     await addNotesToDocument(note);
     initEditToggle(false);
+    // existing note initial view mode should have disabled save button
+    const saveButton = document.querySelector('#save-button');
+    saveButton.classList.add('disabled-button');
+    saveButton.disabled = true;
   }
   initDeleteButton(id, db);
   initSaveButton(id, db);

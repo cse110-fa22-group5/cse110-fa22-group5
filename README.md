@@ -22,7 +22,7 @@ Video and tutorial on how our project works:
 Project video - **public** version: https://www.youtube.com/watch?v=ZP5sLODzwoQ&feature=youtu.be&ab_channel=LaurenLee  
 Project video - **private** version: https://www.youtube.com/watch?v=0lr2i0lSBv4&feature=youtu.be&ab_channel=LaurenLee
 
-## Documentation  
+## Documentation
 
 All documentation generated via JSDocs [here](https://cse110-fa22-group5.github.io/cse110-fa22-group5/jsdocs/index.html).
 
@@ -73,6 +73,7 @@ npm run lint:fix
 ```
 
 To only check the code for linting and formatting errors, run
+
 ```
 npm run lint:check
 ```
