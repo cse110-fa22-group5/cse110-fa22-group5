@@ -35,17 +35,22 @@ describe('Basic user flow for Website', () => {
   }, 2500);
 
   /**
+   * Check to make sure the delete button is disabled and save button is enabled
+   */
+  it('Check to make sure the delete button is disabled and save button is enabled', async () => {
+    const deleteButton = await page.$eval('#delete-button', (e) => e.disabled);
+    const saveButton = await page.$eval('#save-button', (e) => e.disabled);
+    expect(deleteButton).toBe(true);
+    expect(saveButton).toBe(false);
+  }, 2500);
+  /**
    * Check to make sure the title is initially blank by default
    */
-  it(
-    'Checking to make sure the Title is initially blank on the note editor window',
-    async () => {
-      console.log('Checking to make sure Title is initially blank');
-      const titleText = await page.$eval('#title-input', (e) => e.innerHTML);
-      expect(titleText).toBe('');
-    },
-    2500
-  );
+  it('Checking to make sure the Title is initially blank on the note editor window', async () => {
+    console.log('Checking to make sure Title is initially blank');
+    const titleText = await page.$eval('#title-input', (e) => e.innerHTML);
+    expect(titleText).toBe('');
+  }, 2500);
   /**
    * Check to make sure the Note text area has no input initially
    */
@@ -156,6 +161,23 @@ describe('Basic user flow for Website', () => {
       'https://cse110-fa22-group5.github.io/cse110-fa22-group5/source/notes.html?id=1'
     );
   }, 10000);
+
+  /**
+   * Check to make sure new note url is in view mode, should display the "edit" button.
+   * The delete button should also be enabled, and save button disabled
+   */
+  it('Check to make after clicking save, edit button and active delete button are displayed', async () => {
+    console.log('Checking Edit, Delete, Save button after clicking save...');
+    const editButton = await page.$eval(
+      '#change-view-button',
+      (e) => e.innerText
+    );
+    const deleteButton = await page.$eval('#delete-button', (e) => e.disabled);
+    const saveButton = await page.$eval('#save-button', (e) => e.disabled);
+    expect(editButton).toBe('Edit');
+    expect(deleteButton).toBe(false);
+    expect(saveButton).toBe(true);
+  }, 3000);
   /**
    * Check to make sure after clicking Save the innerHTML for the title is 'Lecture 1 CSE 110'
    */
@@ -217,7 +239,6 @@ describe('Basic user flow for Website', () => {
       '<input type="text" id="title-input" placeholder="Untitled Note">'
     );
     const titleOff = await page.$eval('#title-input', (e) => e.disabled);
-    console.log(titleOff);
     expect(titleOff).toBe(false);
   }, 1000);
 
@@ -413,7 +434,6 @@ describe('Basic user flow for Website', () => {
     const titleColClick = await page.$('.titleCol');
     await titleColClick.click();
     const titleSvg = await page.$eval('.titleCol .titleColSortOrder', (e) => e.getAttribute('direction'));
-    console.log(titleSvg);
     expect(titleSvg).toBe('asc');
   });
   /**
@@ -424,7 +444,6 @@ describe('Basic user flow for Website', () => {
     const titleColClick = await page.$('.titleCol');
     await titleColClick.click();
     const titleSvg = await page.$eval('.titleCol .titleColSortOrder', (e) => e.getAttribute('direction'));
-    console.log(titleSvg);
     expect(titleSvg).toBe('desc');
   });
   /**
