@@ -108,7 +108,7 @@ function initSaveButton(id, db) {
   const saveButton = document.querySelector('#save-button');
   // add event listener to save button
   saveButton.addEventListener('click', () => {
-    const title = document.querySelector('#title-input').value;
+    const title = document.querySelector('#title-input').value.replace(/\s+/g, ' ').trim();
     if (title === '') {
       alert('Please enter a valid title.');
     } else {
